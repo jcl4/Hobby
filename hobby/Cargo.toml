@@ -1,0 +1,11 @@
+[package]
+name = "hobby"
+version = "0.1.0"
+authors = ["James Longino <james.longino@gmail.com>"]
+
+[dependencies]
+winit = "0.17"
+log = "0.4"
+failure = "0.1"
+voodoo = { git = "https://github.com/cogciprocate/voodoo"}
+voodoo_winit = { git = "https://github.com/cogciprocate/voodoo" }

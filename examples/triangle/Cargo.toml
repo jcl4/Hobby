@@ -1,0 +1,9 @@
+[package]
+name = "triangle"
+version = "0.1.0"
+authors = ["James Longino <james.longino@gmail.com>"]
+
+[dependencies]
+hobby = { path = "../../hobby"}
+simplelog = "0.5"
+log = "0.4"
