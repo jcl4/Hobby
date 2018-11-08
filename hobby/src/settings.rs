@@ -2,6 +2,7 @@ pub struct WindowSettings {
     pub width: f64,
     pub height: f64,
     pub title: String,
+    pub v_sync: bool,
 }
 
 impl Default for WindowSettings {
@@ -10,6 +11,7 @@ impl Default for WindowSettings {
             width: 1600.0,
             height: 900.0,
             title: "Hobby Window".into(),
+            v_sync: false,
         }
     }
 }
