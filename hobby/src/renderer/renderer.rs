@@ -1,3 +1,5 @@
+use std::ffi::CStr;
+
 use voodoo as vd;
 use winit::{EventsLoop, Window};
 
@@ -6,6 +8,13 @@ use super::swapchain;
 use AppInfo;
 use Result;
 use WindowSettings;
+
+static VERT_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/src/renderer/shaders/vert.spv");
+static FRAG_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/src/renderer/shaders/frag.spv");
+
+pub struct Vertex {
+    pub pos: [f32; 3],
+}
 
 pub struct Renderer {
     window: Window,
@@ -63,6 +72,7 @@ impl Renderer {
         let image_views = swapchain::create_image_views(&swapchain);
         let render_pass = base::create_render_pass(&swapchain)?;
         let frame_buffers = base::create_frame_buffers(&image_views, &window_size, &render_pass)?;
+        create_pipeline(device.clone())?;
 
         Ok(Renderer {
             window,
@@ -80,4 +90,28 @@ impl Renderer {
             frame_buffers,
         })
     }
+}
+
+fn create_pipeline(device: vd::Device) -> Result<()> {
+    let vert_shader_code = vd::util::read_spir_v_file(VERT_PATH)?;
+    let frag_shader_code = vd::util::read_spir_v_file(FRAG_PATH)?;
+
+    let vert_shader_module = vd::ShaderModule::new(device.clone(), &vert_shader_code)?;
+    let frag_shader_moudle = vd::ShaderModule::new(device, &frag_shader_code)?;
+
+    let fn_name = CStr::from_bytes_with_nul(b"main\0").unwrap();
+
+    let vert_shader_stage_info = vd::PipelineShaderStageCreateInfo::builder()
+        .stage(vd::ShaderStageFlags::VERTEX)
+        .module(&vert_shader_module)
+        .name(fn_name)
+        .build();
+
+    let frag_shader_stage_info = vd::PipelineShaderStageCreateInfo::builder()
+        .stage(vd::ShaderStageFlags::FRAGMENT)
+        .module(&frag_shader_moudle)
+        .name(fn_name)
+        .build();
+
+    Ok(())
 }
