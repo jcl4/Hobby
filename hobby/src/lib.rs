@@ -1,10 +1,12 @@
 #[macro_use]
 extern crate log;
+#[macro_use]
 extern crate voodoo;
 extern crate voodoo_winit;
 extern crate winit;
 #[macro_use]
 extern crate failure;
+extern crate smallvec;
 
 mod game;
 mod renderer;

@@ -1,41 +1,41 @@
-[UTC: 16:25:14.055] [INFO] Initializing Hobby Engine
-[UTC: 16:25:14.069] [INFO] Initializing Renderer
-[UTC: 16:25:14.309] [INFO] Guessed window DPI factor: 1.1666666666666667
-[UTC: 16:25:14.313] [INFO] Built Window
-[UTC: 16:25:14.313] [INFO] 	Window Size: PhysicalSize { width: 1600.0, height: 900.0 }
-[UTC: 16:25:14.313] [INFO] Vulkan Application Info:
-[UTC: 16:25:14.313] [INFO] 	Engine Name: "hobby"
-[UTC: 16:25:14.313] [INFO] 	Engine Version: 0.1.0
-[UTC: 16:25:14.314] [INFO] 	Application Name: "triangle"
-[UTC: 16:25:14.314] [INFO] 	Application Version: 0.1.0
-[UTC: 16:25:14.327] [INFO] Available instance extensions:
-[UTC: 16:25:14.327] [INFO] 	'VK_KHR_device_group_creation' (version: 1)
-[UTC: 16:25:14.327] [INFO] 	'VK_KHR_display' (version: 21)
-[UTC: 16:25:14.328] [INFO] 	'VK_KHR_external_fence_capabilities' (version: 1)
-[UTC: 16:25:14.328] [INFO] 	'VK_KHR_external_memory_capabilities' (version: 1)
-[UTC: 16:25:14.328] [INFO] 	'VK_KHR_external_semaphore_capabilities' (version: 1)
-[UTC: 16:25:14.328] [INFO] 	'VK_KHR_get_display_properties2' (version: 1)
-[UTC: 16:25:14.328] [INFO] 	'VK_KHR_get_physical_device_properties2' (version: 1)
-[UTC: 16:25:14.328] [INFO] 	'VK_KHR_get_surface_capabilities2' (version: 1)
-[UTC: 16:25:14.328] [INFO] 	'VK_KHR_surface' (version: 25)
-[UTC: 16:25:14.328] [INFO] 	'VK_KHR_xcb_surface' (version: 6)
-[UTC: 16:25:14.328] [INFO] 	'VK_KHR_xlib_surface' (version: 6)
-[UTC: 16:25:14.328] [INFO] 	'VK_EXT_acquire_xlib_display' (version: 1)
-[UTC: 16:25:14.328] [INFO] 	'VK_EXT_debug_report' (version: 9)
-[UTC: 16:25:14.328] [INFO] 	'VK_EXT_direct_mode_display' (version: 1)
-[UTC: 16:25:14.328] [INFO] 	'VK_EXT_display_surface_counter' (version: 1)
-[UTC: 16:25:14.328] [INFO] 	'VK_EXT_debug_utils' (version: 1)
-[UTC: 16:25:14.342] [INFO] Instance Created
-[UTC: 16:25:14.342] [INFO] Surface Created
-[UTC: 16:25:14.342] [INFO] Physical Device: "GeForce GTX 970M", Type: DiscreteGpu
-[UTC: 16:25:14.342] [INFO] Supported API Version: Version([1, 1, 82])
-[UTC: 16:25:14.363] [INFO] Logical Device Created
-[UTC: 16:25:14.363] [INFO] Graphics Queue Family ID: 0
-[UTC: 16:25:14.363] [INFO] Present Queue Family ID: 0
-[UTC: 16:25:14.366] [INFO] Prefered surface format found
-[UTC: 16:25:14.366] [INFO] Surface Format: B8G8R8A8Unorm
-[UTC: 16:25:14.366] [INFO] Color Space: SrgbNonlinearKhr
-[UTC: 16:25:14.366] [INFO] Present mode selected: ImmediateKhr
-[UTC: 16:25:14.366] [INFO] Swapchain Extent Size: W: 1600, H: 900
-[UTC: 16:25:14.366] [INFO] Number of images in swapchain: 3
-[UTC: 16:25:14.366] [INFO] Swapchain Image Sharing Mode: Exclusive
+[UTC: 14:17:41.647] [INFO] Initializing Hobby Engine
+[UTC: 14:17:41.663] [INFO] Initializing Renderer
+[UTC: 14:17:41.902] [INFO] Guessed window DPI factor: 1.1666666666666667
+[UTC: 14:17:41.935] [INFO] Built Window
+[UTC: 14:17:41.935] [INFO] 	Window Size: PhysicalSize { width: 1600.0, height: 900.0 }
+[UTC: 14:17:41.935] [INFO] Vulkan Application Info:
+[UTC: 14:17:41.935] [INFO] 	Engine Name: "hobby"
+[UTC: 14:17:41.935] [INFO] 	Engine Version: 0.1.0
+[UTC: 14:17:41.935] [INFO] 	Application Name: "triangle"
+[UTC: 14:17:41.935] [INFO] 	Application Version: 0.1.0
+[UTC: 14:17:41.953] [INFO] Available instance extensions:
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_device_group_creation' (version: 1)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_display' (version: 21)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_external_fence_capabilities' (version: 1)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_external_memory_capabilities' (version: 1)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_external_semaphore_capabilities' (version: 1)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_get_display_properties2' (version: 1)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_get_physical_device_properties2' (version: 1)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_get_surface_capabilities2' (version: 1)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_surface' (version: 25)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_xcb_surface' (version: 6)
+[UTC: 14:17:41.953] [INFO] 	'VK_KHR_xlib_surface' (version: 6)
+[UTC: 14:17:41.953] [INFO] 	'VK_EXT_acquire_xlib_display' (version: 1)
+[UTC: 14:17:41.953] [INFO] 	'VK_EXT_debug_report' (version: 9)
+[UTC: 14:17:41.953] [INFO] 	'VK_EXT_direct_mode_display' (version: 1)
+[UTC: 14:17:41.953] [INFO] 	'VK_EXT_display_surface_counter' (version: 1)
+[UTC: 14:17:41.954] [INFO] 	'VK_EXT_debug_utils' (version: 1)
+[UTC: 14:17:41.984] [INFO] Instance Created
+[UTC: 14:17:41.984] [INFO] Surface Created
+[UTC: 14:17:41.984] [INFO] Physical Device: "GeForce GTX 970M", Type: DiscreteGpu
+[UTC: 14:17:41.985] [INFO] Supported API Version: Version([1, 1, 84])
+[UTC: 14:17:42.012] [INFO] Logical Device Created
+[UTC: 14:17:42.012] [INFO] Graphics Queue Family ID: 0
+[UTC: 14:17:42.012] [INFO] Present Queue Family ID: 0
+[UTC: 14:17:42.016] [INFO] Prefered surface format found
+[UTC: 14:17:42.016] [INFO] Surface Format: B8G8R8A8Unorm
+[UTC: 14:17:42.016] [INFO] Color Space: SrgbNonlinearKhr
+[UTC: 14:17:42.016] [INFO] Present mode selected: ImmediateKhr
+[UTC: 14:17:42.016] [INFO] Swapchain Extent Size: W: 1600, H: 900
+[UTC: 14:17:42.016] [INFO] Number of images in swapchain: 3
+[UTC: 14:17:42.016] [INFO] Swapchain Image Sharing Mode: Exclusive

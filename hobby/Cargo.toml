@@ -7,5 +7,6 @@ authors = ["James Longino <james.longino@gmail.com>"]
 winit = "0.17"
 log = "0.4"
 failure = "0.1"
+smallvec = "0.6"
 voodoo = { git = "https://github.com/cogciprocate/voodoo"}
 voodoo_winit = { git = "https://github.com/cogciprocate/voodoo" }
