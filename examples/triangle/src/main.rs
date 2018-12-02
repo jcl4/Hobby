@@ -5,7 +5,7 @@ extern crate simplelog as sl;
 
 use std::fs::File;
 
-use hobby::{AppInfo, Game, WindowSettings};
+use hobby::{AppInfo, Game, HobbySettings, WindowSettings};
 
 static LOG_FILE_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/logs/shot5.log");
 
@@ -24,8 +24,14 @@ fn main() {
         app_version: (major, minor, patch),
     };
 
-    let mut game = Game::new(window_settings, app_info).expect("Unable to create game");
+    let hobby_settings = HobbySettings {
+        window_settings,
+        app_info,
+    };
+
+    let mut game = Game::new(hobby_settings);
     game.run();
+    game.cleanup();
 }
 
 fn setup_logging() {

@@ -4,9 +4,10 @@ version = "0.1.0"
 authors = ["James Longino <james.longino@gmail.com>"]
 
 [dependencies]
-winit = "0.17"
+winit = "0.18"
 log = "0.4"
-failure = "0.1"
-smallvec = "0.6"
-voodoo = { git = "https://github.com/cogciprocate/voodoo"}
-voodoo_winit = { git = "https://github.com/cogciprocate/voodoo" }
+gfx-hal = {git = "https://github.com/gfx-rs/gfx"}
+gfx-backend-vulkan = {git = "https://github.com/gfx-rs/gfx"}
+
+[build-dependencies]
+shaderc = "0.3"

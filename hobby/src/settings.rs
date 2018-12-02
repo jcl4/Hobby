@@ -20,3 +20,26 @@ pub struct AppInfo {
     pub app_name: String,
     pub app_version: (u16, u16, u16),
 }
+
+impl Default for AppInfo {
+    fn default() -> AppInfo {
+        AppInfo {
+            app_name: "Default".into(),
+            app_version: (0, 1, 0),
+        }
+    }
+}
+
+pub struct HobbySettings {
+    pub window_settings: WindowSettings,
+    pub app_info: AppInfo,
+}
+
+impl Default for HobbySettings {
+    fn default() -> HobbySettings {
+        HobbySettings {
+            window_settings: WindowSettings::default(),
+            app_info: AppInfo::default(),
+        }
+    }
+}
