@@ -1,295 +1,200 @@
-use std::collections::{BTreeMap, BTreeSet};
-use std::ffi::{CStr, CString};
-use std::os::raw::c_char;
+use crate::AppInfo;
+use crate::Result;
 
-use voodoo as vd;
-use winit::{dpi::PhysicalSize, EventsLoop, Window, WindowBuilder};
+use std::sync::Arc;
 
-use AppInfo;
-use Result;
-use WindowSettings;
+use failure::bail;
+use log::{info, warn};
+use vulkano::device::{Device, DeviceExtensions};
+use vulkano::instance::debug::{DebugCallback, MessageTypes};
+use vulkano::instance::{
+    layers_list, ApplicationInfo, Instance, InstanceExtensions, PhysicalDevice, Version,
+};
+use vulkano::swapchain::Surface;
+use vulkano_win;
+use winit::Window;
 
-static REQUIRED_DEVICE_EXTENSIONS: &[&str] = &["VK_KHR_swapchain"];
+const VALIDATION_LAYERS: &[&str] = &["VK_LAYER_LUNARG_standard_validation"];
 
-pub fn init_window(events_loop: &EventsLoop, window_settings: &WindowSettings) -> Window {
-    let monitor = events_loop.get_primary_monitor();
-    let dpi = monitor.get_hidpi_factor();
+//TODO: check if release build and set to false
+const ENABLE_VALIDATION_LAYERS: bool = true;
 
-    let physical_size = PhysicalSize::new(window_settings.width, window_settings.height);
-    let logical_size = physical_size.to_logical(dpi);
-
-    let window = WindowBuilder::new()
-        .with_dimensions(logical_size)
-        .with_title(window_settings.title.clone())
-        .build(events_loop)
-        .expect("Unable to create window");
-
-    let size = window.get_inner_size().expect("Unable to get window size");
-
-    info!("Built Window");
-    info!("\tWindow Size: {:?}", size.to_physical(dpi));
-
-    window
+struct QueueFamilyIndices {
+    graphics_family: i32,
+    present_family: i32,
 }
-
-pub fn create_instance(app_info: &AppInfo) -> Result<vd::Instance> {
-    let engine_name = CString::new(env!("CARGO_PKG_NAME"))?;
-
-    let engine_version = vd::Version::new(
-        env!("CARGO_PKG_VERSION_MAJOR").parse().unwrap(),
-        env!("CARGO_PKG_VERSION_MINOR").parse().unwrap(),
-        env!("CARGO_PKG_VERSION_PATCH").parse().unwrap(),
-    );
-
-    let app_name = CString::new(app_info.app_name.clone())?;
-    let app_version = vd::Version::new(
-        app_info.app_version.0,
-        app_info.app_version.1,
-        app_info.app_version.2,
-    );
-
-    let app_info = vd::ApplicationInfo::builder()
-        .application_name(&app_name)
-        .application_version(app_version)
-        .engine_name(&engine_name)
-        .engine_version(engine_version)
-        .build();
-
-    info!("Vulkan Application Info:");
-    info!("\tEngine Name: {:?}", engine_name);
-    info!("\tEngine Version: {}", engine_version);
-    info!("\tApplication Name: {:?}", app_name);
-    info!("\tApplication Version: {}", app_version);
-
-    let loader = vd::Loader::new()?;
-    let instance_extensions = loader.enumerate_instance_extension_properties()?;
-
-    info!("Available instance extensions:");
-
-    for ext in instance_extensions.iter() {
-        let name = (&ext.extensionName) as *const c_char;
-        unsafe {
-            info!(
-                "\t'{}' (version: {})",
-                CStr::from_ptr(name).to_str().unwrap(),
-                ext.specVersion
-            );
+impl QueueFamilyIndices {
+    fn new() -> Self {
+        Self {
+            graphics_family: -1,
+            present_family: -1,
         }
     }
 
-    let instance = vd::Instance::builder()
-        .application_info(&app_info)
-        .enabled_extensions(&instance_extensions)
-        .build(loader)?;
+    fn is_complete(&self) -> bool {
+        self.graphics_family >= 0 && self.present_family >= 0
+    }
+}
 
-    info!("Instance Created");
+
+
+pub(crate) fn create_instance(app_info: &AppInfo) -> Result<Arc<Instance>> {
+    if ENABLE_VALIDATION_LAYERS && check_validation_layer_support() {
+        bail!("Validation layers requested, but not available!")
+    }
+
+    let supported_extensions = InstanceExtensions::supported_by_core()?;
+    info!("Supported extensions: {:#?}", supported_extensions);
+
+    let engine_name = env!("CARGO_PKG_NAME");
+
+    let engine_version = Version {
+        major: env!("CARGO_PKG_VERSION_MAJOR").parse().unwrap(),
+        minor: env!("CARGO_PKG_VERSION_MINOR").parse().unwrap(),
+        patch: env!("CARGO_PKG_VERSION_PATCH").parse().unwrap(),
+    };
+
+    let app_info = ApplicationInfo {
+        application_name: Some(app_info.app_name.clone().into()),
+        application_version: Some(Version {
+            major: app_info.app_version.0,
+            minor: app_info.app_version.1,
+            patch: app_info.app_version.2,
+        }),
+        engine_name: Some(engine_name.into()),
+        engine_version: Some(engine_version),
+    };
+
+    let required_extensions = get_required_extensions();
+
+    let instance;
+
+    if ENABLE_VALIDATION_LAYERS && check_validation_layer_support() {
+        instance = Instance::new(
+            Some(&app_info),
+            &required_extensions,
+            VALIDATION_LAYERS.iter().map(|s| *s),
+        )?;
+    } else {
+        instance = Instance::new(Some(&app_info), &required_extensions, None)?;
+    }
 
     Ok(instance)
 }
 
-pub fn create_surface(instance: vd::Instance, window: &winit::Window) -> Result<vd::SurfaceKhr> {
-    let surface = voodoo_winit::create_surface(instance, window)?;
-    info!("Surface Created");
-    Ok(surface)
-}
-
-pub fn pick_physical_device(instance: &vd::Instance) -> Result<vd::PhysicalDevice> {
-    let physical_devices = instance.physical_devices()?;
-
-    let preferred_device = rank_devices(physical_devices.to_vec());
-
-    if let Some(preferred_device) = preferred_device {
-        let properties = preferred_device.properties();
-        info!(
-            "Physical Device: {:#?}, Type: {:#?}",
-            properties.device_name(),
-            properties.device_type()
-        );
-        info!("Supported API Version: {:?}", properties.api_version());
-
-        Ok(preferred_device)
-    } else {
-        bail!("Unable to find suitable device");
-    }
-}
-
-fn rank_devices(devices: Vec<vd::PhysicalDevice>) -> Option<vd::PhysicalDevice> {
-    let mut ranking = BTreeMap::new();
-
-    for device in devices {
-        let mut device_score = 0;
-
-        let device_type = device.properties().device_type();
-
-        match device_type {
-            vd::PhysicalDeviceType::IntegratedGpu => device_score += 10,
-            vd::PhysicalDeviceType::DiscreteGpu => device_score += 50,
-            vd::PhysicalDeviceType::VirtualGpu => device_score += 20,
-            vd::PhysicalDeviceType::Cpu => device_score += 5,
-            vd::PhysicalDeviceType::Other => device_score += 0,
-        }
-
-        ranking.insert(device_score, device);
-    }
-
-    let mut temp_vec = Vec::new();
-    for (_, device) in ranking.into_iter().rev() {
-        temp_vec.push(device);
-    }
-
-    if temp_vec.len() > 0 {
-        Some(temp_vec[0].clone())
-    } else {
-        None
-    }
-}
-
-pub fn find_queue_families(
-    physical_device: &vd::PhysicalDevice,
-    surface: &vd::SurfaceKhr,
-) -> Result<(u32, u32)> {
-    let queue_families = physical_device.queue_family_properties()?;
-    let mut graphics_family_idx = None;
-    let mut present_family_idx = None;
-
-    let mut i = 0;
-    for queue_family in queue_families {
-        if queue_family.queue_count() > 0 && queue_family
-            .queue_flags()
-            .contains(vd::QueueFlags::GRAPHICS)
-        {
-            graphics_family_idx = Some(i);
-        }
-
-        let presentation_support = physical_device.surface_support_khr(i, surface)?;
-        if queue_family.queue_count() > 0 && presentation_support {
-            present_family_idx = Some(i);
-        }
-
-        if let (Some(gf_idx), Some(pf_idx)) = (graphics_family_idx, present_family_idx) {
-            return Ok((gf_idx, pf_idx));
-        }
-        i += 1;
-    }
-    bail!("Unable to find graphics and/or present queue family support");
-}
-
-pub fn create_device(
-    physical_device: vd::PhysicalDevice,
-    graphics_queue_family: u32,
-    present_queue_family: u32,
-) -> Result<(vd::Device, vd::QueueHandle, vd::QueueHandle)> {
-    let unique_qfi: BTreeSet<u32> = [graphics_queue_family, present_queue_family]
-        .iter()
-        .map(|&i| i)
+fn check_validation_layer_support() -> bool {
+    let layers: Vec<_> = layers_list()
+        .unwrap()
+        .map(|l| l.name().to_owned())
         .collect();
-
-    let queue_priorities = [1.0];
-    let queue_create_infos: Vec<_> = unique_qfi
+    VALIDATION_LAYERS
         .iter()
-        .map(|&idx| {
-            vd::DeviceQueueCreateInfo::builder()
-                .queue_family_index(idx)
-                .queue_priorities(&queue_priorities)
-                .build()
-        }).collect();
-
-    let features = vd::PhysicalDeviceFeatures::builder()
-        .sampler_anisotropy(true)
-        .build();
-
-    let device = vd::Device::builder()
-        .queue_create_infos(&queue_create_infos)
-        .enabled_extension_names(REQUIRED_DEVICE_EXTENSIONS)
-        .enabled_features(&features)
-        .build(physical_device)?;
-    info!("Logical Device Created");
-
-    let (graphics_queue, present_queue) =
-        get_queues(&device, graphics_queue_family, present_queue_family);
-
-    Ok((device, graphics_queue, present_queue))
+        .all(|layer_name| layers.contains(&layer_name.to_string()))
 }
 
-fn get_queues(
-    device: &vd::Device,
-    graphics_queue_family: u32,
-    present_queue_family: u32,
-) -> (vd::QueueHandle, vd::QueueHandle) {
-    info!("Graphics Queue Family ID: {}", graphics_queue_family);
-    info!("Present Queue Family ID: {}", present_queue_family);
+fn get_required_extensions() -> InstanceExtensions {
+    let mut extensions = vulkano_win::required_extensions();
+    if ENABLE_VALIDATION_LAYERS {
+        // TODO!: this should be ext_debug_utils (_report is deprecated), but that doesn't exist yet in vulkano
+        extensions.ext_debug_report = true;
+    }
 
-    let graphics_queue = device
-        .get_device_queue(graphics_queue_family, 0)
-        .expect("Unable to create graphics queue handle");
-    let present_queue = device
-        .get_device_queue(present_queue_family, 0)
-        .expect("Unable to create present queue hadnle");
-
-    (graphics_queue, present_queue)
+    extensions
 }
 
-pub fn create_render_pass(swapchain: &vd::SwapchainKhr) -> Result<vd::RenderPass> {
-    let format = swapchain.image_format();
-    let device = swapchain.device();
-    let color_attachment = vd::AttachmentDescription::builder()
-        .format(format.clone())
-        .samples(vd::SampleCountFlags::COUNT_1)
-        .load_op(vd::AttachmentLoadOp::Clear)
-        .store_op(vd::AttachmentStoreOp::Store)
-        .initial_layout(vd::ImageLayout::Undefined)
-        .final_layout(vd::ImageLayout::PresentSrcKhr)
-        .build();
+pub(crate) fn setup_debug_callback(instance: &Arc<Instance>) -> Option<DebugCallback> {
+    if !ENABLE_VALIDATION_LAYERS {
+        return None;
+    }
+    info!("Debug Callback Enabled");
 
-    let color_attachment_ref = vd::AttachmentReference::builder()
-        .attachment(0)
-        .layout(vd::ImageLayout::ColorAttachmentOptimal)
-        .build();
-
-    let color_attachments = [color_attachment_ref];
-
-    let subpass = vd::SubpassDescription::builder()
-        .pipeline_bind_point(vd::PipelineBindPoint::Graphics)
-        .color_attachments(&color_attachments)
-        .build();
-
-    let dependency = vd::SubpassDependency::builder()
-        .src_subpass(vd::SUBPASS_EXTERNAL)
-        .dst_subpass(0)
-        .src_stage_mask(vd::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT)
-        .dst_stage_mask(vd::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT)
-        .dst_access_mask(
-            vd::AccessFlags::COLOR_ATTACHMENT_READ | vd::AccessFlags::COLOR_ATTACHMENT_WRITE,
-        ).build();
-
-    let render_pass = vd::RenderPass::builder()
-        .attachments(&[color_attachment])
-        .subpasses(&[subpass])
-        .dependencies(&[dependency])
-        .build(device.clone())?;
-
-    Ok(render_pass)
+    let msg_types = MessageTypes {
+        error: true,
+        warning: true,
+        performance_warning: true,
+        information: true,
+        debug: true,
+    };
+    DebugCallback::new(&instance, msg_types, |msg| {
+        if msg.ty.information {
+            info!("Validation Layer: {:?}", msg.layer_prefix);
+            info!("\tdescription: {:?}", msg.description);
+        } else {
+            warn!("Validation Layer: {:?}", msg.layer_prefix);
+            warn!("\tdescription: {:?}", msg.description);
+        }
+    })
+    .ok()
 }
 
-pub fn create_frame_buffers(
-    image_views: &Vec<vd::ImageView>,
-    extent: &vd::Extent2d,
-    render_pass: &vd::RenderPass,
-) -> Result<Vec<vd::Framebuffer>> {
-    let device = render_pass.device();
+pub(crate) fn pick_physical_device(
+    instance: &Arc<Instance>,
+    surface: &Arc<Surface<Window>>,
+) -> Result<usize> {
+    let index = PhysicalDevice::enumerate(&instance)
+        .position(|device| is_device_suitable(surface, &device));
 
-    let framebuffers = image_views
-        .iter()
-        .map(|image_view| {
-            vd::Framebuffer::builder()
-                .attachments(&[image_view])
-                .render_pass(render_pass)
-                .width(extent.width())
-                .height(extent.height())
-                .layers(1)
-                .build(device.clone())
-                .unwrap()
-        }).collect::<Vec<_>>();
-
-    Ok(framebuffers)
+    match index {
+        Some(index) => {
+            let mut devices = PhysicalDevice::enumerate(&instance);
+            let device = devices.nth(index).unwrap();
+            info!("Physical Device Chosen: {}", device.name());
+            Ok(index)
+        }
+        None => bail!("Unable to find suitable physical device"),
+    }
 }
+
+fn is_device_suitable(surface: &Arc<Surface<Window>>, device: &PhysicalDevice) -> bool {
+    let indices = find_queue_families(surface, device);
+    let extensions_supported = check_device_extension_support(device);
+
+    let swap_chain_adequate = if extensions_supported {
+        let capabilities = surface
+            .capabilities(*device)
+            .expect("failed to get surface capabilities");
+        !capabilities.supported_formats.is_empty()
+            && capabilities.present_modes.iter().next().is_some()
+    } else {
+        false
+    };
+
+    indices.is_complete() && extensions_supported && swap_chain_adequate
+}
+
+fn check_device_extension_support(device: &PhysicalDevice) -> bool {
+    let available_extensions = DeviceExtensions::supported_by_device(*device);
+    let device_extensions = device_extensions();
+    available_extensions.intersection(&device_extensions) == device_extensions
+}
+
+fn find_queue_families(
+    surface: &Arc<Surface<Window>>,
+    device: &PhysicalDevice,
+) -> QueueFamilyIndices {
+    let mut indices = QueueFamilyIndices::new();
+    // TODO: replace index with id to simplify?
+    for (i, queue_family) in device.queue_families().enumerate() {
+        if queue_family.supports_graphics() {
+            indices.graphics_family = i as i32;
+        }
+
+        if surface.is_supported(queue_family).unwrap() {
+            indices.present_family = i as i32;
+        }
+
+        if indices.is_complete() {
+            break;
+        }
+    }
+
+    indices
+}
+
+fn device_extensions() -> DeviceExtensions {
+    DeviceExtensions {
+        khr_swapchain: true,
+        ..DeviceExtensions::none()
+    }
+}
+

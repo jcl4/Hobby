@@ -1,15 +1,17 @@
 // #[macro_use]
-extern crate hobby;
-extern crate log;
-extern crate simplelog as sl;
+use failure;
+use simplelog as sl;
 
 use std::fs::File;
+use std::result;
 
 use hobby::{AppInfo, Game, HobbySettings, WindowSettings};
 
-static LOG_FILE_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/logs/shot5.log");
+pub type Result<T> = result::Result<T, failure::Error>;
 
-fn main() {
+static LOG_FILE_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/logs/triangle.log");
+
+fn main() -> Result<()> {
     setup_logging();
     let window_settings = WindowSettings::default();
 
@@ -29,9 +31,11 @@ fn main() {
         app_info,
     };
 
-    let mut game = Game::new(hobby_settings);
-    game.run();
-    game.cleanup();
+    let mut game = Game::new(hobby_settings)?;
+    game.run()?;
+    // game.cleanup();
+
+    Ok(())
 }
 
 fn setup_logging() {
@@ -43,5 +47,6 @@ fn setup_logging() {
     sl::CombinedLogger::init(vec![
         sl::WriteLogger::new(sl::LevelFilter::Info, config, file),
         sl::TermLogger::new(sl::LevelFilter::Warn, config).unwrap(),
-    ]).unwrap();
+    ])
+    .unwrap();
 }

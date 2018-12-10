@@ -1,13 +1,13 @@
-#[macro_use]
-extern crate log;
-extern crate gfx_backend_vulkan as vulkan;
-extern crate gfx_hal as hal;
-extern crate winit;
+use failure;
+use std::result;
+
+pub type Result<T> = result::Result<T, failure::Error>;
 
 mod game;
+mod renderer;
 mod settings;
 
-pub use game::Game;
-pub use settings::AppInfo;
-pub use settings::HobbySettings;
-pub use settings::WindowSettings;
+pub use crate::game::Game;
+pub use crate::settings::AppInfo;
+pub use crate::settings::HobbySettings;
+pub use crate::settings::WindowSettings;
