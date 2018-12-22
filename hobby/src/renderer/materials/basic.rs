@@ -1,4 +1,5 @@
 use crate::core::{Mesh, Model, Vertex};
+use crate::renderer::materials::ModelPipeline;
 use crate::renderer::Renderer;
 use crate::Result;
 use failure::bail;
@@ -27,6 +28,38 @@ mod fs {
     }
 }
 
+pub struct BasicPipeline {
+    pipeline: Arc<GraphicsPipelineAbstract + Send + Sync>,
+}
+
+impl BasicPipeline {
+    pub fn new(renderer: &Renderer) -> Result<BasicPipeline> {
+        let pipeline = build_pipline(
+            &renderer.device,
+            renderer.swapchain.dimensions(),
+            &renderer.render_pass,
+        )?;
+
+        Ok(BasicPipeline { pipeline })
+    }
+}
+
+impl ModelPipeline for BasicPipeline {
+    fn build_model(&mut self, model: &mut Model, renderer: &Renderer) -> Result<()> {
+        check_mesh(&model.mesh)?;
+        let (vertex_buffer, index_buffer) = build_buffers(&model.mesh, &renderer.graphics_queue)?;
+        model.mesh.set_index_buffer(index_buffer);
+        model.mesh.set_vertex_buffer(vertex_buffer);
+
+        Ok(())
+    }
+
+    fn graphics_pipeline(&self) -> Arc<GraphicsPipelineAbstract + Send + Sync>{
+        self.pipeline.clone()
+    }
+}
+ 
+
 #[derive(Debug, Clone)]
 struct BasicVertex {
     position: [f32; 3],
@@ -41,22 +74,6 @@ impl BasicVertex {
             color: vertex.color.clone().unwrap(),
         }
     }
-}
-
-pub fn build_basic_model(model: &mut Model, renderer: &Renderer) -> Result<()> {
-    check_mesh(&model.mesh)?;
-    let (vertex_buffer, index_buffer) = build_buffers(&model.mesh, &renderer.graphics_queue)?;
-    let pipeline = build_pipline(
-        &renderer.device,
-        renderer.swapchain.dimensions(),
-        &renderer.render_pass,
-    )?;
-
-    model.set_pipeline(pipeline);
-    model.mesh.set_index_buffer(index_buffer);
-    model.mesh.set_vertex_buffer(vertex_buffer);
-
-    Ok(())
 }
 
 fn check_mesh(mesh: &Mesh) -> Result<()> {
@@ -139,111 +156,3 @@ fn build_pipline(
 
     Ok(grapics_pipeline)
 }
-
-// struct BasicModels {
-//     models: Vec<BasicModel>,
-//     pipeline: Arc<GraphicsPipelineAbstract + Send + Sync>,
-//     sets_pool: FixedSizeDescriptorSetsPool<Arc<GraphicsPipelineAbstract + Send + Sync>>,
-//     transform_buffer_pool: CpuBufferPool<vs::ty::Transform>,
-// }
-
-// impl BasicModels {
-//     pub fn new(renderer: &Renderer) -> Result<BasicModels> {
-//         let pipeline = create_pipeline(
-//             &renderer.device,
-//             renderer.swapchain.dimensions(),
-//             &renderer.render_pass,
-//         )?;
-//         let sets_pool = FixedSizeDescriptorSetsPool::new(pipeline.clone(), 0);
-//         let transform_buffer_pool = CpuBufferPool::uniform_buffer(renderer.device.clone());
-
-//         Ok(BasicModels {
-//             models: vec![],
-//             pipeline,
-//             sets_pool,
-//             transform_buffer_pool,
-//         })
-//     }
-
-//     pub fn add_model(&mut self, model: Model) {}
-// }
-
-// struct BasicModel {
-//     transform: glm::TMat4<f32>,
-//     mesh: Mesh,
-// }
-
-// impl BasicModel {
-//     fn build(&mut self, renderer: &Renderer) -> Result<()> {
-//         // self.mesh.build(renderer)?;
-
-//         // let pipeline = match self.mesh.vertex_data {
-//         //     VertexType::Basic(_, _) => pipeline::create_basic_pipeline(
-//         //         &renderer.device,
-//         //         renderer.swapchain.dimensions(),
-//         //         &renderer.render_pass,
-//         //     )?,
-//         // };
-//         // self.pipeline = Some(pipeline);
-
-//         Ok(())
-//     }
-
-// #[derive(Copy, Clone)]
-// pub struct BasicVertex {
-//     position: [f32; 3],
-//     color: [f32; 3],
-// }
-// impl_vertex!(BasicVertex, position, color);
-
-// impl BasicVertex {
-//     pub fn new(position: [f32; 3], color: [f32; 3]) -> BasicVertex {
-//         BasicVertex { position, color }
-//     }
-// }
-
-// pub struct Mesh {
-//     pub vertices: Vec<Vertex>,
-//     pub indices: Vec<u32>,
-//     pub vertex_buffer: Option<Arc<BufferAccess + Send + Sync>>,
-//     pub index_buffer: Option<Arc<TypedBufferAccess<Content = [u32]> + Send + Sync>>,
-// }
-
-// impl Mesh {
-//     pub fn new(vertex_data: VertexType) -> Mesh {
-//         Mesh {
-//             vertex_data,
-//             vertex_buffer: None,
-//             index_buffer: None,
-//         }
-//     }
-
-//     pub fn build(&mut self, renderer: &Renderer) -> Result<()> {
-//         self.create_buffers(&renderer.graphics_queue)?;
-//         Ok(())
-//     }
-
-//     fn create_buffers(&mut self, graphics_queue: &Arc<Queue>) -> Result<()> {
-//         let (vertices, indices) = match &self.vertex_data {
-//             VertexType::Basic(vertices, indices) => (vertices, indices),
-//         };
-
-//         let (vertex_buffer, vertex_future) = ImmutableBuffer::from_iter(
-//             vertices.iter().cloned(),
-//             BufferUsage::vertex_buffer(),
-//             graphics_queue.clone(),
-//         )?;
-
-//         let (index_buffer, index_future) = ImmutableBuffer::from_iter(
-//             indices.iter().cloned(),
-//             BufferUsage::index_buffer(),
-//             graphics_queue.clone(),
-//         )?;
-
-//         index_future.join(vertex_future).flush()?;
-//         self.vertex_buffer = Some(vertex_buffer);
-//         self.index_buffer = Some(index_buffer);
-
-//         Ok(())
-//     }
-// }
