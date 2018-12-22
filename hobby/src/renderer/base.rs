@@ -41,7 +41,7 @@ impl QueueFamilyIndices {
     }
 }
 
-pub(crate) fn create_logical_device(
+pub fn create_logical_device(
     instance: &Arc<Instance>,
     surface: &Arc<Surface<Window>>,
     physical_device_index: usize,
@@ -90,7 +90,7 @@ pub(crate) fn create_logical_device(
     Ok((device, graphics_queue, present_queue))
 }
 
-pub(crate) fn create_instance(app_info: &AppInfo) -> Result<Arc<Instance>> {
+pub fn create_instance(app_info: &AppInfo) -> Result<Arc<Instance>> {
     if ENABLE_VALIDATION_LAYERS && check_validation_layer_support() {
         bail!("Validation layers requested, but not available!")
     }
@@ -155,7 +155,7 @@ fn get_required_extensions() -> InstanceExtensions {
     extensions
 }
 
-pub(crate) fn setup_debug_callback(instance: &Arc<Instance>) -> Option<DebugCallback> {
+pub fn setup_debug_callback(instance: &Arc<Instance>) -> Option<DebugCallback> {
     if !ENABLE_VALIDATION_LAYERS {
         return None;
     }
@@ -180,7 +180,7 @@ pub(crate) fn setup_debug_callback(instance: &Arc<Instance>) -> Option<DebugCall
     .ok()
 }
 
-pub(crate) fn pick_physical_device(
+pub fn pick_physical_device(
     instance: &Arc<Instance>,
     surface: &Arc<Surface<Window>>,
 ) -> Result<usize> {
@@ -221,7 +221,7 @@ fn check_device_extension_support(device: &PhysicalDevice) -> bool {
     available_extensions.intersection(&device_extensions) == device_extensions
 }
 
-pub(crate) fn find_queue_families(
+pub fn find_queue_families(
     surface: &Arc<Surface<Window>>,
     device: &PhysicalDevice,
 ) -> QueueFamilyIndices {
@@ -251,7 +251,7 @@ fn device_extensions() -> DeviceExtensions {
     }
 }
 
-pub(crate) fn create_surface(
+pub fn create_surface(
     events_loop: &EventsLoop,
     window_settings: &WindowSettings,
     instance: &Arc<Instance>,

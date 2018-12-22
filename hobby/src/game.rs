@@ -1,5 +1,5 @@
-use crate::core::{MaterialType, Model};
-use crate::renderer::materials::basic;
+use crate::core::Model;
+
 use crate::renderer::Renderer;
 use crate::tools::FrameTimer;
 use crate::{HobbySettings, Result};
@@ -29,11 +29,12 @@ impl Game {
     }
 
     pub fn add_model(&mut self, mut model: Model) -> Result<()> {
-        match model.material_type {
-            MaterialType::Basic => basic::build_basic_model(&mut model, &self.renderer)?,
-        };
+        model.build(&self.renderer)?;
+        match self.models.as_mut() {
+            Some(models) => models.push(model),
+            None => self.models = Some(vec![model]),
+        }
 
-        self.models.unwrap().push(model);
         Ok(())
     }
 
@@ -44,7 +45,11 @@ impl Game {
 
         while running {
             running = manage_input(&mut self.events_loop);
-            self.renderer.draw_frame(&mut self.models)?;
+            match self.models.as_mut() {
+                Some(models) => self.renderer.draw_frame(models)?,
+                None => {}
+            }
+
             self.frame_timer.kick();
         }
 

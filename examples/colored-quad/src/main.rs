@@ -31,7 +31,7 @@ fn main() -> Result<()> {
 
     let mut game = Game::new(hobby_settings)?;
 
-    let vertices = vec![];
+    let mut vertices = vec![];
     let positions = vec![
         [0.5, -0.5, 0.0],
         [0.5, 0.5, 0.0],
@@ -39,16 +39,16 @@ fn main() -> Result<()> {
         [-0.5, -0.5, 0.0],
     ];
     let colors = vec![
-        [1.0, 0.0, 1.0],
-        [0.0, 1.0, 0.0],
-        [0.0, 0.0, 1.0],
-        [1.0, 0.0, 0.0],
+        [1.0, 0.0, 1.0, 1.0],
+        [0.0, 1.0, 0.0, 1.0],
+        [0.0, 0.0, 1.0, 1.0],
+        [1.0, 0.0, 0.0, 1.0],
     ];
 
     for (position, color) in positions.iter().zip(colors.iter()) {
         let vertex = Vertex::builder()
-            .with_position(position)
-            .with_color(color)
+            .with_position(position.clone())
+            .with_color(color.clone())
             .build();
         vertices.push(vertex);
     }
@@ -73,7 +73,8 @@ fn setup_logging() {
 
     sl::CombinedLogger::init(vec![
         sl::WriteLogger::new(sl::LevelFilter::Info, config, file),
-        sl::TermLogger::new(sl::LevelFilter::Warn, config).unwrap(),
+        sl::TermLogger::new(sl::LevelFilter::Warn, config)
+            .expect("unable to create terminal logger"),
     ])
-    .unwrap();
+    .expect("Can not create combined logger");
 }

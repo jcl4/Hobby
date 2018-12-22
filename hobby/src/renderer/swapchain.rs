@@ -16,7 +16,7 @@ use vulkano::swapchain::{
 use vulkano::sync::SharingMode;
 use winit::Window;
 
-pub(crate) fn create_framebuffers(
+pub fn create_framebuffers(
     swap_chain_images: &Vec<Arc<SwapchainImage<Window>>>,
     render_pass: &Arc<RenderPassAbstract + Send + Sync>,
 ) -> Vec<Arc<FramebufferAbstract + Send + Sync>> {
@@ -35,7 +35,7 @@ pub(crate) fn create_framebuffers(
         .collect::<Vec<_>>()
 }
 
-pub(crate) fn create_swapchain(
+pub fn create_swapchain(
     instance: &Arc<Instance>,
     surface: &Arc<Surface<Window>>,
     physical_device_index: usize,

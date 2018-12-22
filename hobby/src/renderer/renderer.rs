@@ -12,10 +12,10 @@ use vulkano::swapchain::{acquire_next_image, AcquireError, Surface, Swapchain};
 use vulkano::sync;
 use vulkano::sync::GpuFuture;
 
+use crate::core::Model;
 use crate::renderer::base;
 use crate::renderer::render_pass;
 use crate::renderer::swapchain;
-use crate::renderer::Model;
 use crate::{HobbySettings, Result};
 
 pub struct Renderer {
@@ -25,19 +25,19 @@ pub struct Renderer {
     surface: Arc<Surface<Window>>,
     physical_device_index: usize,
 
-    pub(crate) device: Arc<Device>,
-    pub(crate) graphics_queue: Arc<Queue>,
+    pub device: Arc<Device>,
+    pub graphics_queue: Arc<Queue>,
     present_queue: Arc<Queue>,
 
-    pub(crate) swapchain: Arc<Swapchain<Window>>,
+    pub swapchain: Arc<Swapchain<Window>>,
     swapchain_images: Vec<Arc<SwapchainImage<Window>>>,
 
-    pub(crate) render_pass: Arc<RenderPassAbstract + Send + Sync>,
+    pub render_pass: Arc<RenderPassAbstract + Send + Sync>,
     framebuffer: Vec<Arc<FramebufferAbstract + Send + Sync>>,
 
     previous_frame_end: Option<Box<GpuFuture>>,
 
-    pub(crate) uniform_pool: StdDescriptorPool,
+    pub uniform_pool: StdDescriptorPool,
 
     recreate_swapchain: bool,
 }
@@ -172,7 +172,7 @@ impl Renderer {
         self.framebuffer = framebuffer;
 
         for model in models {
-            model.build(self)?;
+            model.build(&self)?;
         }
         Ok(())
     }

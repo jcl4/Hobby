@@ -2,11 +2,15 @@ use crate::core::{Mesh, Model, Vertex};
 use crate::renderer::Renderer;
 use crate::Result;
 use failure::bail;
+use log::info;
 use std::sync::Arc;
 use vulkano::buffer::immutable::ImmutableBuffer;
-use vulkano::buffer::BufferUsage;
-use vulkano::device::Queue;
+use vulkano::buffer::{BufferAccess, BufferUsage, TypedBufferAccess};
+use vulkano::device::{Device, Queue};
+use vulkano::framebuffer::{RenderPassAbstract, Subpass};
 use vulkano::impl_vertex;
+use vulkano::pipeline::viewport::Viewport;
+use vulkano::pipeline::{GraphicsPipeline, GraphicsPipelineAbstract};
 use vulkano::sync::GpuFuture;
 
 mod vs {
@@ -39,15 +43,24 @@ impl BasicVertex {
     }
 }
 
-pub(crate) fn build_basic_model(model: &mut Model, renderer: &Renderer) -> Result<()> {
+pub fn build_basic_model(model: &mut Model, renderer: &Renderer) -> Result<()> {
     check_mesh(&model.mesh)?;
-    build_buffers(&mut model.mesh, &renderer.graphics_queue)?;
+    let (vertex_buffer, index_buffer) = build_buffers(&model.mesh, &renderer.graphics_queue)?;
+    let pipeline = build_pipline(
+        &renderer.device,
+        renderer.swapchain.dimensions(),
+        &renderer.render_pass,
+    )?;
+
+    model.set_pipeline(pipeline);
+    model.mesh.set_index_buffer(index_buffer);
+    model.mesh.set_vertex_buffer(vertex_buffer);
 
     Ok(())
 }
 
 fn check_mesh(mesh: &Mesh) -> Result<()> {
-    let vertex = mesh.vertices[0];
+    let vertex = &mesh.vertices[0];
 
     if vertex.color.is_none() {
         bail!("Basic Materials need Colors defined in the vertex data");
@@ -56,7 +69,13 @@ fn check_mesh(mesh: &Mesh) -> Result<()> {
     Ok(())
 }
 
-fn build_buffers(mesh: &mut Mesh, graphics_queue: &Arc<Queue>) -> Result<()> {
+fn build_buffers(
+    mesh: &Mesh,
+    graphics_queue: &Arc<Queue>,
+) -> Result<(
+    Arc<BufferAccess + Send + Sync>,
+    Arc<TypedBufferAccess<Content = [u32]> + Send + Sync>,
+)> {
     let vertices: Vec<BasicVertex> = mesh
         .vertices
         .iter()
@@ -77,10 +96,48 @@ fn build_buffers(mesh: &mut Mesh, graphics_queue: &Arc<Queue>) -> Result<()> {
 
     index_future.join(vertex_future).flush()?;
 
-    mesh.vertex_buffer = Some(vertex_buffer);
-    mesh.index_buffer = Some(index_buffer);
+    Ok((vertex_buffer, index_buffer))
+}
 
-    Ok(())
+fn build_pipline(
+    device: &Arc<Device>,
+    swapchain_extent: [u32; 2],
+    render_pass: &Arc<RenderPassAbstract + Send + Sync>,
+) -> Result<Arc<GraphicsPipelineAbstract + Send + Sync>> {
+    let vert_shader_module = vs::Shader::load(device.clone())?;
+    let frag_shader_module = fs::Shader::load(device.clone())?;
+
+    let dimensions = [swapchain_extent[0] as f32, swapchain_extent[1] as f32];
+    let viewport = Viewport {
+        origin: [0.0, 0.0],
+        dimensions,
+        depth_range: 0.0..1.0,
+    };
+
+    let grapics_pipeline = Arc::new(
+        GraphicsPipeline::start()
+            .vertex_input_single_buffer::<BasicVertex>()
+            .vertex_shader(vert_shader_module.main_entry_point(), ())
+            .triangle_list()
+            .primitive_restart(false)
+            .viewports(vec![viewport]) // NOTE: also sets scissor to cover whole viewport
+            .fragment_shader(frag_shader_module.main_entry_point(), ())
+            .depth_clamp(false)
+            // NOTE: there's an outcommented .rasterizer_discard() in Vulkano...
+            .polygon_mode_fill() // = default
+            .line_width(1.0) // = default
+            .cull_mode_back()
+            .front_face_clockwise()
+            // NOTE: no depth_bias here, but on pipeline::raster::Rasterization
+            .blend_pass_through() // = default
+            .render_pass(Subpass::from(render_pass.clone(), 0).unwrap())
+            .build(device.clone())
+            .unwrap(),
+    );
+
+    info!("Graphics Pipeline Created!");
+
+    Ok(grapics_pipeline)
 }
 
 // struct BasicModels {
@@ -132,25 +189,6 @@ fn build_buffers(mesh: &mut Mesh, graphics_queue: &Arc<Queue>) -> Result<()> {
 //         Ok(())
 //     }
 
-//     // fn draw(
-//     //     &mut self,
-//     //     command_buffer: AutoCommandBufferBuilder,
-//     // ) -> Result<AutoCommandBufferBuilder> {
-//     //     let new_cb = command_buffer
-//     //         .draw_indexed(
-//     //             self.pipeline.clone().unwrap(),
-//     //             &DynamicState::none(),
-//     //             vec![self.mesh.vertex_buffer.clone().unwrap()],
-//     //             self.mesh.index_buffer.clone().unwrap(),
-//     //             (),
-//     //             (),
-//     //         )
-//     //         .unwrap();
-
-//     //     Ok(new_cb)
-//     // }
-// }
-
 // #[derive(Copy, Clone)]
 // pub struct BasicVertex {
 //     position: [f32; 3],
@@ -162,47 +200,6 @@ fn build_buffers(mesh: &mut Mesh, graphics_queue: &Arc<Queue>) -> Result<()> {
 //     pub fn new(position: [f32; 3], color: [f32; 3]) -> BasicVertex {
 //         BasicVertex { position, color }
 //     }
-// }
-
-// fn create_pipeline(
-//     device: &Arc<Device>,
-//     swapchain_extent: [u32; 2],
-//     render_pass: &Arc<RenderPassAbstract + Send + Sync>,
-// ) -> Result<Arc<GraphicsPipelineAbstract + Send + Sync>> {
-//     let vert_shader_module = vs::Shader::load(device.clone())?;
-//     let frag_shader_module = fs::Shader::load(device.clone())?;
-
-//     let dimensions = [swapchain_extent[0] as f32, swapchain_extent[1] as f32];
-//     let viewport = Viewport {
-//         origin: [0.0, 0.0],
-//         dimensions,
-//         depth_range: 0.0..1.0,
-//     };
-
-//     let grapics_pipeline = Arc::new(
-//         GraphicsPipeline::start()
-//             .vertex_input_single_buffer::<BasicVertex>()
-//             .vertex_shader(vert_shader_module.main_entry_point(), ())
-//             .triangle_list()
-//             .primitive_restart(false)
-//             .viewports(vec![viewport]) // NOTE: also sets scissor to cover whole viewport
-//             .fragment_shader(frag_shader_module.main_entry_point(), ())
-//             .depth_clamp(false)
-//             // NOTE: there's an outcommented .rasterizer_discard() in Vulkano...
-//             .polygon_mode_fill() // = default
-//             .line_width(1.0) // = default
-//             .cull_mode_back()
-//             .front_face_clockwise()
-//             // NOTE: no depth_bias here, but on pipeline::raster::Rasterization
-//             .blend_pass_through() // = default
-//             .render_pass(Subpass::from(render_pass.clone(), 0).unwrap())
-//             .build(device.clone())
-//             .unwrap(),
-//     );
-
-//     info!("Graphics Pipeline Created!");
-
-//     Ok(grapics_pipeline)
 // }
 
 // pub struct Mesh {
@@ -221,7 +218,7 @@ fn build_buffers(mesh: &mut Mesh, graphics_queue: &Arc<Queue>) -> Result<()> {
 //         }
 //     }
 
-//     pub(crate) fn build(&mut self, renderer: &Renderer) -> Result<()> {
+//     pub fn build(&mut self, renderer: &Renderer) -> Result<()> {
 //         self.create_buffers(&renderer.graphics_queue)?;
 //         Ok(())
 //     }

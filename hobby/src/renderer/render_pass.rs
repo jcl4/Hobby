@@ -5,8 +5,7 @@ use vulkano::format::Format;
 use vulkano::framebuffer::{RenderPassAbstract, RenderPassDesc};
 use vulkano::single_pass_renderpass;
 
-
-pub(crate) fn create_render_pass(
+pub fn create_render_pass(
     device: &Arc<Device>,
     color_format: Format,
 ) -> Arc<RenderPassAbstract + Send + Sync> {
