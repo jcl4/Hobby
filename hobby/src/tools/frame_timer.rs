@@ -15,10 +15,12 @@ pub struct FrameTimer {
     min_frame_time: f32,
     max_frame_time: f32,
     average_frame_time: f32,
+
+    app_name: String,
 }
 
 impl FrameTimer {
-    pub fn new(update_duration: Duration) -> FrameTimer {
+    pub fn new(update_duration: Duration, app_name: &str) -> FrameTimer {
         FrameTimer {
             num_frames: 0,
             game_start: Instant::now(),
@@ -28,6 +30,7 @@ impl FrameTimer {
             min_frame_time: 0.0,
             max_frame_time: 0.0,
             average_frame_time: 0.0,
+            app_name: app_name.to_string(),
         }
     }
 
@@ -74,8 +77,12 @@ impl FrameTimer {
 
         write!(
             file,
-            "{}, {:.2}, {:.2}, {:.2}\n",
-            dt_str, self.min_frame_time, self.average_frame_time, self.max_frame_time
+            "{}, {:.2}, {:.2}, {:.2}, {},\n",
+            dt_str,
+            self.min_frame_time,
+            self.average_frame_time,
+            self.max_frame_time,
+            self.app_name
         )?;
 
         Ok(())

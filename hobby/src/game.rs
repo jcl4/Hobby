@@ -18,7 +18,10 @@ impl Game {
     pub fn new(hobby_settings: HobbySettings) -> Result<Game> {
         let events_loop = EventsLoop::new();
         let renderer = Renderer::new(&hobby_settings, &events_loop)?;
-        let frame_timer = FrameTimer::new(hobby_settings.display_update_duration);
+        let frame_timer = FrameTimer::new(
+            hobby_settings.display_update_duration,
+            &hobby_settings.app_info.app_name,
+        );
 
         Ok(Game {
             renderer,

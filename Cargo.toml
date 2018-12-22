@@ -1,6 +1,6 @@
 [workspace]
 members = [
     "hobby",
-    # "examples/triangle",
+    "examples/triangle",
     "examples/colored-quad",
 ]
