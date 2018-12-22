@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 pub struct WindowSettings {
     pub width: f64,
     pub height: f64,
@@ -33,13 +35,16 @@ impl Default for AppInfo {
 pub struct HobbySettings {
     pub window_settings: WindowSettings,
     pub app_info: AppInfo,
+    pub display_update_duration: Duration,
 }
 
 impl Default for HobbySettings {
     fn default() -> HobbySettings {
+        let display_update_duration = Duration::from_millis(2000);
         HobbySettings {
             window_settings: WindowSettings::default(),
             app_info: AppInfo::default(),
+            display_update_duration,
         }
     }
 }

@@ -1,11 +1,23 @@
 # TODO for hobby project
 
 ## Next
-- [ ] Work through implimentation with Vulkano
+- [x] Colored Quad Example
+- [ ] uniform buffers
+- [ ] fix triangle example
+
 
 ## Big Tasks - to work eventually
-- [ ] switch to using result again
-- [x] build a super setting object with all other settings that can then just be added on to 
 - [ ] Enable wire-frame rendering: see rasterizer in pipeline creation
-- [ ] Camera - turn on back face culling once camera is created
 - [ ] Depth buffering
+- [ ] Push Constants
+- [ ] Lighting
+- [ ] Camera
+
+
+#### Archived Actions
+- [x] Switch to immutable buffer
+- [X] impiment Mesh and Model API
+- [X] recreate swapchain
+- [x] Switch to indexed drawing
+- [x] switch to using result again
+- [x] build a super setting object with all other settings that can then just be added on to 

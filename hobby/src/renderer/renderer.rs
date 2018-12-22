@@ -1,62 +1,183 @@
-use log::{info, warn};
 use std::sync::Arc;
-use winit::dpi::PhysicalSize;
-use winit::{EventsLoop, Window, WindowBuilder};
+use winit::{EventsLoop, Window};
 
+use vulkano::command_buffer::AutoCommandBufferBuilder;
+use vulkano::descriptor::descriptor_set::StdDescriptorPool;
+use vulkano::device::{Device, Queue};
+use vulkano::framebuffer::{FramebufferAbstract, RenderPassAbstract};
+use vulkano::image::swapchain::SwapchainImage;
 use vulkano::instance::debug::DebugCallback;
 use vulkano::instance::Instance;
-use vulkano::swapchain::Surface;
-use vulkano_win::VkSurfaceBuild;
+use vulkano::swapchain::{acquire_next_image, AcquireError, Surface, Swapchain};
+use vulkano::sync;
+use vulkano::sync::GpuFuture;
 
 use crate::renderer::base;
-use crate::{HobbySettings, Result, WindowSettings};
+use crate::renderer::render_pass;
+use crate::renderer::swapchain;
+use crate::renderer::Model;
+use crate::{HobbySettings, Result};
 
 pub struct Renderer {
     instance: Arc<Instance>,
-    debug_callback: Option<DebugCallback>,
+    _debug_callback: Option<DebugCallback>,
 
     surface: Arc<Surface<Window>>,
     physical_device_index: usize,
+
+    pub(crate) device: Arc<Device>,
+    pub(crate) graphics_queue: Arc<Queue>,
+    present_queue: Arc<Queue>,
+
+    pub(crate) swapchain: Arc<Swapchain<Window>>,
+    swapchain_images: Vec<Arc<SwapchainImage<Window>>>,
+
+    pub(crate) render_pass: Arc<RenderPassAbstract + Send + Sync>,
+    framebuffer: Vec<Arc<FramebufferAbstract + Send + Sync>>,
+
+    previous_frame_end: Option<Box<GpuFuture>>,
+
+    pub(crate) uniform_pool: StdDescriptorPool,
+
+    recreate_swapchain: bool,
 }
 
 impl Renderer {
-    pub fn new(hobby_settings: HobbySettings, events_loop: &EventsLoop) -> Result<Renderer> {
+    pub fn new(hobby_settings: &HobbySettings, events_loop: &EventsLoop) -> Result<Renderer> {
         let instance = base::create_instance(&hobby_settings.app_info)?;
-        info!("Instance Created");
         let debug_callback = base::setup_debug_callback(&instance);
-        let surface = create_surface(events_loop, &hobby_settings.window_settings, &instance)?;
+        let surface =
+            base::create_surface(events_loop, &hobby_settings.window_settings, &instance)?;
         let physical_device_index = base::pick_physical_device(&instance, &surface)?;
-       
+
+        let (device, graphics_queue, present_queue) =
+            base::create_logical_device(&instance, &surface, physical_device_index)?;
+
+        let (swapchain, swapchain_images) = swapchain::create_swapchain(
+            &instance,
+            &surface,
+            physical_device_index,
+            &device,
+            &graphics_queue,
+            &present_queue,
+            None,
+        )?;
+
+        let render_pass = render_pass::create_render_pass(&device, swapchain.format());
+        let framebuffer = swapchain::create_framebuffers(&swapchain_images, &render_pass);
+
+        let previous_frame_end = Some(create_sync_objects(&device));
+        let uniform_pool = StdDescriptorPool::new(device.clone());
 
         Ok(Renderer {
             instance,
-            debug_callback,
+            _debug_callback: debug_callback,
             surface,
             physical_device_index,
+            device,
+            graphics_queue,
+            present_queue,
+            swapchain,
+            swapchain_images,
+            render_pass,
+            framebuffer,
+            previous_frame_end,
+            uniform_pool,
+            recreate_swapchain: false,
         })
+    }
+
+    pub fn draw_frame(&mut self, models: &mut Vec<Model>) -> Result<()> {
+        self.previous_frame_end.as_mut().unwrap().cleanup_finished();
+
+        if self.recreate_swapchain {
+            self.recreate_swapchain(models)?;
+            self.recreate_swapchain = false;
+        }
+
+        let (image_index, acquire_future) = match acquire_next_image(self.swapchain.clone(), None) {
+            Ok(r) => r,
+            Err(AcquireError::OutOfDate) => {
+                self.recreate_swapchain = true;
+                return Ok(());
+            }
+            Err(err) => panic!("{:?}", err),
+        };
+
+        let mut cb = AutoCommandBufferBuilder::primary_one_time_submit(
+            self.device.clone(),
+            self.graphics_queue.family(),
+        )?;
+
+        let clear_values = vec![[0.1, 0.2, 0.1, 1.0].into()];
+        cb = cb.begin_render_pass(self.framebuffer[image_index].clone(), false, clear_values)?;
+
+        for model in models {
+            cb = model.draw(cb)?;
+        }
+        cb = cb.end_render_pass()?;
+        let command_buffer = cb.build()?;
+
+        let future = self
+            .previous_frame_end
+            .take()
+            .unwrap()
+            .join(acquire_future)
+            .then_execute(self.graphics_queue.clone(), command_buffer)
+            .unwrap()
+            .then_swapchain_present(
+                self.present_queue.clone(),
+                self.swapchain.clone(),
+                image_index,
+            )
+            .then_signal_fence_and_flush();
+
+        match future {
+            Ok(future) => {
+                self.previous_frame_end = Some(Box::new(future) as Box<_>);
+            }
+            Err(vulkano::sync::FlushError::OutOfDate) => {
+                self.recreate_swapchain = true;
+                self.previous_frame_end =
+                    Some(Box::new(vulkano::sync::now(self.device.clone())) as Box<_>);
+            }
+            Err(e) => {
+                println!("{:?}", e);
+                self.previous_frame_end =
+                    Some(Box::new(vulkano::sync::now(self.device.clone())) as Box<_>);
+            }
+        }
+
+        Ok(())
+    }
+
+    fn recreate_swapchain(&mut self, models: &mut Vec<Model>) -> Result<()> {
+        let (swapchain, swapchain_images) = swapchain::create_swapchain(
+            &self.instance,
+            &self.surface,
+            self.physical_device_index,
+            &self.device,
+            &self.graphics_queue,
+            &self.present_queue,
+            Some(self.swapchain.clone()),
+        )?;
+
+        self.swapchain = swapchain;
+        self.swapchain_images = swapchain_images;
+
+        let render_pass = render_pass::create_render_pass(&self.device, self.swapchain.format());
+        let framebuffer = swapchain::create_framebuffers(&self.swapchain_images, &render_pass);
+
+        self.render_pass = render_pass;
+        self.framebuffer = framebuffer;
+
+        for model in models {
+            model.build(self)?;
+        }
+        Ok(())
     }
 }
 
-pub fn create_surface(
-    events_loop: &EventsLoop,
-    window_settings: &WindowSettings,
-    instance: &Arc<Instance>,
-) -> Result<Arc<Surface<Window>>> {
-    let monitor = events_loop.get_primary_monitor();
-    let dpi = monitor.get_hidpi_factor();
-
-    let physical_size = PhysicalSize::new(window_settings.width, window_settings.height);
-    let logical_size = physical_size.to_logical(dpi);
-
-    let surface = WindowBuilder::new()
-        .with_dimensions(logical_size)
-        .with_title(window_settings.title.clone())
-        .build_vk_surface(events_loop, instance.clone())?;
-
-    let size = surface.window().get_inner_size().unwrap();
-
-    info!("Built Window");
-    info!("\tWindow Size: {:?}", size.to_physical(dpi));
-
-    Ok(surface)
+fn create_sync_objects(device: &Arc<Device>) -> Box<GpuFuture> {
+    Box::new(sync::now(device.clone())) as Box<GpuFuture>
 }

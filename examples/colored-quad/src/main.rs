@@ -1,16 +1,16 @@
-// #[macro_use]
 use failure;
 use simplelog as sl;
 
 use std::fs::File;
+use std::iter::Iterator;
 use std::result;
 
-use hobby::renderer::{BasicVertex, Mesh, Model, VertexType};
+use hobby::core::{MaterialType, Mesh, Model, Vertex};
 use hobby::{AppInfo, Game, HobbySettings};
 
 pub type Result<T> = result::Result<T, failure::Error>;
 
-static LOG_FILE_PATH: &str = "./logs/triangle.log";
+static LOG_FILE_PATH: &str = "./logs/colored_quad.log";
 
 fn main() -> Result<()> {
     setup_logging();
@@ -31,17 +31,33 @@ fn main() -> Result<()> {
 
     let mut game = Game::new(hobby_settings)?;
 
-    let vertices = vec![
-        BasicVertex::new([0.0, -0.5], [1.0, 1.0, 1.0]),
-        BasicVertex::new([0.5, 0.5], [0.0, 1.0, 0.0]),
-        BasicVertex::new([-0.5, 0.5], [0.0, 0.0, 1.]),
+    let vertices = vec![];
+    let positions = vec![
+        [0.5, -0.5, 0.0],
+        [0.5, 0.5, 0.0],
+        [-0.5, 0.5, 0.0],
+        [-0.5, -0.5, 0.0],
+    ];
+    let colors = vec![
+        [1.0, 0.0, 1.0],
+        [0.0, 1.0, 0.0],
+        [0.0, 0.0, 1.0],
+        [1.0, 0.0, 0.0],
     ];
 
-    let indices = vec![0, 1, 2];
+    for (position, color) in positions.iter().zip(colors.iter()) {
+        let vertex = Vertex::builder()
+            .with_position(position)
+            .with_color(color)
+            .build();
+        vertices.push(vertex);
+    }
 
-    let vertex_data = VertexType::Basic(vertices, indices);
-    let mesh = Mesh::new(vertex_data);
-    let model = Model::new(mesh);
+    let indices = vec![0, 1, 2, 2, 3, 0];
+
+    let mesh = Mesh::new(vertices, indices);
+    let material_type = MaterialType::Basic;
+    let model = Model::new(mesh, material_type);
     game.add_model(model)?;
 
     game.run()?;

@@ -1,15 +1,11 @@
 [package]
-name = "hobby"
+name = "colored-quad"
 version = "0.1.0"
 authors = ["James Longino <james.longino@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-winit = "0.18"
+hobby = { path = "../../hobby"}
+simplelog = "0.5"
 log = "0.4"
-vulkano = "0.11"
-vulkano-win = "0.11"
-vulkano-shaders = "0.11"
 failure = "0.1"
-chrono = "0.4"
-nalgebra-glm = "0.2"

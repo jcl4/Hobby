@@ -1,28 +1,54 @@
+use crate::core::{MaterialType, Model};
+use crate::renderer::materials::basic;
 use crate::renderer::Renderer;
+use crate::tools::FrameTimer;
 use crate::{HobbySettings, Result};
+
 use log::info;
 use winit::{Event, EventsLoop, KeyboardInput, VirtualKeyCode, WindowEvent};
 
 pub struct Game {
     renderer: Renderer,
     events_loop: EventsLoop,
+    frame_timer: FrameTimer,
+    models: Option<Vec<Model>>,
 }
 
 impl Game {
     pub fn new(hobby_settings: HobbySettings) -> Result<Game> {
         let events_loop = EventsLoop::new();
-        let renderer = Renderer::new(hobby_settings, &events_loop)?;
+        let renderer = Renderer::new(&hobby_settings, &events_loop)?;
+        let frame_timer = FrameTimer::new(hobby_settings.display_update_duration);
+
         Ok(Game {
             renderer,
             events_loop,
+            frame_timer,
+            models: None,
         })
+    }
+
+    pub fn add_model(&mut self, mut model: Model) -> Result<()> {
+        match model.material_type {
+            MaterialType::Basic => basic::build_basic_model(&mut model, &self.renderer)?,
+        };
+
+        self.models.unwrap().push(model);
+        Ok(())
     }
 
     pub fn run(&mut self) -> Result<()> {
         let mut running = true;
+
+        self.frame_timer.start();
+
         while running {
             running = manage_input(&mut self.events_loop);
+            self.renderer.draw_frame(&mut self.models)?;
+            self.frame_timer.kick();
         }
+
+        self.frame_timer.stop()?;
         Ok(())
     }
 }
