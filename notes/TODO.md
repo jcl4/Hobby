@@ -1,9 +1,12 @@
 # TODO for hobby project
 
 ## Next
-- [x] Colored Quad Example
-- [ ] uniform buffers
-- [ ] fix triangle example
+- [ ] Model Update Capability
+- [ ] Build out Transform functionality
+    - [ ] Default Transform
+    - [ ] translate function
+    - [ ] rotate function
+- [ ] Camera - Quaternion Based
 
 
 ## Big Tasks - to work eventually
@@ -11,8 +14,8 @@
 - [ ] Depth buffering
 - [ ] Push Constants
 - [ ] Lighting
-- [ ] Camera
-- [ ] Color see [here](https://github.com/amethyst/amethyst/blob/master/amethyst_renderer/src/color.rs)
+- [ ] Input management
+- [ ] Color see [here][L1]
     - [ ] Update Vertex to use color struct
     - [ ] Update clear color
 
@@ -24,3 +27,8 @@
 - [x] Switch to indexed drawing
 - [x] switch to using result again
 - [x] build a super setting object with all other settings that can then just be added on to 
+- [x] Colored Quad Example
+- [x] uniform buffers
+- [x] fix triangle example
+
+[L1]: https://github.com/amethyst/amethyst/blob/master/amethyst_renderer/src/color.rs
