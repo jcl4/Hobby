@@ -1,4 +1,4 @@
-use crate::core::{Mesh, Model, Vertex};
+use crate::core::{Mesh, Model, Transform, Vertex};
 use crate::renderer::materials::ModelPipeline;
 use crate::renderer::Renderer;
 use crate::Result;
@@ -6,7 +6,9 @@ use failure::bail;
 use log::info;
 use std::sync::Arc;
 use vulkano::buffer::immutable::ImmutableBuffer;
-use vulkano::buffer::{BufferAccess, BufferUsage, TypedBufferAccess};
+use vulkano::buffer::{BufferAccess, BufferUsage, CpuBufferPool, TypedBufferAccess};
+use vulkano::descriptor::descriptor_set::FixedSizeDescriptorSetsPool;
+use vulkano::descriptor::DescriptorSet;
 use vulkano::device::{Device, Queue};
 use vulkano::framebuffer::{RenderPassAbstract, Subpass};
 use vulkano::impl_vertex;
@@ -30,6 +32,8 @@ mod fs {
 
 pub struct BasicPipeline {
     pipeline: Arc<GraphicsPipelineAbstract + Send + Sync>,
+    sets_pool: FixedSizeDescriptorSetsPool<Arc<GraphicsPipelineAbstract + Send + Sync>>,
+    transform_buffer_pool: CpuBufferPool<vs::ty::Transform>,
 }
 
 impl BasicPipeline {
@@ -40,7 +44,14 @@ impl BasicPipeline {
             &renderer.render_pass,
         )?;
 
-        Ok(BasicPipeline { pipeline })
+        let sets_pool = FixedSizeDescriptorSetsPool::new(pipeline.clone(), 0);
+        let transform_buffer_pool = CpuBufferPool::uniform_buffer(renderer.device.clone());
+
+        Ok(BasicPipeline {
+            pipeline,
+            sets_pool,
+            transform_buffer_pool,
+        })
     }
 }
 
@@ -54,11 +65,25 @@ impl ModelPipeline for BasicPipeline {
         Ok(())
     }
 
-    fn graphics_pipeline(&self) -> Arc<GraphicsPipelineAbstract + Send + Sync>{
+    fn graphics_pipeline(&self) -> Arc<GraphicsPipelineAbstract + Send + Sync> {
         self.pipeline.clone()
     }
+
+    fn get_descriptor_set(
+        &mut self,
+        transform: &Transform,
+    ) -> Result<Arc<DescriptorSet + Send + Sync>> {
+        let trans_data = vs::ty::Transform {
+            model: transform.array(),
+        };
+
+        let trans_buffer = self.transform_buffer_pool.next(trans_data)?;
+
+        let set = self.sets_pool.next().add_buffer(trans_buffer)?.build()?;
+
+        Ok(Arc::new(set))
+    }
 }
- 
 
 #[derive(Debug, Clone)]
 struct BasicVertex {

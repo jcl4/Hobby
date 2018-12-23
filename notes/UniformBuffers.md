@@ -1,14 +1,9 @@
 # Notes taken during learning about uniform buffers
 
-## Todo for impimentation
+## Goals
 Final goal is to have the colored quad transformed statically via a model matrix passed to the vertex shader. The Transform will be set once during model build up. Updating of the transform each frame to be added will be next feature to be added.
 
-- [ ] Create Descriptor set pool
-- [ ] Model passes data to material type to build descriptor set
-
-
-
-* All this work will be done under the uniform buffers branch
+* All this work will be done under the uniforms
 
 ## Notes:
 ### Descriptor

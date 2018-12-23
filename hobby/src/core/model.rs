@@ -1,5 +1,4 @@
-use crate::core::{MaterialType, Mesh};
-use crate::glm;
+use crate::core::{MaterialType, Mesh, Transform};
 use crate::renderer::materials::{BasicPipeline, ModelPipeline};
 use crate::renderer::Renderer;
 use crate::Result;
@@ -11,18 +10,17 @@ pub struct Model {
     pub mesh: Mesh,
     pub material_type: MaterialType,
     pipeline: Option<Box<ModelPipeline>>,
-    transform: glm::TMat4<f32>,
+    transform: Transform,
 }
 
 impl Model {
     pub fn new(mesh: Mesh, material_type: MaterialType) -> Model {
-        let scale_vec = glm::vec3(1.0, 1.0, 1.0);
-        let scale = glm::scaling(&scale_vec);
+        let transform = Transform::new();
 
         Model {
             mesh,
             material_type,
-            transform: scale,
+            transform,
             pipeline: None,
         }
     }
@@ -31,13 +29,19 @@ impl Model {
         &mut self,
         command_buffer: AutoCommandBufferBuilder,
     ) -> Result<AutoCommandBufferBuilder> {
+        let set = self
+            .pipeline
+            .as_mut()
+            .unwrap()
+            .get_descriptor_set(&self.transform)?;
+
         let new_cb = command_buffer
             .draw_indexed(
                 self.pipeline.as_ref().unwrap().graphics_pipeline(),
                 &DynamicState::none(),
                 vec![self.mesh.vertex_buffer()],
                 self.mesh.index_buffer(),
-                (),
+                set,
                 (),
             )
             .unwrap();
