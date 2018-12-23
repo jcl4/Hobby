@@ -14,6 +14,7 @@
 - [ ] Depth buffering
 - [ ] Push Constants
 - [ ] Lighting
+- [ ] Input management
 - [ ] Color see [here][L1]
     - [ ] Update Vertex to use color struct
     - [ ] Update clear color
