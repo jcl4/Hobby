@@ -29,7 +29,7 @@ impl Game {
             frame_timer,
             models: None,
         })
-    } 
+    }
 
     pub fn add_model(&mut self, mut model: Model) -> Result<()> {
         model.build(&self.renderer)?;
@@ -46,14 +46,26 @@ impl Game {
 
         self.frame_timer.start();
 
+        let mut update_debug = false;
+
         while running {
             running = manage_input(&mut self.events_loop);
-            self.frame_timer.kick();
+            update_debug = self.frame_timer.kick();
 
             match self.models.as_mut() {
                 Some(models) => {
                     for model in models.iter_mut() {
                         model.update(self.frame_timer.frame_time());
+                        if update_debug {
+                            println!(
+                                "Orientation Angle: {:.10}",
+                                model.transform.get_orientation().angle()
+                            );
+                            println!(
+                                "Orientation Axis: {:?}",
+                                model.transform.get_orientation().axis().unwrap()
+                            );
+                        }
                     }
 
                     self.renderer.draw_frame(models)?

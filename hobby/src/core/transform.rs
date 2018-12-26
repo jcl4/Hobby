@@ -45,6 +45,10 @@ impl Transform {
         self.model = None;
     }
 
+    pub fn get_orientation(&self) -> &na::UnitQuaternion<f32> {
+        &self.orientation
+    }
+
     pub fn set_position(&mut self, position: na::Vector3<f32>) {
         self.position = position;
         self.model = None;

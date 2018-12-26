@@ -11,26 +11,32 @@ pub struct Model {
     pub mesh: Mesh,
     pub material_type: MaterialType,
     pipeline: Option<Box<dyn ModelPipeline>>,
-    transform: Box<Transform>,
-    model_update: Box<dyn Fn(Box<Transform>, Duration) -> Box<Transform>>,
+    // transform: Box<Transform>,
+    pub transform: Transform,
+    model_update: Box<dyn FnMut(Transform, f32) -> Transform>,
 }
 
 impl Model {
     pub fn new(mesh: Mesh, material_type: MaterialType) -> Model {
-        let transform = Box::new(Transform::default());
-        let dt = Duration::from_secs(1);
-        let model_update = Box::new(|transform, dt| transform);
+        // let transform = Box::new(Transform::default());
+        let transform = Transform::default();
+        // let dt = Duration::from_secs(1);
+        let model_update = Box::new(|transform, _dt| transform);
 
         Model {
             mesh,
             material_type,
-            transform,
             pipeline: None,
+            transform,
             model_update,
         }
     }
 
-    pub fn update(&mut self, dt: Duration) {
+    pub fn add_update_fn(&mut self, f: Box<dyn FnMut(Transform, f32) -> Transform>) {
+        self.model_update = f;
+    }
+
+    pub fn update(&mut self, dt: f32) {
         self.transform = (self.model_update)(self.transform.clone(), dt);
     }
 
