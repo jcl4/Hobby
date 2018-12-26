@@ -3,6 +3,7 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::time::{Duration, Instant};
 
+use crate::tools::DurationHelper;
 use crate::Result;
 
 pub struct FrameTimer {
@@ -40,11 +41,19 @@ impl FrameTimer {
         self.last_update = Instant::now();
     }
 
+    pub fn frame_time(&self) -> Duration {
+        Instant::now().duration_since(self.frame_start)
+    }
+
     pub fn kick(&mut self) {
         self.num_frames += 1;
         let now = Instant::now();
 
-        let frame_time = as_ms(now.duration_since(self.frame_start));
+        let frame_time = self.frame_time().as_ms();
+        // println!(
+        //     "Frame: {}, Frame Time: {:.2} ms",
+        //     self.num_frames, frame_time
+        // );
 
         if self.min_frame_time == 0.0 {
             self.min_frame_time = frame_time;
@@ -52,11 +61,14 @@ impl FrameTimer {
             self.min_frame_time = self.min_frame_time.min(frame_time);
         }
 
-        self.max_frame_time = self.max_frame_time.max(frame_time);
+        if self.num_frames >= 10 {
+            // ignore first few frames for reporting max frame time
+            self.max_frame_time = self.max_frame_time.max(frame_time);
+        }
 
         if now.duration_since(self.last_update) >= self.update_duration {
             self.average_frame_time =
-                as_ms(now.duration_since(self.game_start)) / self.num_frames as f32;
+                now.duration_since(self.game_start).as_ms() / self.num_frames as f32;
             println!("Num Frames: {}", self.num_frames);
             println!("Average Frame Time: {} ms", self.average_frame_time);
             self.last_update = Instant::now();
@@ -77,8 +89,9 @@ impl FrameTimer {
 
         write!(
             file,
-            "{}, {:.2}, {:.2}, {:.2}, {},\n",
+            "{}, {}, {:.2}, {:.2}, {:.2}, {},\n",
             dt_str,
+            self.num_frames,
             self.min_frame_time,
             self.average_frame_time,
             self.max_frame_time,
@@ -87,17 +100,4 @@ impl FrameTimer {
 
         Ok(())
     }
-}
-
-fn dur_as_f32(duration: Duration) -> f32 {
-    let secs = duration.as_secs();
-    let nanos = duration.subsec_nanos();
-    let nanos_frac = nanos as f32 / 1_000_000_000.0;
-
-    secs as f32 + nanos_frac
-}
-
-fn as_ms(duration: Duration) -> f32 {
-    let time = dur_as_f32(duration);
-    time * 1000.0
 }

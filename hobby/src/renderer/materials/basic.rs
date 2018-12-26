@@ -71,7 +71,7 @@ impl ModelPipeline for BasicPipeline {
 
     fn get_descriptor_set(
         &mut self,
-        transform: &Transform,
+        transform: &mut Transform,
     ) -> Result<Arc<DescriptorSet + Send + Sync>> {
         let trans_data = vs::ty::Transform {
             model: transform.array(),

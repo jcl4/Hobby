@@ -1,4 +1,5 @@
 use failure;
+use nalgebra as na;
 use nalgebra_glm as glm;
 use std::result;
 

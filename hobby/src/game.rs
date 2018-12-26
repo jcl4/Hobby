@@ -29,7 +29,7 @@ impl Game {
             frame_timer,
             models: None,
         })
-    }
+    } 
 
     pub fn add_model(&mut self, mut model: Model) -> Result<()> {
         model.build(&self.renderer)?;
@@ -48,12 +48,18 @@ impl Game {
 
         while running {
             running = manage_input(&mut self.events_loop);
+            self.frame_timer.kick();
+
             match self.models.as_mut() {
-                Some(models) => self.renderer.draw_frame(models)?,
+                Some(models) => {
+                    for model in models.iter_mut() {
+                        model.update(self.frame_timer.frame_time());
+                    }
+
+                    self.renderer.draw_frame(models)?
+                }
                 None => {}
             }
-
-            self.frame_timer.kick();
         }
 
         self.frame_timer.stop()?;

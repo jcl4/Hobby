@@ -20,3 +20,4 @@
 
 - A mesh will hold the mesh data (vertices and indices) and the vertex and index buffers
 
+## Model Update functionality
