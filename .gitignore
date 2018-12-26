@@ -13,3 +13,6 @@ Cargo.lock
 
 # Log Files
 *.log
+
+# Raw Resource Files
+**/raw/

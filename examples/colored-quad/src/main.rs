@@ -82,8 +82,8 @@ fn setup_logging() {
     .expect("Can not create combined logger");
 }
 
-fn get_cube_update() -> Box<dyn FnMut(Transform, f32) -> Transform> {
-    Box::new(|mut transform, dt| {
+fn get_cube_update() -> Box<dyn FnMut(Transform, f32, bool) -> Transform> {
+    Box::new(|mut transform, dt, debug_display| {
         let dt_sec = dt / 1000.0;
 
         let rot_vel = glm::quarter_pi::<f32>();
@@ -92,6 +92,17 @@ fn get_cube_update() -> Box<dyn FnMut(Transform, f32) -> Transform> {
             na::UnitQuaternion::from_axis_angle(&na::Vector3::z_axis(), rot_vel * dt_sec);
 
         transform.rotate(rotation);
+
+        if debug_display {
+            println!(
+                "Orientation Angle: {:.10}",
+                transform.get_orientation().angle()
+            );
+            println!(
+                "Orientation Axis: {:?}",
+                transform.get_orientation().axis().unwrap()
+            );
+        }
 
         transform
     })

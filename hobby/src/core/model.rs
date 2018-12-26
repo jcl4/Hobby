@@ -13,7 +13,8 @@ pub struct Model {
     pipeline: Option<Box<dyn ModelPipeline>>,
     // transform: Box<Transform>,
     pub transform: Transform,
-    model_update: Box<dyn FnMut(Transform, f32) -> Transform>,
+    // Update function closure called in model update inputs: Transform: Model transform, f32: Update Time in ms, bool: debug update
+    model_update: Box<dyn FnMut(Transform, f32, bool) -> Transform>,
 }
 
 impl Model {
@@ -21,7 +22,7 @@ impl Model {
         // let transform = Box::new(Transform::default());
         let transform = Transform::default();
         // let dt = Duration::from_secs(1);
-        let model_update = Box::new(|transform, _dt| transform);
+        let model_update = Box::new(|transform, _dt, _debug| transform);
 
         Model {
             mesh,
@@ -32,12 +33,12 @@ impl Model {
         }
     }
 
-    pub fn add_update_fn(&mut self, f: Box<dyn FnMut(Transform, f32) -> Transform>) {
+    pub fn add_update_fn(&mut self, f: Box<dyn FnMut(Transform, f32, bool) -> Transform>) {
         self.model_update = f;
     }
 
-    pub fn update(&mut self, dt: f32) {
-        self.transform = (self.model_update)(self.transform.clone(), dt);
+    pub fn update(&mut self, dt: f32, debug_display: bool) {
+        self.transform = (self.model_update)(self.transform.clone(), dt, debug_display);
     }
 
     pub fn draw(

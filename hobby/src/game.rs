@@ -46,7 +46,7 @@ impl Game {
 
         self.frame_timer.start();
 
-        let mut update_debug = false;
+        let mut update_debug: bool;
 
         while running {
             running = manage_input(&mut self.events_loop);
@@ -55,17 +55,7 @@ impl Game {
             match self.models.as_mut() {
                 Some(models) => {
                     for model in models.iter_mut() {
-                        model.update(self.frame_timer.frame_time());
-                        if update_debug {
-                            println!(
-                                "Orientation Angle: {:.10}",
-                                model.transform.get_orientation().angle()
-                            );
-                            println!(
-                                "Orientation Axis: {:?}",
-                                model.transform.get_orientation().axis().unwrap()
-                            );
-                        }
+                        model.update(self.frame_timer.frame_time(), update_debug);
                     }
 
                     self.renderer.draw_frame(models)?

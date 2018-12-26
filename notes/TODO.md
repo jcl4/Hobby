@@ -1,13 +1,13 @@
 # TODO for hobby project
 
 ## Next
-- [ ] Model Update Capability
-- [ ] Build out Transform functionality
-    - [ ] Default Transform
-    - [ ] translate function
-    - [ ] rotate function
+- [x] Model Update Capability
+- [x] Build out Transform functionality
+    - [x] Default Transform
+    - [x] translate function
+    - [x] rotate function
 - [ ] Camera - Quaternion Based
-- [ ] Fix max frame time reporting
+- [x] Fix max frame time reporting
 - [ ] GLTF import
 
 
