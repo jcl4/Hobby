@@ -7,6 +7,8 @@
     - [ ] translate function
     - [ ] rotate function
 - [ ] Camera - Quaternion Based
+- [ ] Fix max frame time reporting
+- [ ] GLTF import
 
 
 ## Big Tasks - to work eventually
@@ -18,6 +20,7 @@
 - [ ] Color see [here][L1]
     - [ ] Update Vertex to use color struct
     - [ ] Update clear color
+- [ ] Switch to ECS architecture
 
 
 #### Archived Actions

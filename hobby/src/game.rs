@@ -46,14 +46,32 @@ impl Game {
 
         self.frame_timer.start();
 
+        let mut update_debug = false;
+
         while running {
             running = manage_input(&mut self.events_loop);
+            update_debug = self.frame_timer.kick();
+
             match self.models.as_mut() {
-                Some(models) => self.renderer.draw_frame(models)?,
+                Some(models) => {
+                    for model in models.iter_mut() {
+                        model.update(self.frame_timer.frame_time());
+                        if update_debug {
+                            println!(
+                                "Orientation Angle: {:.10}",
+                                model.transform.get_orientation().angle()
+                            );
+                            println!(
+                                "Orientation Axis: {:?}",
+                                model.transform.get_orientation().axis().unwrap()
+                            );
+                        }
+                    }
+
+                    self.renderer.draw_frame(models)?
+                }
                 None => {}
             }
-
-            self.frame_timer.kick();
         }
 
         self.frame_timer.stop()?;

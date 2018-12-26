@@ -2,6 +2,7 @@ use crate::core::{MaterialType, Mesh, Transform};
 use crate::renderer::materials::{BasicPipeline, ModelPipeline};
 use crate::renderer::Renderer;
 use crate::Result;
+use std::time::Duration;
 use vulkano::command_buffer::{AutoCommandBufferBuilder, DynamicState};
 
 // TODO: Create Pipeline and uniform buffer information
@@ -9,20 +10,34 @@ use vulkano::command_buffer::{AutoCommandBufferBuilder, DynamicState};
 pub struct Model {
     pub mesh: Mesh,
     pub material_type: MaterialType,
-    pipeline: Option<Box<ModelPipeline>>,
-    transform: Transform,
+    pipeline: Option<Box<dyn ModelPipeline>>,
+    // transform: Box<Transform>,
+    pub transform: Transform,
+    model_update: Box<dyn FnMut(Transform, f32) -> Transform>,
 }
 
 impl Model {
     pub fn new(mesh: Mesh, material_type: MaterialType) -> Model {
-        let transform = Transform::new();
+        // let transform = Box::new(Transform::default());
+        let transform = Transform::default();
+        // let dt = Duration::from_secs(1);
+        let model_update = Box::new(|transform, _dt| transform);
 
         Model {
             mesh,
             material_type,
-            transform,
             pipeline: None,
+            transform,
+            model_update,
         }
+    }
+
+    pub fn add_update_fn(&mut self, f: Box<dyn FnMut(Transform, f32) -> Transform>) {
+        self.model_update = f;
+    }
+
+    pub fn update(&mut self, dt: f32) {
+        self.transform = (self.model_update)(self.transform.clone(), dt);
     }
 
     pub fn draw(
@@ -33,7 +48,7 @@ impl Model {
             .pipeline
             .as_mut()
             .unwrap()
-            .get_descriptor_set(&self.transform)?;
+            .get_descriptor_set(&mut self.transform)?;
 
         let new_cb = command_buffer
             .draw_indexed(

@@ -1,12 +1,12 @@
 use failure;
+use hobby::core::{MaterialType, Mesh, Model, Transform, Vertex};
+use hobby::{AppInfo, Game, HobbySettings};
+use nalgebra as na;
+use nalgebra_glm as glm;
 use simplelog as sl;
-
 use std::fs::File;
 use std::iter::Iterator;
 use std::result;
-
-use hobby::core::{MaterialType, Mesh, Model, Vertex};
-use hobby::{AppInfo, Game, HobbySettings};
 
 pub type Result<T> = result::Result<T, failure::Error>;
 
@@ -57,7 +57,10 @@ fn main() -> Result<()> {
 
     let mesh = Mesh::new(vertices, indices);
     let material_type = MaterialType::Basic;
-    let model = Model::new(mesh, material_type);
+    let mut model = Model::new(mesh, material_type);
+    let cube_update_fn = get_cube_update();
+    model.add_update_fn(cube_update_fn);
+
     game.add_model(model)?;
 
     game.run()?;
@@ -77,4 +80,19 @@ fn setup_logging() {
             .expect("unable to create terminal logger"),
     ])
     .expect("Can not create combined logger");
+}
+
+fn get_cube_update() -> Box<dyn FnMut(Transform, f32) -> Transform> {
+    Box::new(|mut transform, dt| {
+        let dt_sec = dt / 1000.0;
+
+        let rot_vel = glm::quarter_pi::<f32>();
+
+        let rotation =
+            na::UnitQuaternion::from_axis_angle(&na::Vector3::z_axis(), rot_vel * dt_sec);
+
+        transform.rotate(rotation);
+
+        transform
+    })
 }

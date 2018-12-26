@@ -3,6 +3,7 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::time::{Duration, Instant};
 
+use crate::tools::DurationHelper;
 use crate::Result;
 
 pub struct FrameTimer {
@@ -12,6 +13,7 @@ pub struct FrameTimer {
     update_duration: Duration,
     last_update: Instant,
 
+    frame_time: f32,
     min_frame_time: f32,
     max_frame_time: f32,
     average_frame_time: f32,
@@ -27,6 +29,7 @@ impl FrameTimer {
             frame_start: Instant::now(),
             update_duration,
             last_update: Instant::now(),
+            frame_time: 0.0,
             min_frame_time: 0.0,
             max_frame_time: 0.0,
             average_frame_time: 0.0,
@@ -40,29 +43,47 @@ impl FrameTimer {
         self.last_update = Instant::now();
     }
 
-    pub fn kick(&mut self) {
+    pub fn frame_time(&self) -> f32 {
+        self.frame_time
+    }
+
+    pub fn kick(&mut self) -> bool {
+        let mut update_debug = false;
         self.num_frames += 1;
         let now = Instant::now();
 
-        let frame_time = as_ms(now.duration_since(self.frame_start));
+        self.frame_time = now.duration_since(self.frame_start).as_ms();
+        // println!(
+        //     "Frame: {}, Frame Time: {:.2} ms",
+        //     self.num_frames, frame_time
+        // );
 
         if self.min_frame_time == 0.0 {
-            self.min_frame_time = frame_time;
+            self.min_frame_time = self.frame_time;
         } else {
-            self.min_frame_time = self.min_frame_time.min(frame_time);
+            self.min_frame_time = self.min_frame_time.min(self.frame_time);
         }
 
-        self.max_frame_time = self.max_frame_time.max(frame_time);
+        if self.num_frames >= 10 {
+            // ignore first few frames for reporting max frame time
+            self.max_frame_time = self.max_frame_time.max(self.frame_time);
+        }
 
         if now.duration_since(self.last_update) >= self.update_duration {
             self.average_frame_time =
-                as_ms(now.duration_since(self.game_start)) / self.num_frames as f32;
+                now.duration_since(self.game_start).as_ms() / self.num_frames as f32;
             println!("Num Frames: {}", self.num_frames);
             println!("Average Frame Time: {} ms", self.average_frame_time);
+            println!(
+                "Elapsed Time: {} s",
+                now.duration_since(self.game_start).dur_as_f32()
+            );
             self.last_update = Instant::now();
+            update_debug = true;
         }
 
         self.frame_start = Instant::now();
+        update_debug
     }
 
     pub fn stop(&self) -> Result<()> {
@@ -77,8 +98,9 @@ impl FrameTimer {
 
         write!(
             file,
-            "{}, {:.2}, {:.2}, {:.2}, {},\n",
+            "{}, {}, {:.2}, {:.2}, {:.2}, {},\n",
             dt_str,
+            self.num_frames,
             self.min_frame_time,
             self.average_frame_time,
             self.max_frame_time,
@@ -87,17 +109,4 @@ impl FrameTimer {
 
         Ok(())
     }
-}
-
-fn dur_as_f32(duration: Duration) -> f32 {
-    let secs = duration.as_secs();
-    let nanos = duration.subsec_nanos();
-    let nanos_frac = nanos as f32 / 1_000_000_000.0;
-
-    secs as f32 + nanos_frac
-}
-
-fn as_ms(duration: Duration) -> f32 {
-    let time = dur_as_f32(duration);
-    time * 1000.0
 }
