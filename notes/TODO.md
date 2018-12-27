@@ -21,6 +21,7 @@
     - [ ] Update Vertex to use color struct
     - [ ] Update clear color
 - [ ] Switch to ECS architecture
+- [ ] Refactor frame timer into generic timer and specific frame timer structs and impls
 
 
 #### Archived Actions
