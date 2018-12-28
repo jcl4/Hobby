@@ -1,7 +1,7 @@
 // Load and display a gltf cube
 
 use failure;
-use hobby::tools::GltfLoader;
+use hobby::tools::gltf::GltfLoader;
 use hobby::{AppInfo, HobbySettings};
 use std::path::PathBuf;
 use std::result;
@@ -27,8 +27,10 @@ fn main() -> Result<()> {
     hobby_settings.app_info = app_info;
     hobby_settings.resource_path = resource_path.clone();
 
-    let gltf_loader = GltfLoader::new(resource_path);
-    gltf_loader.output_details("cube.glb")?;
+    let mut gltf_loader = GltfLoader::new(resource_path);
+    gltf_loader.load("Buggy/glTF-Binary/Buggy.glb")?;
+    // gltf_loader.output_details("BoxVertexColors/glTF-Binary/BoxVertexColors.glb")?;
+    // gltf_loader.output_details("cube.glb")?;
 
     // let mut game = Game::new(hobby_settings)?;
 
