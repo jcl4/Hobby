@@ -1,5 +1,5 @@
 use crate::core::Model;
-
+use crate::na;
 use crate::renderer::Renderer;
 use crate::tools::FrameTimer;
 use crate::{HobbySettings, Result};
@@ -12,6 +12,7 @@ pub struct Game {
     events_loop: EventsLoop,
     frame_timer: FrameTimer,
     models: Option<Vec<Model>>,
+    view: na::Isometry3<f32>,
 }
 
 impl Game {
@@ -23,11 +24,17 @@ impl Game {
             &hobby_settings.app_info.app_name,
         );
 
+        let eye = na::Point3::new(0.0, 0.0, -5.0);
+        let target = na::Point3::new(0.0, 0.0, 0.0);
+        let up = na::Vector3::new(0.0, -1.0, 0.0);
+        let view = na::Isometry3::new_observer_frame(&eye, &target, &up);
+
         Ok(Game {
             renderer,
             events_loop,
             frame_timer,
             models: None,
+            view,
         })
     }
 
@@ -38,6 +45,13 @@ impl Game {
             None => self.models = Some(vec![model]),
         }
 
+        Ok(())
+    }
+
+    pub fn add_models(&mut self, models: Vec<Model>) -> Result<()> {
+        for model in models {
+            self.add_model(model)?;
+        }
         Ok(())
     }
 
@@ -58,7 +72,7 @@ impl Game {
                         model.update(self.frame_timer.frame_time(), update_debug);
                     }
 
-                    self.renderer.draw_frame(models)?
+                    self.renderer.draw_frame(models, &self.view)?
                 }
                 None => {}
             }

@@ -2,9 +2,9 @@
 
 // NOTE: names must match the `Vertex` struct in Rust
 layout(location = 0) in vec3 position;
-layout(location = 1) in vec4 color;
+layout(location = 1) in vec2 tex_coord;
 
-layout(location = 0) out vec4 fragColor;
+layout(location = 0) out vec2 v_tex_coord;
 
 layout(set = 0, binding = 0) uniform MVP {
     mat4 model;
@@ -14,5 +14,5 @@ layout(set = 0, binding = 0) uniform MVP {
 
 void main() {
     gl_Position = mvp.proj * mvp.view * mvp.model * vec4(position, 1.0);
-    fragColor = color;
+    v_tex_coord = tex_coord;
 }

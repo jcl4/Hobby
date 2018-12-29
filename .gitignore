@@ -16,3 +16,4 @@ Cargo.lock
 
 # Raw Resource Files
 **/raw/
+**/resources/**

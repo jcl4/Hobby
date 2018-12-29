@@ -1,3 +1,4 @@
+use std::path::PathBuf;
 use std::time::Duration;
 
 pub struct WindowSettings {
@@ -36,15 +37,18 @@ pub struct HobbySettings {
     pub window_settings: WindowSettings,
     pub app_info: AppInfo,
     pub display_update_duration: Duration,
+    pub resource_path: PathBuf,
 }
 
 impl Default for HobbySettings {
     fn default() -> HobbySettings {
         let display_update_duration = Duration::from_millis(2000);
+        let resource_path = PathBuf::new();
         HobbySettings {
             window_settings: WindowSettings::default(),
             app_info: AppInfo::default(),
             display_update_duration,
+            resource_path,
         }
     }
 }

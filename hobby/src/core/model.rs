@@ -2,7 +2,7 @@ use crate::core::{MaterialType, Mesh, Transform};
 use crate::renderer::materials::{BasicPipeline, ModelPipeline};
 use crate::renderer::Renderer;
 use crate::Result;
-use std::time::Duration;
+// use std::time::Duration;
 use vulkano::command_buffer::{AutoCommandBufferBuilder, DynamicState};
 
 // TODO: Create Pipeline and uniform buffer information
@@ -44,12 +44,14 @@ impl Model {
     pub fn draw(
         &mut self,
         command_buffer: AutoCommandBufferBuilder,
+        view: [[f32; 4]; 4],
+        proj: [[f32; 4]; 4],
     ) -> Result<AutoCommandBufferBuilder> {
-        let set = self
-            .pipeline
-            .as_mut()
-            .unwrap()
-            .get_descriptor_set(&mut self.transform)?;
+        let set =
+            self.pipeline
+                .as_mut()
+                .unwrap()
+                .get_descriptor_set(&mut self.transform, view, proj)?;
 
         let new_cb = command_buffer
             .draw_indexed(
