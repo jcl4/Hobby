@@ -44,12 +44,14 @@ impl Model {
     pub fn draw(
         &mut self,
         command_buffer: AutoCommandBufferBuilder,
+        view: [[f32; 4]; 4],
+        proj: [[f32; 4]; 4],
     ) -> Result<AutoCommandBufferBuilder> {
-        let set = self
-            .pipeline
-            .as_mut()
-            .unwrap()
-            .get_descriptor_set(&mut self.transform)?;
+        let set =
+            self.pipeline
+                .as_mut()
+                .unwrap()
+                .get_descriptor_set(&mut self.transform, view, proj)?;
 
         let new_cb = command_buffer
             .draw_indexed(

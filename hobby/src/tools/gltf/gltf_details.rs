@@ -4,8 +4,9 @@ use super::ImportData;
 use std::path::{Path, PathBuf};
 use std::fs::{OpenOptions, File};
 use std::io::Write;
+use log::warn;
 
-pub fn output_details(import_data: ImportData, full_path: &PathBuf) -> Result<()> {
+pub fn output_details(import_data: &ImportData, full_path: &PathBuf) -> Result<()> {
         let folder = full_path.parent().unwrap();
         let file = full_path.file_name().unwrap();
      let (mut csv_file, json_file) = create_details_file(&folder, &Path::new(file))?;
@@ -26,7 +27,7 @@ pub fn output_details(import_data: ImportData, full_path: &PathBuf) -> Result<()
           let string = get_material_details(&material);
           write!(csv_file, "{}", string)?;
       }
-      import_data.doc.into_json().to_writer_pretty(json_file)?;
+      import_data.doc.clone().into_json().to_writer_pretty(json_file)?;
       Ok(())
  }
 
@@ -73,8 +74,6 @@ fn get_scene_details(scene: &gltf::Scene, buffers: &Vec<gltf::buffer::Data>) -> 
         output.push_str(&temp);
     }
 
-
-
     output
 }
 
@@ -84,12 +83,11 @@ fn process_node(
     is_child: bool,
     buffers: &Vec<gltf::buffer::Data>,
 ) -> String {
-    let mut prefix = String::new();
     let mut output;
 
     depth += 1;
 
-    prefix = get_prefix(depth);
+    let prefix = get_prefix(depth);
 
     if is_child {
         output = format!("{} Child Node, ", prefix,);
@@ -180,9 +178,8 @@ fn get_primitive_data(
     depth: u32,
     buffers: &Vec<gltf::buffer::Data>,
 ) -> String {
-    let mut output = String::new();
     let prefix = get_prefix(depth);
-    output = format!("{} Primitive Data,", prefix);
+    let mut output = format!("{} Primitive Data,", prefix);
 
     let temp = format!(
         " Material index, {}, Material Name, {},",
@@ -218,7 +215,7 @@ fn get_primitive_data(
     output.push_str(&temp);
 
     if reader.read_colors(1).is_some() {
-        println!(
+        warn!(
             "More then one color set is not supported, primitive index: {}",
             primitive.index()
         );
@@ -236,7 +233,7 @@ fn get_primitive_data(
     };
     output.push_str(&temp);
     if reader.read_joints(1).is_some() {
-        println!(
+        warn!(
             "More then one joint set is not supported, primitive index: {}",
             primitive.index()
         );
@@ -248,7 +245,7 @@ fn get_primitive_data(
     };
     output.push_str(&temp);
     if reader.read_tex_coords(1).is_some() {
-        println!(
+        warn!(
             "More then one Texture Coordinate set in not supported, primitive index: {}",
             primitive.index()
         );
@@ -260,7 +257,7 @@ fn get_primitive_data(
     };
     output.push_str(&temp);
     if reader.read_weights(1).is_some() {
-        println!(
+        warn!(
             "More then one weight set is not supported, primitive index: {}",
             primitive.index()
         )
@@ -298,7 +295,7 @@ fn get_material_details(material: &gltf::Material) -> String {
 
     let pbr = material.pbr_metallic_roughness();
     output.push_str(&format!(
-        " Base Color Factor, {}, {}, {}, {}, Metalic Factor, {}, Roughness Factor, {}\n, Texture Data", 
+        " Base Color Factor, {}, {}, {}, {}, Metalic Factor, {}, Roughness Factor, {}\n, Texture Data,", 
         pbr.base_color_factor()[0], 
         pbr.base_color_factor()[1], 
         pbr.base_color_factor()[2], 

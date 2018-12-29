@@ -13,5 +13,7 @@ pub trait ModelPipeline {
     fn get_descriptor_set(
         &mut self,
         transform: &mut Transform,
+        view: [[f32; 4]; 4],
+        proj: [[f32; 4]; 4],
     ) -> Result<Arc<DescriptorSet + Send + Sync>>;
 }

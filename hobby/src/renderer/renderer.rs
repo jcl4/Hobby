@@ -1,6 +1,8 @@
 use std::sync::Arc;
 use winit::{EventsLoop, Window};
 
+use crate::glm;
+use crate::na;
 use vulkano::command_buffer::AutoCommandBufferBuilder;
 use vulkano::descriptor::descriptor_set::StdDescriptorPool;
 use vulkano::device::{Device, Queue};
@@ -40,6 +42,8 @@ pub struct Renderer {
     pub uniform_pool: StdDescriptorPool,
 
     recreate_swapchain: bool,
+
+    projection: na::Perspective3<f32>,
 }
 
 impl Renderer {
@@ -69,6 +73,10 @@ impl Renderer {
         let previous_frame_end = Some(create_sync_objects(&device));
         let uniform_pool = StdDescriptorPool::new(device.clone());
 
+        let aspect_ratio = swapchain.dimensions()[0] as f32 / swapchain.dimensions()[1] as f32;
+        let fovy = glm::quarter_pi();
+        let projection = na::Perspective3::new(aspect_ratio, fovy, 0.1, 10.0);
+
         Ok(Renderer {
             instance,
             _debug_callback: debug_callback,
@@ -84,10 +92,11 @@ impl Renderer {
             previous_frame_end,
             uniform_pool,
             recreate_swapchain: false,
+            projection,
         })
     }
 
-    pub fn draw_frame(&mut self, models: &mut Vec<Model>) -> Result<()> {
+    pub fn draw_frame(&mut self, models: &mut Vec<Model>, view: &na::Isometry3<f32>) -> Result<()> {
         self.previous_frame_end.as_mut().unwrap().cleanup_finished();
 
         if self.recreate_swapchain {
@@ -113,7 +122,11 @@ impl Renderer {
         cb = cb.begin_render_pass(self.framebuffer[image_index].clone(), false, clear_values)?;
 
         for model in models {
-            cb = model.draw(cb)?;
+            cb = model.draw(
+                cb,
+                view.to_homogeneous().into(),
+                self.projection.to_homogeneous().into(),
+            )?;
         }
         cb = cb.end_render_pass()?;
         let command_buffer = cb.build()?;

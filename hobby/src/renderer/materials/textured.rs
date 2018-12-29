@@ -1,5 +1,4 @@
-use crate::core::{Mesh, Model, Transform, Vertex};
-use crate::renderer::materials::ModelPipeline;
+use crate::core::{Mesh, Texture, Vertex};
 use crate::renderer::Renderer;
 use crate::Result;
 use failure::bail;
@@ -7,38 +6,41 @@ use log::info;
 use std::sync::Arc;
 use vulkano::buffer::immutable::ImmutableBuffer;
 use vulkano::buffer::{BufferAccess, BufferUsage, CpuBufferPool, TypedBufferAccess};
-use vulkano::descriptor::descriptor_set::FixedSizeDescriptorSetsPool;
+use vulkano::descriptor::descriptor_set::{FixedSizeDescriptorSetsPool, PersistentDescriptorSet};
 use vulkano::descriptor::DescriptorSet;
 use vulkano::device::{Device, Queue};
 use vulkano::framebuffer::{RenderPassAbstract, Subpass};
+use vulkano::image::{ImageViewAccess, ImmutableImage};
 use vulkano::impl_vertex;
 use vulkano::pipeline::viewport::Viewport;
 use vulkano::pipeline::{GraphicsPipeline, GraphicsPipelineAbstract};
+use vulkano::sampler::Sampler;
 use vulkano::sync::GpuFuture;
 
 mod vs {
     vulkano_shaders::shader! {
         ty: "vertex",
-        path: "src/renderer/materials/shaders/basic.vert"
+        path: "src/renderer/materials/shaders/textured.vert"
     }
 }
 
 mod fs {
     vulkano_shaders::shader! {
         ty: "fragment",
-        path: "src/renderer/materials/shaders/basic.frag"
+        path: "src/renderer/materials/shaders/textured.frag"
     }
 }
 
-pub struct BasicPipeline {
+pub struct TexturedPipeline {
     pipeline: Arc<GraphicsPipelineAbstract + Send + Sync>,
     sets_pool: FixedSizeDescriptorSetsPool<Arc<GraphicsPipelineAbstract + Send + Sync>>,
     mvp_buffer_pool: CpuBufferPool<vs::ty::MVP>,
+    texture_set: Arc<DescriptorSet + Send + Sync>,
 }
 
-impl BasicPipeline {
-    pub fn new(renderer: &Renderer) -> Result<BasicPipeline> {
-        let pipeline = build_pipline(
+impl TexturedPipeline {
+    pub fn new(renderer: &Renderer, texture: &Texture) -> Result<TexturedPipeline> {
+        let pipeline = build_pipeline(
             &renderer.device,
             renderer.swapchain.dimensions(),
             &renderer.render_pass,
@@ -47,60 +49,35 @@ impl BasicPipeline {
         let sets_pool = FixedSizeDescriptorSetsPool::new(pipeline.clone(), 0);
         let mvp_buffer_pool = CpuBufferPool::uniform_buffer(renderer.device.clone());
 
-        Ok(BasicPipeline {
+        let (texture, sampler) = texture.get_texture_and_sampler();
+
+        let texture_set = Arc::new(
+            PersistentDescriptorSet::start(pipeline.clone(), 1)
+                .add_sampled_image(texture, sampler)?
+                .build()?,
+        );
+
+        Ok(TexturedPipeline {
             pipeline,
             sets_pool,
             mvp_buffer_pool,
+            texture_set,
         })
     }
 }
 
-impl ModelPipeline for BasicPipeline {
-    fn build_model(&mut self, model: &mut Model, renderer: &Renderer) -> Result<()> {
-        check_mesh(&model.mesh)?;
-        let (vertex_buffer, index_buffer) = build_buffers(&model.mesh, &renderer.graphics_queue)?;
-        model.mesh.set_index_buffer(index_buffer);
-        model.mesh.set_vertex_buffer(vertex_buffer);
-
-        Ok(())
-    }
-
-    fn graphics_pipeline(&self) -> Arc<GraphicsPipelineAbstract + Send + Sync> {
-        self.pipeline.clone()
-    }
-
-    fn get_descriptor_set(
-        &mut self,
-        transform: &mut Transform,
-        view: [[f32; 4]; 4],
-        proj: [[f32; 4]; 4],
-    ) -> Result<Arc<DescriptorSet + Send + Sync>> {
-        let trans_data = vs::ty::MVP {
-            model: transform.array(),
-            view,
-            proj,
-        };
-
-        let mvp_buffer = self.mvp_buffer_pool.next(trans_data)?;
-
-        let set = self.sets_pool.next().add_buffer(mvp_buffer)?.build()?;
-
-        Ok(Arc::new(set))
-    }
-}
-
 #[derive(Debug, Clone)]
-struct BasicVertex {
+struct TexturedVertex {
     position: [f32; 3],
-    color: [f32; 4],
+    tex_coord: [f32; 2],
 }
-impl_vertex!(BasicVertex, position, color);
+impl_vertex!(TexturedVertex, position, tex_coord);
 
-impl BasicVertex {
-    fn from_vertex(vertex: &Vertex) -> BasicVertex {
-        BasicVertex {
+impl TexturedVertex {
+    fn from_vertex(vertex: &Vertex) -> TexturedVertex {
+        TexturedVertex {
             position: vertex.position.clone(),
-            color: vertex.color.clone().unwrap(),
+            tex_coord: vertex.tex_coord.clone().unwrap(),
         }
     }
 }
@@ -108,8 +85,8 @@ impl BasicVertex {
 fn check_mesh(mesh: &Mesh) -> Result<()> {
     let vertex = &mesh.vertices[0];
 
-    if vertex.color.is_none() {
-        bail!("Basic Materials need Colors defined in the vertex data");
+    if vertex.tex_coord.is_none() {
+        bail!("Textured Materials need texture coordinates defined in the vertex data");
     }
 
     Ok(())
@@ -122,10 +99,10 @@ fn build_buffers(
     Arc<BufferAccess + Send + Sync>,
     Arc<TypedBufferAccess<Content = [u32]> + Send + Sync>,
 )> {
-    let vertices: Vec<BasicVertex> = mesh
+    let vertices: Vec<TexturedVertex> = mesh
         .vertices
         .iter()
-        .map(|vertex| BasicVertex::from_vertex(vertex))
+        .map(|vertex| TexturedVertex::from_vertex(vertex))
         .collect();
 
     let (vertex_buffer, vertex_future) = ImmutableBuffer::from_iter(
@@ -145,7 +122,7 @@ fn build_buffers(
     Ok((vertex_buffer, index_buffer))
 }
 
-fn build_pipline(
+fn build_pipeline(
     device: &Arc<Device>,
     swapchain_extent: [u32; 2],
     render_pass: &Arc<RenderPassAbstract + Send + Sync>,
@@ -160,28 +137,19 @@ fn build_pipline(
         depth_range: 0.0..1.0,
     };
 
-    let grapics_pipeline = Arc::new(
+    let pipeline = Arc::new(
         GraphicsPipeline::start()
-            .vertex_input_single_buffer::<BasicVertex>()
+            .vertex_input_single_buffer::<TexturedVertex>()
             .vertex_shader(vert_shader_module.main_entry_point(), ())
             .triangle_list()
             .primitive_restart(false)
-            .viewports(vec![viewport]) // NOTE: also sets scissor to cover whole viewport
+            .viewports(vec![viewport])
             .fragment_shader(frag_shader_module.main_entry_point(), ())
             .depth_clamp(false)
-            // NOTE: there's an outcommented .rasterizer_discard() in Vulkano...
-            .polygon_mode_fill() // = default
-            .line_width(1.0) // = default
-            .cull_mode_back()
-            .front_face_clockwise()
-            // NOTE: no depth_bias here, but on pipeline::raster::Rasterization
-            .blend_pass_through() // = default
             .render_pass(Subpass::from(render_pass.clone(), 0).unwrap())
             .build(device.clone())
             .unwrap(),
     );
 
-    info!("Graphics Pipeline Created!");
-
-    Ok(grapics_pipeline)
+    Ok(pipeline)
 }
