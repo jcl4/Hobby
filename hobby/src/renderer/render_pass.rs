@@ -1,64 +1,49 @@
-use log::info;
-use std::sync::Arc;
-use vulkano::device::Device;
-use vulkano::format::Format;
-use vulkano::framebuffer::{RenderPassAbstract, RenderPassDesc};
-use vulkano::single_pass_renderpass;
+use crate::Result;
+use ash::{version::DeviceV1_0, vk};
 
-pub fn create_render_pass(
-    device: &Arc<Device>,
-    color_format: Format,
-) -> Arc<RenderPassAbstract + Send + Sync> {
-    let render_pass = Arc::new(
-        single_pass_renderpass!(device.clone(),
-            attachments: {
-                color: {
-                    load: Clear,
-                    store: Store,
-                    format: color_format,
-                    samples: 1,
-                }
-            },
-            pass: {
-                color: [color],
-                depth_stencil: {}
-            }
+pub fn create_render_pass(format: vk::Format, device: ash::Device) -> Result<vk::RenderPass> {
+    let color_attachment = vk::AttachmentDescription::builder()
+        .final_layout(vk::ImageLayout::PRESENT_SRC_KHR)
+        .initial_layout(vk::ImageLayout::UNDEFINED)
+        .stencil_store_op(vk::AttachmentStoreOp::DONT_CARE)
+        .stencil_load_op(vk::AttachmentLoadOp::DONT_CARE)
+        .store_op(vk::AttachmentStoreOp::STORE)
+        .load_op(vk::AttachmentLoadOp::CLEAR)
+        .samples(vk::SampleCountFlags::TYPE_1)
+        .format(format)
+        .build();
+
+    let color_attachment_ref = vk::AttachmentReference::builder()
+        .layout(vk::ImageLayout::COLOR_ATTACHMENT_OPTIMAL)
+        .attachment(0)
+        .build();
+
+    let subpass = vk::SubpassDescription::builder()
+        .color_attachments(&[color_attachment_ref])
+        .pipeline_bind_point(vk::PipelineBindPoint::GRAPHICS)
+        .build();
+
+    let dependency = vk::SubpassDependency::builder()
+        .dst_access_mask(
+            vk::AccessFlags::COLOR_ATTACHMENT_READ | vk::AccessFlags::COLOR_ATTACHMENT_WRITE,
         )
-        .unwrap(),
-    );
+        .dst_stage_mask(vk::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT)
+        .src_access_mask(vk::AccessFlags::empty())
+        .src_stage_mask(vk::PipelineStageFlags::COLOR_ATTACHMENT_OUTPUT)
+        .dst_subpass(0)
+        .src_subpass(vk::SUBPASS_EXTERNAL)
+        .build();
 
-    let render_pass_desc = render_pass.desc();
+    let attachments = [color_attachment];
+    let subpasses = [subpass];
+    let dependencies = [dependency];
 
-    info!("Render Pass Created");
-    info!(
-        "\tNumber of attachements: {}",
-        render_pass_desc.num_attachments()
-    );
+    let render_pass_create_info = vk::RenderPassCreateInfo::builder()
+        .dependencies(&dependencies)
+        .attachments(&attachments)
+        .subpasses(&subpasses);
 
-    for (index, attachment_desc) in render_pass_desc.attachment_descs().enumerate() {
-        info!(
-            "\tAttachement {} Description: {:#?}",
-            index, attachment_desc
-        );
-    }
+    let render_pass = unsafe { device.create_render_pass(&render_pass_create_info, None)? };
 
-    info!(
-        "\tNumber of subpasses: {}",
-        render_pass_desc.num_attachments()
-    );
-
-    for (index, subpass) in render_pass_desc.subpass_descs().enumerate() {
-        info!("\tSubpass {} Description: {:#?}", index, subpass);
-    }
-
-    info!(
-        "\tNumber of dependencies {}",
-        render_pass_desc.num_dependencies()
-    );
-
-    for (index, dependency) in render_pass_desc.dependency_descs().enumerate() {
-        info!("Dependance {} Description: {:#?}", index, dependency);
-    }
-
-    render_pass
+    Ok(render_pass)
 }

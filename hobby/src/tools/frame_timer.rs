@@ -1,10 +1,10 @@
+use crate::tools::DurationHelper;
+use crate::Result;
 use chrono::Local;
+use log::info;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::time::{Duration, Instant};
-
-use crate::tools::DurationHelper;
-use crate::Result;
 
 pub struct FrameTimer {
     num_frames: u32,
@@ -53,10 +53,6 @@ impl FrameTimer {
         let now = Instant::now();
 
         self.frame_time = now.duration_since(self.frame_start).as_ms();
-        // println!(
-        //     "Frame: {}, Frame Time: {:.2} ms",
-        //     self.num_frames, frame_time
-        // );
 
         if self.min_frame_time == 0.0 {
             self.min_frame_time = self.frame_time;
@@ -72,9 +68,9 @@ impl FrameTimer {
         if now.duration_since(self.last_update) >= self.update_duration {
             self.average_frame_time =
                 now.duration_since(self.game_start).as_ms() / self.num_frames as f32;
-            println!("Num Frames: {}", self.num_frames);
-            println!("Average Frame Time: {} ms", self.average_frame_time);
-            println!(
+            info!("Num Frames: {}", self.num_frames);
+            info!("Average Frame Time: {} ms", self.average_frame_time);
+            info!(
                 "Elapsed Time: {} s",
                 now.duration_since(self.game_start).dur_as_f32()
             );

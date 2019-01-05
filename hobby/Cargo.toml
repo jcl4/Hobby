@@ -7,14 +7,12 @@ edition = "2018"
 [dependencies]
 winit = "0.18"
 log = "0.4"
-vulkano = "0.11"
-vulkano-win = "0.11"
-vulkano-shaders = "0.11"
 failure = "0.1"
 chrono = "0.4"
 nalgebra = "0.16"
 nalgebra-glm = "0.2"
 image = "0.20"
+ash = {git = "https://github.com/MaikKlein/ash"}
 
 [dependencies.gltf]
 version = "0.11"
