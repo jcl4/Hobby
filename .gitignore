@@ -17,3 +17,6 @@ Cargo.lock
 # Raw Resource Files
 **/raw/
 **/resources/**
+
+# sublime date
+*.sublime-workspace

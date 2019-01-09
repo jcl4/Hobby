@@ -6,6 +6,6 @@ edition = "2018"
 
 [dependencies]
 hobby = { path = "../../hobby"}
-simplelog = "0.5"
 log = "0.4"
 failure = "0.1"
+simplelog = "0.5"
