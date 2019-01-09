@@ -8,19 +8,21 @@ use ash::{
     version::{DeviceV1_0, InstanceV1_0},
     vk,
 };
-use log::info;
+use failure::bail;
+use log::debug;
 use winit::{EventsLoop, Window};
 
 const FRAMES_IN_FLIGHT: u32 = 2;
 
 pub struct Renderer {
-    recreate_swapchain: bool,
-    window: Window,
+    _window: Window,
+    _entry: ash::Entry,
     instance: ash::Instance,
     surface: vk::SurfaceKHR,
     surface_loader: Surface,
-    // debug_callback: vk::DebugReportCallbackEXT,
-    // debug_loader: DebugReport,
+    debug_callback: vk::DebugReportCallbackEXT,
+    debug_loader: DebugReport,
+    physical_device: vk::PhysicalDevice,
     pub device: ash::Device,
     queue_data: QueueData,
     swapchain_data: SwapchainData,
@@ -34,6 +36,7 @@ pub struct Renderer {
     render_finished_sempahores: Vec<vk::Semaphore>,
     in_flight_fences: Vec<vk::Fence>,
     current_frame: u32,
+    pub is_resized: bool,
 }
 
 impl Renderer {
@@ -44,7 +47,7 @@ impl Renderer {
         let instance = base::create_instance(&hobby_settings.app_info, &entry)?;
         let surface = unsafe { base::create_surface(&entry, &instance, &window)? };
         let surface_loader = Surface::new(&entry, &instance);
-        // let (debug_callback, debug_loader) = base::setup_debug_callback(&entry, &instance)?;
+        let (debug_callback, debug_loader) = base::setup_debug_callback(&entry, &instance)?;
         let physical_device = unsafe { instance.enumerate_physical_devices()?.remove(0) };
         let (device, queue_data) =
             base::create_device_and_queues(&instance, &physical_device, &surface_loader, &surface)?;
@@ -81,13 +84,14 @@ impl Renderer {
             create_sync_objects(&device)?;
 
         Ok(Renderer {
-            recreate_swapchain: false,
-            window,
+            _window: window,
+            _entry: entry,
             instance,
             surface,
             surface_loader,
-            // debug_callback,
-            // debug_loader,
+            debug_callback,
+            debug_loader,
+            physical_device,
             device,
             queue_data,
             swapchain_data,
@@ -101,6 +105,7 @@ impl Renderer {
             render_finished_sempahores,
             in_flight_fences,
             current_frame: 0,
+            is_resized: false,
         })
     }
 
@@ -111,15 +116,25 @@ impl Renderer {
                 true,
                 std::u64::MAX,
             )?;
-            self.device
-                .reset_fences(&[self.in_flight_fences[self.current_frame as usize]])?;
 
-            let (img_index, _) = self.swapchain_data.swapchain_loader.acquire_next_image(
-                self.swapchain_data.swapchain,
-                std::u64::MAX,
-                self.img_available_semaphores[self.current_frame as usize],
-                vk::Fence::null(),
-            )?;
+            let (img_index, _) = {
+                let result = self.swapchain_data.swapchain_loader.acquire_next_image(
+                    self.swapchain_data.swapchain,
+                    std::u64::MAX,
+                    self.img_available_semaphores[self.current_frame as usize],
+                    vk::Fence::null(),
+                );
+                match result {
+                    Ok(img_index) => img_index,
+                    Err(vk_result) => match vk_result {
+                        vk::Result::ERROR_OUT_OF_DATE_KHR => {
+                            self.recreate_swapchain()?;
+                            return Ok(());
+                        }
+                        _ => bail!("Failed to aquire swapchain image!"),
+                    },
+                }
+            };
 
             let wait_semaphores = [self.img_available_semaphores[self.current_frame as usize]];
             let signal_semaphores = [self.render_finished_sempahores[self.current_frame as usize]];
@@ -131,6 +146,9 @@ impl Renderer {
                 .wait_dst_stage_mask(&wait_stages)
                 .wait_semaphores(&wait_semaphores)
                 .build();
+
+            self.device
+                .reset_fences(&[self.in_flight_fences[self.current_frame as usize]])?;
 
             self.device.queue_submit(
                 self.queue_data.graphics_queue,
@@ -146,33 +164,39 @@ impl Renderer {
                 .swapchains(&swapchains)
                 .wait_semaphores(&signal_semaphores);
 
-            self.swapchain_data
+            let result = self
+                .swapchain_data
                 .swapchain_loader
-                .queue_present(self.queue_data.present_queue, &present_info)?;
+                .queue_present(self.queue_data.present_queue, &present_info);
+
+            let resized = match result {
+                Ok(_) => self.is_resized,
+                Err(vk_result) => match vk_result {
+                    vk::Result::ERROR_OUT_OF_DATE_KHR | vk::Result::SUBOPTIMAL_KHR => true,
+                    _ => bail!("Failed to execute queue present!"),
+                },
+            };
+
+            if resized {
+                self.is_resized = false;
+                self.recreate_swapchain()?;
+            }
         }
 
         self.current_frame = (self.current_frame + 1) % FRAMES_IN_FLIGHT;
 
         Ok(())
     }
-}
 
-impl Drop for Renderer {
-    fn drop(&mut self) {
+    fn clean_up_swapchian(&self) {
+        debug!("Cleanup Swapchain Called");
         unsafe {
-            for i in 0..FRAMES_IN_FLIGHT {
-                self.device
-                    .destroy_semaphore(self.render_finished_sempahores[i as usize], None);
-                self.device
-                    .destroy_semaphore(self.img_available_semaphores[i as usize], None);
-                self.device
-                    .destroy_fence(self.in_flight_fences[i as usize], None);
-            }
-            self.device.destroy_command_pool(self.command_pool, None);
-
             for frame_buffer in self.framebuffers.iter() {
                 self.device.destroy_framebuffer(*frame_buffer, None);
             }
+
+            self.device
+                .free_command_buffers(self.command_pool, &self.command_buffers);
 
             self.device.destroy_pipeline(self.pipeline, None);
             self.device
@@ -186,10 +210,79 @@ impl Drop for Renderer {
             self.swapchain_data
                 .swapchain_loader
                 .destroy_swapchain(self.swapchain_data.swapchain, None);
+        }
+    }
 
-            // self.device.destroy_device(None);
-            // self.surface_loader.destroy_surface(self.surface, None);
-            // self.instance.destroy_instance(None);
+    fn recreate_swapchain(&mut self) -> Result<()> {
+        debug!("Recreate Swapchain Called");
+
+        unsafe {
+            self.device.device_wait_idle()?;
+            self.clean_up_swapchian();
+        }
+
+        debug!("Recreating Swapchain");
+        self.swapchain_data = swapchain::create_swapchain_and_image_views(
+            self.surface_loader.clone(),
+            self.physical_device,
+            self.surface,
+            &self.instance,
+            &self.device,
+        )?;
+
+        self.render_pass = render_pass::create_render_pass(
+            self.swapchain_data.surface_format.format,
+            self.device.clone(),
+        )?;
+
+        let pipeline_data = pipeline::create_graphics_pipeline(
+            self.device.clone(),
+            &self.swapchain_data.extent,
+            self.render_pass.clone(),
+        )?;
+
+        self.pipeline = pipeline_data.0;
+        self.pipeline_layout = pipeline_data.1;
+
+        self.framebuffers =
+            base::create_framebuffers(&self.swapchain_data, self.render_pass, &self.device)?;
+
+        self.command_buffers = command_buffer::create_command_buffers(
+            self.command_pool,
+            self.swapchain_data.image_views.len() as u32,
+            self.render_pass,
+            self.pipeline,
+            &self.swapchain_data,
+            &self.framebuffers,
+            &self.device,
+        )?;
+
+        Ok(())
+    }
+}
+
+impl Drop for Renderer {
+    fn drop(&mut self) {
+        unsafe {
+            self.clean_up_swapchian();
+
+            for i in 0..FRAMES_IN_FLIGHT {
+                self.device
+                    .destroy_semaphore(self.render_finished_sempahores[i as usize], None);
+                self.device
+                    .destroy_semaphore(self.img_available_semaphores[i as usize], None);
+                self.device
+                    .destroy_fence(self.in_flight_fences[i as usize], None);
+            }
+            self.device.destroy_command_pool(self.command_pool, None);
+
+            self.device.destroy_device(None);
+            self.surface_loader.destroy_surface(self.surface, None);
+
+            self.debug_loader
+                .destroy_debug_report_callback(self.debug_callback, None);
+
+            self.instance.destroy_instance(None);
         }
     }
 }
@@ -205,7 +298,7 @@ fn create_sync_objects(
     let mut in_flight_fences = vec![];
 
     unsafe {
-        for i in 0..FRAMES_IN_FLIGHT {
+        for _i in 0..FRAMES_IN_FLIGHT {
             img_available_semaphores.push(device.create_semaphore(&semaphore_create_info, None)?);
             render_finished_semaphores.push(device.create_semaphore(&semaphore_create_info, None)?);
             in_flight_fences.push(device.create_fence(&fence_create_info, None)?);

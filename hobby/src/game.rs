@@ -3,7 +3,7 @@ use crate::tools::FrameTimer;
 use crate::{HobbySettings, Result};
 use ash::version::DeviceV1_0;
 
-use log::info;
+use log::{debug, info};
 use winit::{Event, EventsLoop, KeyboardInput, VirtualKeyCode, WindowEvent};
 
 pub struct Game {
@@ -33,12 +33,12 @@ impl Game {
 
         self.frame_timer.start();
 
-        let mut update_debug: bool;
+        let mut _update_debug: bool;
 
         while running {
-            update_debug = self.frame_timer.kick();
-            // self.renderer.draw_frame()?;
-            running = manage_input(&mut self.events_loop);
+            _update_debug = self.frame_timer.kick();
+            self.renderer.draw_frame()?;
+            running = manage_input(&mut self.events_loop, &mut self.renderer);
         }
         self.frame_timer.stop()?;
         unsafe { self.renderer.device.device_wait_idle()? };
@@ -47,7 +47,7 @@ impl Game {
     }
 }
 
-fn manage_input(events_loop: &mut EventsLoop) -> bool {
+fn manage_input(events_loop: &mut EventsLoop, renderer: &mut Renderer) -> bool {
     let mut running = true;
 
     events_loop.poll_events(|event| match event {
@@ -77,6 +77,14 @@ fn manage_input(events_loop: &mut EventsLoop) -> bool {
         } => {
             //TODO: Figure out what to do here...
             info!("DPI Changed: {}", dpi);
+        }
+
+        Event::WindowEvent {
+            event: WindowEvent::Resized(_),
+            ..
+        } => {
+            debug!("Resized");
+            renderer.is_resized = true;
         }
 
         _ => (),

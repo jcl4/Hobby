@@ -110,5 +110,9 @@ pub fn create_graphics_pipeline(
             .unwrap()
     };
 
+    unsafe {
+        device.destroy_shader_module(vert_module, None);
+        device.destroy_shader_module(frag_module, None);
+    }
     Ok((pipeline[0], pipeline_layout))
 }

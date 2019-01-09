@@ -14,8 +14,6 @@ pub struct FrameTimer {
     last_update: Instant,
 
     frame_time: f32,
-    min_frame_time: f32,
-    max_frame_time: f32,
     average_frame_time: f32,
 
     app_name: String,
@@ -30,8 +28,6 @@ impl FrameTimer {
             update_duration,
             last_update: Instant::now(),
             frame_time: 0.0,
-            min_frame_time: 0.0,
-            max_frame_time: 0.0,
             average_frame_time: 0.0,
             app_name: app_name.to_string(),
         }
@@ -53,17 +49,6 @@ impl FrameTimer {
         let now = Instant::now();
 
         self.frame_time = now.duration_since(self.frame_start).as_ms();
-
-        if self.min_frame_time == 0.0 {
-            self.min_frame_time = self.frame_time;
-        } else {
-            self.min_frame_time = self.min_frame_time.min(self.frame_time);
-        }
-
-        if self.num_frames >= 10 {
-            // ignore first few frames for reporting max frame time
-            self.max_frame_time = self.max_frame_time.max(self.frame_time);
-        }
 
         if now.duration_since(self.last_update) >= self.update_duration {
             self.average_frame_time =
@@ -92,15 +77,12 @@ impl FrameTimer {
         let dt = Local::now();
         let dt_str = dt.format("%Y-%m-%d %H:%M:%S").to_string();
 
+        let game_time = Instant::now().duration_since(self.game_start).dur_as_f32();
+
         write!(
             file,
-            "{}, {}, {:.2}, {:.2}, {:.2}, {},\n",
-            dt_str,
-            self.num_frames,
-            self.min_frame_time,
-            self.average_frame_time,
-            self.max_frame_time,
-            self.app_name
+            "{}, {}, {:.2}, {:.2}, {},\n",
+            dt_str, self.num_frames, game_time, self.average_frame_time, self.app_name
         )?;
 
         Ok(())

@@ -14,7 +14,6 @@ use log::{debug, error, info, warn};
 use std::{
     ffi::{CStr, CString},
     os::raw::{c_char, c_void},
-    ptr,
 };
 use winit::{dpi::PhysicalSize, EventsLoop, Window, WindowBuilder};
 
@@ -133,8 +132,8 @@ pub fn setup_debug_callback(
             vk::DebugReportFlagsEXT::ERROR
                 | vk::DebugReportFlagsEXT::WARNING
                 | vk::DebugReportFlagsEXT::PERFORMANCE_WARNING
-                | vk::DebugReportFlagsEXT::DEBUG
-                | vk::DebugReportFlagsEXT::INFORMATION,
+                | vk::DebugReportFlagsEXT::DEBUG,
+            // | vk::DebugReportFlagsEXT::INFORMATION,
         )
         .pfn_callback(Some(vulkan_debug_callback));
 
@@ -317,7 +316,7 @@ fn get_present_queue_family(
     surface_loader: &Surface,
     surface: &vk::SurfaceKHR,
 ) -> Result<u32> {
-    let present_queue_family = qfps.into_iter().enumerate().find_map(|(index, info)| {
+    let present_queue_family = qfps.into_iter().enumerate().find_map(|(index, _)| {
         let supports_surface = unsafe {
             surface_loader.get_physical_device_surface_support(
                 *physical_device,

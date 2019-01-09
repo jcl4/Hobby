@@ -41,7 +41,7 @@ pub fn create_command_buffers(
 
     let clear = vk::ClearValue {
         color: vk::ClearColorValue {
-            float32: [0.0, 0.0, 0.0, 0.0],
+            float32: [0.2, 0.25, 0.2, 0.0],
         },
     };
 
