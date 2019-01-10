@@ -10,7 +10,9 @@ pub fn create_graphics_pipeline(
     render_pass: vk::RenderPass,
 ) -> Result<(vk::Pipeline, vk::PipelineLayout)> {
     let shader_set = ShaderSet::Basic;
-    let (vert_module, frag_module) = shaders::get_shader_modules(shader_set, device.clone())?;
+    let modules = shaders::shader::get_shader_modules(shader_set, device.clone())?;
+    let vert_module = modules[0];
+    let frag_module = modules[1];
     let shader_entry_name = CString::new("main").unwrap();
 
     let shader_stage_create_infos = [
