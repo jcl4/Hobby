@@ -83,7 +83,7 @@ fn manage_input(events_loop: &mut EventsLoop, renderer: &mut Renderer) -> bool {
             event: WindowEvent::Resized(_),
             ..
         } => {
-            debug!("Resized");
+            info!("Resized");
             renderer.is_resized = true;
         }
 

@@ -1,7 +1,7 @@
 use crate::Result;
 use ash::{version::DeviceV1_0, vk};
 use failure::bail;
-use log::debug;
+use log::{debug, info};
 use shaderc;
 use std::fs;
 use std::path::Path;
@@ -14,7 +14,7 @@ pub fn get_shader_modules(
     shader_set: ShaderSet,
     device: ash::Device,
 ) -> Result<Vec<vk::ShaderModule>> {
-    let path = Path::new("hobby/src/renderer/shaders/source");
+    let path = Path::new("hobby/src/renderer/pipelines/shaders");
     let file_names = match shader_set {
         ShaderSet::Basic => ["basic.vert", "basic.frag"],
     };
@@ -33,7 +33,7 @@ pub fn get_shader_modules(
                 _ => bail!("Unknown shader type: {}, file: {}", shader_type, file_name),
             };
 
-            debug!("Compiling: {}, shader type: {:?}", file_name, shader_kind);
+            info!("Compiling: {}, shader type: {:?}", file_name, shader_kind);
 
             let code_str = fs::read_to_string(full_path).unwrap();
             let artifact =

@@ -79,9 +79,9 @@ impl FrameTimer {
 
         let game_time = Instant::now().duration_since(self.game_start).dur_as_f32();
 
-        write!(
+        writeln!(
             file,
-            "{}, {}, {:.2}, {:.2}, {},\n",
+            "{}, {}, {:.2}, {:.2}, {}",
             dt_str, self.num_frames, game_time, self.average_frame_time, self.app_name
         )?;
 

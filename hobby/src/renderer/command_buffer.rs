@@ -1,5 +1,4 @@
-use super::base::QueueData;
-use super::swapchain::SwapchainData;
+use super::{QueueData, Renderer, VkMesh};
 use crate::Result;
 use ash;
 use ash::{version::DeviceV1_0, vk};
@@ -16,27 +15,22 @@ pub fn create_command_pool(
 }
 
 pub fn create_command_buffers(
-    command_pool: vk::CommandPool,
-    num_buffers: u32,
-    render_pass: vk::RenderPass,
-    pipeline: vk::Pipeline,
-    swapchain_data: &SwapchainData,
-    framebuffers: &Vec<vk::Framebuffer>,
-    device: &ash::Device,
+    renderer: &Renderer,
+    vk_mesh: &VkMesh,
 ) -> Result<Vec<vk::CommandBuffer>> {
     let allocate_info = vk::CommandBufferAllocateInfo::builder()
         .level(vk::CommandBufferLevel::PRIMARY)
-        .command_buffer_count(num_buffers)
-        .command_pool(command_pool);
+        .command_buffer_count(renderer.swapchain_data.image_views.len() as u32)
+        .command_pool(renderer.command_pool);
 
-    let command_buffers = unsafe { device.allocate_command_buffers(&allocate_info)? };
+    let command_buffers = unsafe { renderer.device.allocate_command_buffers(&allocate_info)? };
 
     let cb_begin_info =
         vk::CommandBufferBeginInfo::builder().flags(vk::CommandBufferUsageFlags::SIMULTANEOUS_USE);
 
     let rect = vk::Rect2D {
         offset: vk::Offset2D { x: 0, y: 0 },
-        extent: swapchain_data.extent,
+        extent: renderer.swapchain_data.extent,
     };
 
     let clear = vk::ClearValue {
@@ -49,19 +43,25 @@ pub fn create_command_buffers(
 
     unsafe {
         for (i, cb) in command_buffers.iter().enumerate() {
-            device.begin_command_buffer(*cb, &cb_begin_info)?;
+            renderer.device.begin_command_buffer(*cb, &cb_begin_info)?;
 
             let rp_begin_info = vk::RenderPassBeginInfo::builder()
                 .clear_values(&clear_colors)
                 .render_area(rect)
-                .framebuffer(framebuffers[i])
-                .render_pass(render_pass);
+                .framebuffer(renderer.framebuffers[i])
+                .render_pass(renderer.render_pass);
 
-            device.cmd_begin_render_pass(*cb, &rp_begin_info, vk::SubpassContents::INLINE);
-            device.cmd_bind_pipeline(*cb, vk::PipelineBindPoint::GRAPHICS, pipeline);
-            device.cmd_draw(*cb, 3, 1, 0, 0);
-            device.cmd_end_render_pass(*cb);
-            device.end_command_buffer(*cb)?;
+            renderer
+                .device
+                .cmd_begin_render_pass(*cb, &rp_begin_info, vk::SubpassContents::INLINE);
+            renderer.device.cmd_bind_pipeline(
+                *cb,
+                vk::PipelineBindPoint::GRAPHICS,
+                renderer.pipeline,
+            );
+            vk_mesh.add_draw_cmd(*cb);
+            renderer.device.cmd_end_render_pass(*cb);
+            renderer.device.end_command_buffer(*cb)?;
         }
     }
 

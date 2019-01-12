@@ -68,11 +68,11 @@ impl Version {
         }
     }
 
-    pub fn into_vulkan_version(&self) -> u32 {
+    pub fn vulkan_version(&self) -> u32 {
         assert!(self.major <= 0x3ff);
         assert!(self.minor <= 0x3ff);
         assert!(self.patch <= 0xfff);
 
-        (self.major as u32) << 22 | (self.minor as u32) << 12 | (self.patch as u32)
+        u32::from(self.major) << 22 | u32::from(self.minor) << 12 | u32::from(self.patch)
     }
 }

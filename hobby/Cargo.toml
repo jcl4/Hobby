@@ -12,8 +12,9 @@ chrono = "0.4"
 nalgebra = "0.16"
 nalgebra-glm = "0.2"
 image = "0.20"
-ash = {git = "https://github.com/MaikKlein/ash"}
+ash = "0.27"
 shaderc = "0.3"
+memoffset = "0.2"
 
 [dependencies.gltf]
 version = "0.11"

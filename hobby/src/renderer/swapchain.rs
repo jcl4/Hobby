@@ -4,8 +4,9 @@ use ash::{
     version::DeviceV1_0,
     vk,
 };
-use log::debug;
+use log::{debug, info};
 
+#[derive(Clone)]
 pub struct SwapchainData {
     pub swapchain: vk::SwapchainKHR,
     pub swapchain_loader: Swapchain,
@@ -31,7 +32,7 @@ pub fn create_swapchain_and_image_views(
         image_count = caps.max_image_count;
     }
 
-    debug!("Swap Chain Image Count: {}", image_count);
+    info!("Swap Chain Image Count: {}", image_count);
 
     let pre_transform = if caps
         .supported_transforms
@@ -42,11 +43,11 @@ pub fn create_swapchain_and_image_views(
         caps.current_transform
     };
 
-    debug!("Pre Transform: {}", pre_transform);
+    info!("Pre Transform: {}", pre_transform);
 
     let present_mode = get_present_mode(surface_loader, physical_device, surface)?;
 
-    debug!("Present Mode: {}", present_mode);
+    info!("Present Mode: {}", present_mode);
 
     let swapchain_loader = Swapchain::new(instance, device);
 
@@ -65,7 +66,7 @@ pub fn create_swapchain_and_image_views(
         .image_array_layers(1);
 
     let swapchain = unsafe { swapchain_loader.create_swapchain(&swapchain_create_info, None)? };
-    debug!("Swapchain Created");
+    info!("Swapchain Created");
     let image_views = create_image_views(
         swapchain_loader.clone(),
         swapchain,
@@ -115,8 +116,7 @@ fn create_image_views(
                 .subresource_range(subresource_range)
                 .build();
 
-            let image_view = unsafe { device.create_image_view(&create_info, None).unwrap() };
-            image_view
+            unsafe { device.create_image_view(&create_info, None).unwrap() }
         })
         .collect();
     Ok(image_views)
@@ -154,7 +154,7 @@ fn get_surface_format(
 
     let surface_format = surface_formats.remove(0);
 
-    debug!(
+    info!(
         "Swap Chain Format: {}, Color Space: {}",
         surface_format.format, surface_format.color_space
     );
