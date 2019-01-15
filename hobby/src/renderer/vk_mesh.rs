@@ -1,12 +1,24 @@
 use crate::renderer::{buffers, Renderer};
 use crate::Result;
 use ash::{util::Align, version::DeviceV1_0, vk, Device};
-use log::info;
-use memoffset::offset_of;
+// use log::{debug, info};
 use std::mem;
 
+// #[macro_export]
+// macro_rules! offset_of {
+//     ($ty:ty, $field:ident) => {
+//         unsafe { &(*(0 as *const $ty)).$field as *const _ as usize } as u32
+//     }
+// }
+
+macro_rules! offset_of {
+    ($ty:ty, $field:ident) => {
+        unsafe { &(*(0 as *const $ty)).$field as *const _ as usize } as u32
+    }
+}
+
 #[repr(C, packed)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub struct Vertex {
     position: [f32; 3],
     color: [f32; 3],
@@ -20,6 +32,7 @@ impl Vertex {
             .binding(0)
             .input_rate(input_rate)
             .build();
+
         [binding]
     }
 
@@ -42,8 +55,10 @@ impl Vertex {
     }
 }
 
+#[derive(Debug)]
 struct Triangle {
     vertices: Vec<Vertex>,
+    indices: Vec<u32>,
 }
 
 impl Triangle {
@@ -62,7 +77,9 @@ impl Triangle {
                 color: [0.0, 0.0, 1.0],
             },
         ];
-        Triangle { vertices }
+
+        let indices = vec![0, 1, 2];
+        Triangle { vertices, indices }
     }
 }
 
@@ -70,7 +87,10 @@ pub struct VkMesh {
     device: Device,
     vertex_buffer: vk::Buffer,
     vertex_buffer_memory: vk::DeviceMemory,
-    vertices: Vec<Vertex>,
+    index_buffer: vk::Buffer,
+    index_buffer_memory: vk::DeviceMemory,
+    _vertices: Vec<Vertex>,
+    indices: Vec<u32>,
 }
 
 impl VkMesh {
@@ -81,44 +101,18 @@ impl VkMesh {
         // Todo: Temporary implimentation
         let triangle = Triangle::new();
         let vertices = triangle.vertices;
-        let size = mem::size_of_val(&vertices) as u64;
+        let indices = triangle.indices;
 
-        let (staging_buffer, staging_buffer_memory) = buffers::create_buffer(
-            renderer,
-            size,
-            vk::BufferUsageFlags::TRANSFER_SRC,
-            vk::MemoryPropertyFlags::HOST_VISIBLE | vk::MemoryPropertyFlags::HOST_COHERENT,
-        )?;
-
-        let (vertex_buffer, vertex_buffer_memory) = unsafe {
-            let data_ptr =
-                device.map_memory(staging_buffer_memory, 0, size, vk::MemoryMapFlags::empty())?;
-
-            let mut vert_align = Align::new(data_ptr, mem::align_of::<Vertex>() as u64, size);
-            vert_align.copy_from_slice(&vertices);
-
-            device.unmap_memory(staging_buffer_memory);
-
-            let (vertex_buffer, vertex_buffer_memory) = buffers::create_buffer(
-                renderer,
-                size,
-                vk::BufferUsageFlags::VERTEX_BUFFER | vk::BufferUsageFlags::TRANSFER_DST,
-                vk::MemoryPropertyFlags::DEVICE_LOCAL,
-            )?;
-
-            buffers::copy_buffer(renderer, staging_buffer, vertex_buffer, size)?;
-
-            device.destroy_buffer(staging_buffer, None);
-            device.free_memory(staging_buffer_memory, None);
-
-            (vertex_buffer, vertex_buffer_memory)
-        };
-
+        let (vertex_buffer, vertex_buffer_memory) = create_vertex_buffer(renderer, &vertices)?;
+        let (index_buffer, index_buffer_memory) = create_index_buffer(renderer, &indices)?;
         Ok(VkMesh {
             device,
             vertex_buffer,
             vertex_buffer_memory,
-            vertices,
+            index_buffer,
+            index_buffer_memory,
+            _vertices: vertices,
+            indices,
         })
     }
 
@@ -129,7 +123,9 @@ impl VkMesh {
             self.device
                 .cmd_bind_vertex_buffers(cb, 0, &vert_buffers, &offsets);
             self.device
-                .cmd_draw(cb, self.vertices.len() as u32, 1, 0, 0);
+                .cmd_bind_index_buffer(cb, self.index_buffer, 0, vk::IndexType::UINT32);
+            self.device
+                .cmd_draw_indexed(cb, self.indices.len() as u32, 1, 0, 0, 0);
         }
     }
 
@@ -137,6 +133,97 @@ impl VkMesh {
         unsafe {
             self.device.destroy_buffer(self.vertex_buffer, None);
             self.device.free_memory(self.vertex_buffer_memory, None);
+            self.device.destroy_buffer(self.index_buffer, None);
+            self.device.free_memory(self.index_buffer_memory, None);
         }
     }
+}
+
+fn create_vertex_buffer(
+    renderer: &Renderer,
+    vertices: &[Vertex],
+) -> Result<(vk::Buffer, vk::DeviceMemory)> {
+    let stride = mem::size_of::<Vertex>();
+    let size = (stride * vertices.len()) as u64;
+
+    let (staging_buffer, staging_buffer_memory) = buffers::create_buffer(
+        renderer,
+        size,
+        vk::BufferUsageFlags::TRANSFER_SRC,
+        vk::MemoryPropertyFlags::HOST_VISIBLE | vk::MemoryPropertyFlags::HOST_COHERENT,
+    )?;
+
+    let vertex_buffer_data = unsafe {
+        let data_ptr = renderer.device.map_memory(
+            staging_buffer_memory,
+            0,
+            size,
+            vk::MemoryMapFlags::empty(),
+        )?;
+
+        let mut vert_align = Align::new(data_ptr, mem::align_of::<Vertex>() as u64, size);
+        vert_align.copy_from_slice(&vertices);
+
+        renderer.device.unmap_memory(staging_buffer_memory);
+
+        let (vertex_buffer, vertex_buffer_memory) = buffers::create_buffer(
+            renderer,
+            size,
+            vk::BufferUsageFlags::VERTEX_BUFFER | vk::BufferUsageFlags::TRANSFER_DST,
+            vk::MemoryPropertyFlags::DEVICE_LOCAL,
+        )?;
+
+        buffers::copy_buffer(renderer, staging_buffer, vertex_buffer, size)?;
+
+        renderer.device.destroy_buffer(staging_buffer, None);
+        renderer.device.free_memory(staging_buffer_memory, None);
+
+        (vertex_buffer, vertex_buffer_memory)
+    };
+
+    Ok(vertex_buffer_data)
+}
+
+fn create_index_buffer(
+    renderer: &Renderer,
+    indices: &[u32],
+) -> Result<(vk::Buffer, vk::DeviceMemory)> {
+    let size = (mem::size_of::<u32>() * indices.len()) as u64;
+
+    let (staging_buffer, staging_buffer_memory) = buffers::create_buffer(
+        renderer,
+        size,
+        vk::BufferUsageFlags::TRANSFER_SRC,
+        vk::MemoryPropertyFlags::HOST_VISIBLE | vk::MemoryPropertyFlags::HOST_COHERENT,
+    )?;
+
+    let index_buffer_data = unsafe {
+        let data_ptr = renderer.device.map_memory(
+            staging_buffer_memory,
+            0,
+            size,
+            vk::MemoryMapFlags::empty(),
+        )?;
+
+        let mut index_align = Align::new(data_ptr, mem::align_of::<u32>() as u64, size);
+        index_align.copy_from_slice(&indices);
+
+        renderer.device.unmap_memory(staging_buffer_memory);
+
+        let (index_buffer, index_buffer_memory) = buffers::create_buffer(
+            renderer,
+            size,
+            vk::BufferUsageFlags::INDEX_BUFFER | vk::BufferUsageFlags::TRANSFER_DST,
+            vk::MemoryPropertyFlags::DEVICE_LOCAL,
+        )?;
+
+        buffers::copy_buffer(renderer, staging_buffer, index_buffer, size)?;
+
+        renderer.device.destroy_buffer(staging_buffer, None);
+        renderer.device.free_memory(staging_buffer_memory, None);
+
+        (index_buffer, index_buffer_memory)
+    };
+
+    Ok(index_buffer_data)
 }

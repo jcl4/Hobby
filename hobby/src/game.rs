@@ -13,7 +13,8 @@ pub struct Game {
 }
 
 impl Game {
-    pub fn new(hobby_settings: HobbySettings) -> Result<Game> {
+    #[allow(clippy::new_ret_no_self)]
+    pub fn new(hobby_settings: &HobbySettings) -> Result<Game> {
         let events_loop = EventsLoop::new();
         let renderer = Renderer::new(&hobby_settings, &events_loop)?;
         let frame_timer = FrameTimer::new(

@@ -70,7 +70,7 @@ pub fn copy_buffer(
         renderer
             .device
             .cmd_copy_buffer(cb, src_buffer, dst_buffer, &copy_regions);
-        renderer.device.end_command_buffer(cb);
+        renderer.device.end_command_buffer(cb)?;
 
         let submit_info = vk::SubmitInfo::builder().command_buffers(&[cb]).build();
 
@@ -78,11 +78,11 @@ pub fn copy_buffer(
             renderer.queue_data.graphics_queue,
             &[submit_info],
             vk::Fence::null(),
-        );
+        )?;
 
         renderer
             .device
-            .queue_wait_idle(renderer.queue_data.graphics_queue);
+            .queue_wait_idle(renderer.queue_data.graphics_queue)?;
 
         renderer
             .device

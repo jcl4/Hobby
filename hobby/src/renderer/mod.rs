@@ -50,6 +50,7 @@ pub struct Renderer {
 }
 
 impl Renderer {
+    #[allow(clippy::new_ret_no_self)]
     pub fn new(hobby_settings: &HobbySettings, events_loop: &EventsLoop) -> Result<Renderer> {
         let entry = ash::Entry::new().unwrap();
 
@@ -62,7 +63,7 @@ impl Renderer {
         let (device, queue_data) =
             base::create_device_and_queues(&instance, physical_device, &surface_loader, surface)?;
         let swapchain_data = swapchain::create_swapchain_and_image_views(
-            surface_loader.clone(),
+            &surface_loader,
             physical_device,
             surface,
             &instance,
@@ -70,10 +71,10 @@ impl Renderer {
         )?;
 
         let render_pass =
-            render_pass::create_render_pass(swapchain_data.surface_format.format, device.clone())?;
+            render_pass::create_render_pass(swapchain_data.surface_format.format, &device)?;
 
         let (pipeline, pipeline_layout) = pipelines::pipeline::create_graphics_pipeline(
-            device.clone(),
+            &device,
             swapchain_data.extent,
             render_pass,
         )?;
@@ -233,7 +234,7 @@ impl Renderer {
 
         info!("Recreating Swapchain");
         self.swapchain_data = swapchain::create_swapchain_and_image_views(
-            self.surface_loader.clone(),
+            &self.surface_loader,
             self.physical_device,
             self.surface,
             &self.instance,
@@ -242,11 +243,11 @@ impl Renderer {
 
         self.render_pass = render_pass::create_render_pass(
             self.swapchain_data.surface_format.format,
-            self.device.clone(),
+            &self.device,
         )?;
 
         let pipeline_data = pipelines::pipeline::create_graphics_pipeline(
-            self.device.clone(),
+            &self.device,
             self.swapchain_data.extent,
             self.render_pass,
         )?;

@@ -6,36 +6,41 @@ use shaderc;
 use std::fs;
 use std::path::Path;
 
+#[derive(Copy, Clone)]
 pub enum ShaderSet {
     Basic,
 }
 
 pub fn get_shader_modules(
     shader_set: ShaderSet,
-    device: ash::Device,
+    device: &ash::Device,
 ) -> Result<Vec<vk::ShaderModule>> {
-    let path = Path::new("hobby/src/renderer/pipelines/shaders");
+
+    //todo: need to not hardcode path to shaders...
+    let root = Path::new("./hobby/res/shaders");
+
     let file_names = match shader_set {
         ShaderSet::Basic => ["basic.vert", "basic.frag"],
     };
 
-    //todo: do something with the option
+    //todo: do something with the option returned from new
     let mut compiler = shaderc::Compiler::new().unwrap();
 
     let results: Vec<Result<vk::ShaderModule>> = file_names
         .iter()
         .map(|file_name| {
-            let full_path = path.join(file_name);
-            let shader_type = full_path.extension().unwrap().to_str().unwrap();
+            let path = root.join(file_name);
+            let shader_type = path.extension().unwrap().to_str().unwrap();
             let shader_kind = match shader_type {
                 "vert" => shaderc::ShaderKind::Vertex,
                 "frag" => shaderc::ShaderKind::Fragment,
                 _ => bail!("Unknown shader type: {}, file: {}", shader_type, file_name),
             };
+            debug!("Full path to Shader: {:?}", path);
 
             info!("Compiling: {}, shader type: {:?}", file_name, shader_kind);
 
-            let code_str = fs::read_to_string(full_path).unwrap();
+            let code_str = fs::read_to_string(path).unwrap();
             let artifact =
                 compiler.compile_into_spirv(&code_str, shader_kind, file_name, "main", None)?;
 

@@ -16,13 +16,13 @@ pub struct SwapchainData {
 }
 
 pub fn create_swapchain_and_image_views(
-    surface_loader: Surface,
+    surface_loader: &Surface,
     physical_device: vk::PhysicalDevice,
     surface: vk::SurfaceKHR,
     instance: &ash::Instance,
     device: &ash::Device,
 ) -> Result<(SwapchainData)> {
-    let surface_format = get_surface_format(surface_loader.clone(), physical_device, surface)?;
+    let surface_format = get_surface_format(&surface_loader, physical_device, surface)?;
     let caps = unsafe {
         surface_loader.get_physical_device_surface_capabilities(physical_device, surface)?
     };
@@ -45,7 +45,7 @@ pub fn create_swapchain_and_image_views(
 
     info!("Pre Transform: {}", pre_transform);
 
-    let present_mode = get_present_mode(surface_loader, physical_device, surface)?;
+    let present_mode = get_present_mode(&surface_loader, physical_device, surface)?;
 
     info!("Present Mode: {}", present_mode);
 
@@ -68,7 +68,7 @@ pub fn create_swapchain_and_image_views(
     let swapchain = unsafe { swapchain_loader.create_swapchain(&swapchain_create_info, None)? };
     info!("Swapchain Created");
     let image_views = create_image_views(
-        swapchain_loader.clone(),
+        &swapchain_loader,
         swapchain,
         surface_format.format,
         device,
@@ -84,7 +84,7 @@ pub fn create_swapchain_and_image_views(
 }
 
 fn create_image_views(
-    swapchain_loader: Swapchain,
+    swapchain_loader: &Swapchain,
     swapchain: vk::SwapchainKHR,
     format: vk::Format,
     device: &ash::Device,
@@ -123,7 +123,7 @@ fn create_image_views(
 }
 
 fn get_present_mode(
-    surface_loader: Surface,
+    surface_loader: &Surface,
     physical_device: vk::PhysicalDevice,
     surface: vk::SurfaceKHR,
 ) -> Result<vk::PresentModeKHR> {
@@ -145,7 +145,7 @@ fn get_present_mode(
 }
 
 fn get_surface_format(
-    surface_loader: Surface,
+    surface_loader: &Surface,
     physical_device: vk::PhysicalDevice,
     surface: vk::SurfaceKHR,
 ) -> Result<(vk::SurfaceFormatKHR)> {

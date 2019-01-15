@@ -68,11 +68,12 @@ impl FrameTimer {
     }
 
     pub fn stop(&self) -> Result<()> {
+        //TODO: should not hardcode file path
         let mut file = OpenOptions::new()
             .write(true)
             .append(true)
             .create(true)
-            .open("./logs/frame_time.csv")?;
+            .open("./hobby/logs/frame_time.csv")?;
 
         let dt = Local::now();
         let dt_str = dt.format("%Y-%m-%d %H:%M:%S").to_string();

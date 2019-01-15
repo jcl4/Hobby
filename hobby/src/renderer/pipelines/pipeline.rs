@@ -5,12 +5,12 @@ use ash::{version::DeviceV1_0, vk};
 use std::ffi::CString;
 
 pub fn create_graphics_pipeline(
-    device: ash::Device,
+    device: &ash::Device,
     swap_extent: vk::Extent2D,
     render_pass: vk::RenderPass,
 ) -> Result<(vk::Pipeline, vk::PipelineLayout)> {
     let shader_set = ShaderSet::Basic;
-    let modules = shader::get_shader_modules(shader_set, device.clone())?;
+    let modules = shader::get_shader_modules(shader_set, &device.clone())?;
     let vert_module = modules[0];
     let frag_module = modules[1];
     let shader_entry_name = CString::new("main").unwrap();
