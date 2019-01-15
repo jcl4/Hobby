@@ -1,16 +1,18 @@
-use super::shaders;
-use crate::renderer::ShaderSet;
+use super::shader;
+use crate::renderer::{vk_mesh::Vertex, ShaderSet};
 use crate::Result;
 use ash::{version::DeviceV1_0, vk};
 use std::ffi::CString;
 
 pub fn create_graphics_pipeline(
-    device: ash::Device,
-    swap_extent: &vk::Extent2D,
+    device: &ash::Device,
+    swap_extent: vk::Extent2D,
     render_pass: vk::RenderPass,
 ) -> Result<(vk::Pipeline, vk::PipelineLayout)> {
     let shader_set = ShaderSet::Basic;
-    let (vert_module, frag_module) = shaders::get_shader_modules(shader_set, device.clone())?;
+    let modules = shader::get_shader_modules(shader_set, &device.clone())?;
+    let vert_module = modules[0];
+    let frag_module = modules[1];
     let shader_entry_name = CString::new("main").unwrap();
 
     let shader_stage_create_infos = [
@@ -26,8 +28,8 @@ pub fn create_graphics_pipeline(
             .build(),
     ];
 
-    let binding_descriptions: Vec<vk::VertexInputBindingDescription> = vec![];
-    let attribute_descriptions: Vec<vk::VertexInputAttributeDescription> = vec![];
+    let binding_descriptions = Vertex::get_binding_description();
+    let attribute_descriptions = Vertex::get_attribute_descriptions();
 
     let vertex_input_info = vk::PipelineVertexInputStateCreateInfo::builder()
         .vertex_binding_descriptions(&binding_descriptions)
@@ -49,7 +51,7 @@ pub fn create_graphics_pipeline(
     let viewports = [viewport];
 
     let scissor = vk::Rect2D::builder()
-        .extent(swap_extent.clone())
+        .extent(swap_extent)
         .offset(vk::Offset2D::builder().x(0).y(0).build())
         .build();
 

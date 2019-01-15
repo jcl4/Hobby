@@ -1,7 +1,7 @@
 use crate::Result;
 use ash::{version::DeviceV1_0, vk};
 
-pub fn create_render_pass(format: vk::Format, device: ash::Device) -> Result<vk::RenderPass> {
+pub fn create_render_pass(format: vk::Format, device: &ash::Device) -> Result<vk::RenderPass> {
     let color_attachment = vk::AttachmentDescription::builder()
         .final_layout(vk::ImageLayout::PRESENT_SRC_KHR)
         .initial_layout(vk::ImageLayout::UNDEFINED)

@@ -1,4 +1,3 @@
-// #[macro_use]
 use failure;
 use hobby::{AppInfo, Game, HobbySettings, Version};
 use simplelog as sl;
@@ -27,7 +26,7 @@ fn main() -> Result<()> {
     let mut hobby_settings = HobbySettings::default();
     hobby_settings.app_info = app_info;
 
-    let mut game = Game::new(hobby_settings)?;
+    let mut game = Game::new(&hobby_settings)?;
 
     game.run()?;
 

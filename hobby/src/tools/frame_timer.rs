@@ -68,20 +68,21 @@ impl FrameTimer {
     }
 
     pub fn stop(&self) -> Result<()> {
+        //TODO: should not hardcode file path
         let mut file = OpenOptions::new()
             .write(true)
             .append(true)
             .create(true)
-            .open("./logs/frame_time.csv")?;
+            .open("./hobby/logs/frame_time.csv")?;
 
         let dt = Local::now();
         let dt_str = dt.format("%Y-%m-%d %H:%M:%S").to_string();
 
         let game_time = Instant::now().duration_since(self.game_start).dur_as_f32();
 
-        write!(
+        writeln!(
             file,
-            "{}, {}, {:.2}, {:.2}, {},\n",
+            "{}, {}, {:.2}, {:.2}, {}",
             dt_str, self.num_frames, game_time, self.average_frame_time, self.app_name
         )?;
 

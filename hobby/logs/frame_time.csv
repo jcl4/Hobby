@@ -1,0 +1,3 @@
+Date, Number of Frame, Run Time, Average Frame Time, Crate, Notes
+2019-01-15 06:39:39, 422220, 61.26, 0.15, triangle, staging buffer impimented
+2019-01-15 08:52:39, 71405, 10.45, 0.15, triangle, index buffer

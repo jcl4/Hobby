@@ -96,10 +96,10 @@ pub fn create_instance(app_info: &AppInfo, entry: &ash::Entry) -> Result<ash::In
 
     let application_info = vk::ApplicationInfo::builder()
         .application_name(&app_name)
-        .application_version(app_info.app_version.into_vulkan_version())
+        .application_version(app_info.app_version.vulkan_version())
         .engine_name(&engine_name)
-        .engine_version(engine_version.into_vulkan_version())
-        .api_version(api_version.into_vulkan_version());
+        .engine_version(engine_version.vulkan_version())
+        .api_version(api_version.vulkan_version());
 
     let extension_names = required_extensions();
 
@@ -161,12 +161,11 @@ pub fn create_framebuffers(
                 .height(swapchain_data.extent.height)
                 .layers(1);
 
-            let framebuffer = unsafe {
+            unsafe {
                 device
                     .create_framebuffer(&framebuffer_create_info, None)
                     .unwrap()
-            };
-            framebuffer
+            }
         })
         .collect();
 
@@ -197,13 +196,13 @@ pub unsafe fn create_surface(
 
 pub fn create_device_and_queues(
     instance: &ash::Instance,
-    physical_device: &vk::PhysicalDevice,
+    physical_device: vk::PhysicalDevice,
     surface_loader: &Surface,
-    surface: &vk::SurfaceKHR,
+    surface: vk::SurfaceKHR,
     // ) -> Result<()> {
 ) -> Result<(ash::Device, QueueData)> {
     let (graphics_queue_family, present_queue_family) =
-        get_queue_families(&instance, &physical_device, &surface_loader, &surface)?;
+        get_queue_families(&instance, physical_device, &surface_loader, surface)?;
 
     let mut queue_create_infos: Vec<vk::DeviceQueueCreateInfo> = vec![];
 
@@ -247,7 +246,7 @@ pub fn create_device_and_queues(
         .enabled_extension_names(&extensions)
         .enabled_features(&physical_device_features);
 
-    let device = unsafe { instance.create_device(*physical_device, &device_create_info, None)? };
+    let device = unsafe { instance.create_device(physical_device, &device_create_info, None)? };
     let (graphics_queue, present_queue) =
         get_queues(&device, graphics_queue_family, present_queue_family)?;
 
@@ -275,16 +274,15 @@ fn get_queues(
 
 fn get_queue_families(
     instance: &ash::Instance,
-    physical_device: &vk::PhysicalDevice,
+    physical_device: vk::PhysicalDevice,
     surface_loader: &Surface,
-    surface: &vk::SurfaceKHR,
+    surface: vk::SurfaceKHR,
 ) -> Result<(u32, u32)> {
-    let qfps =
-        unsafe { instance.get_physical_device_queue_family_properties(physical_device.clone()) };
+    let qfps = unsafe { instance.get_physical_device_queue_family_properties(physical_device) };
 
     let graphics_queue_family = get_graphics_queue_family(&qfps)?;
     let present_queue_family =
-        get_present_queue_family(&qfps, &physical_device, &surface_loader, &surface)?;
+        get_present_queue_family(&qfps, physical_device, &surface_loader, surface)?;
 
     info!(
         "Graphics Queue Family ID: {}, Present Queue Family ID: {}",
@@ -294,12 +292,13 @@ fn get_queue_families(
     Ok((graphics_queue_family, present_queue_family))
 }
 
-fn get_graphics_queue_family(qfps: &Vec<vk::QueueFamilyProperties>) -> Result<u32> {
-    let graphics_queue_family = qfps.into_iter().enumerate().find_map(|(index, info)| {
+fn get_graphics_queue_family(qfps: &[vk::QueueFamilyProperties]) -> Result<u32> {
+    let graphics_queue_family = qfps.iter().enumerate().find_map(|(index, info)| {
         let supports_graphics = info.queue_flags.contains(vk::QueueFlags::GRAPHICS);
-        match supports_graphics {
-            true => Some(index),
-            _ => None,
+        if supports_graphics {
+            Some(index)
+        } else {
+            None
         }
     });
 
@@ -311,22 +310,23 @@ fn get_graphics_queue_family(qfps: &Vec<vk::QueueFamilyProperties>) -> Result<u3
 }
 
 fn get_present_queue_family(
-    qfps: &Vec<vk::QueueFamilyProperties>,
-    physical_device: &vk::PhysicalDevice,
+    qfps: &[vk::QueueFamilyProperties],
+    physical_device: vk::PhysicalDevice,
     surface_loader: &Surface,
-    surface: &vk::SurfaceKHR,
+    surface: vk::SurfaceKHR,
 ) -> Result<u32> {
-    let present_queue_family = qfps.into_iter().enumerate().find_map(|(index, _)| {
+    let present_queue_family = qfps.iter().enumerate().find_map(|(index, _)| {
         let supports_surface = unsafe {
             surface_loader.get_physical_device_surface_support(
-                *physical_device,
+                physical_device,
                 index as u32,
-                *surface,
+                surface,
             )
         };
-        match supports_surface {
-            true => Some(index),
-            _ => None,
+        if supports_surface {
+            Some(index)
+        } else {
+            None
         }
     });
 
