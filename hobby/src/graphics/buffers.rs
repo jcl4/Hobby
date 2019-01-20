@@ -3,7 +3,7 @@ use crate::Result;
 use ash::{version::DeviceV1_0, vk};
 use log::info;
 
-pub fn create_buffer(
+pub(crate) fn create_buffer(
     renderer: &Renderer,
     size: vk::DeviceSize,
     usage: vk::BufferUsageFlags,
@@ -41,7 +41,7 @@ pub fn create_buffer(
     Ok((buffer, buffer_memory))
 }
 
-pub fn copy_buffer(
+pub(crate) fn copy_buffer(
     renderer: &Renderer,
     src_buffer: vk::Buffer,
     dst_buffer: vk::Buffer,
@@ -50,7 +50,7 @@ pub fn copy_buffer(
     let alloc_info = vk::CommandBufferAllocateInfo::builder()
         .level(vk::CommandBufferLevel::PRIMARY)
         .command_buffer_count(1)
-        .command_pool(renderer.command_pool);
+        .command_pool(renderer.command_buffer_data.command_pool);
 
     unsafe {
         let command_buffers = renderer.device.allocate_command_buffers(&alloc_info)?;
@@ -86,7 +86,7 @@ pub fn copy_buffer(
 
         renderer
             .device
-            .free_command_buffers(renderer.command_pool, &[cb]);
+            .free_command_buffers(renderer.command_buffer_data.command_pool, &[cb]);
     }
 
     Ok(())

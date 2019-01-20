@@ -1,29 +1,21 @@
-mod base;
-mod buffers;
-mod command_buffer;
-mod pipelines;
-mod render_pass;
-mod swapchain;
-mod vk_mesh;
-
-pub use self::pipelines::shader::ShaderSet;
-
-use self::base::QueueData;
-use self::swapchain::SwapchainData;
-use self::vk_mesh::VkMesh;
-use crate::{HobbySettings, Result};
+use super::{
+    base, base::QueueData, command_buffer::CommandBufferData, render_pass, swapchain,
+    swapchain::SwapchainData,
+};
+use crate::{core::Model, settings::HobbySettings, Result};
+use ash;
 use ash::{
     extensions::{ext::DebugReport, khr::Surface},
     version::{DeviceV1_0, InstanceV1_0},
     vk,
 };
 use failure::bail;
-use log::{debug, info};
+use log::{debug, info, trace};
 use winit::{EventsLoop, Window};
 
 const FRAMES_IN_FLIGHT: u32 = 2;
 
-pub struct Renderer {
+pub(crate) struct Renderer {
     _window: Window,
     _entry: ash::Entry,
     instance: ash::Instance,
@@ -31,27 +23,26 @@ pub struct Renderer {
     surface_loader: Surface,
     debug_callback: vk::DebugReportCallbackEXT,
     debug_loader: DebugReport,
-    pub physical_device: vk::PhysicalDevice,
-    pub device: ash::Device,
-    queue_data: QueueData,
-    swapchain_data: SwapchainData,
-    render_pass: vk::RenderPass,
-    pipeline: vk::Pipeline,
-    pipeline_layout: vk::PipelineLayout,
-    framebuffers: Vec<vk::Framebuffer>,
-    command_pool: vk::CommandPool,
-    command_buffers: Option<Vec<vk::CommandBuffer>>,
+    pub(crate) physical_device: vk::PhysicalDevice,
+    pub(crate) device: ash::Device,
+    pub(crate) queue_data: QueueData,
+    pub(crate) swapchain_data: SwapchainData,
+    pub(crate) command_buffer_data: CommandBufferData,
+    pub(crate) framebuffers: Vec<vk::Framebuffer>,
+    pub(crate) render_pass: vk::RenderPass,
     img_available_semaphores: Vec<vk::Semaphore>,
     render_finished_sempahores: Vec<vk::Semaphore>,
     in_flight_fences: Vec<vk::Fence>,
     current_frame: u32,
-    pub is_resized: bool,
-    vk_mesh: Option<VkMesh>,
+    pub(crate) is_resized: bool,
 }
 
 impl Renderer {
     #[allow(clippy::new_ret_no_self)]
-    pub fn new(hobby_settings: &HobbySettings, events_loop: &EventsLoop) -> Result<Renderer> {
+    pub(crate) fn new(
+        hobby_settings: &HobbySettings,
+        events_loop: &EventsLoop,
+    ) -> Result<Renderer> {
         let entry = ash::Entry::new().unwrap();
 
         let window = base::create_window(&events_loop, &hobby_settings.window_settings)?;
@@ -70,22 +61,17 @@ impl Renderer {
             &device,
         )?;
 
+        let command_buffer_data = CommandBufferData::new(&device, &queue_data, &swapchain_data)?;
+
         let render_pass =
             render_pass::create_render_pass(swapchain_data.surface_format.format, &device)?;
 
-        let (pipeline, pipeline_layout) = pipelines::pipeline::create_graphics_pipeline(
-            &device,
-            swapchain_data.extent,
-            render_pass,
-        )?;
-
         let framebuffers = base::create_framebuffers(&swapchain_data, render_pass, &device)?;
-        let command_pool = command_buffer::create_command_pool(&queue_data, &device)?;
 
         let (img_available_semaphores, render_finished_sempahores, in_flight_fences) =
             create_sync_objects(&device)?;
 
-        let mut renderer = Renderer {
+        let renderer = Renderer {
             _window: window,
             _entry: entry,
             instance,
@@ -94,33 +80,23 @@ impl Renderer {
             debug_callback,
             debug_loader,
             physical_device,
-            device: device.clone(),
+            device,
             queue_data,
-            swapchain_data: swapchain_data.clone(),
+            swapchain_data,
+            command_buffer_data,
             render_pass,
-            pipeline,
-            pipeline_layout,
-            framebuffers: framebuffers.clone(),
-            command_pool,
-            command_buffers: None,
+            framebuffers,
             img_available_semaphores,
             render_finished_sempahores,
             in_flight_fences,
             current_frame: 0,
             is_resized: false,
-            vk_mesh: None,
         };
 
-        let vk_mesh = VkMesh::new(&renderer)?;
-
-        let command_buffers = command_buffer::create_command_buffers(&renderer, &vk_mesh)?;
-
-        renderer.command_buffers = Some(command_buffers);
-        renderer.vk_mesh = Some(vk_mesh);
         Ok(renderer)
     }
 
-    pub fn draw_frame(&mut self) -> Result<()> {
+    pub fn draw_frame(&mut self, models: &mut [Model]) -> Result<()> {
         unsafe {
             self.device.wait_for_fences(
                 &[self.in_flight_fences[self.current_frame as usize]],
@@ -139,7 +115,7 @@ impl Renderer {
                     Ok(img_index) => img_index,
                     Err(vk_result) => match vk_result {
                         vk::Result::ERROR_OUT_OF_DATE_KHR => {
-                            self.recreate_swapchain()?;
+                            self.recreate_swapchain(models)?;
                             return Ok(());
                         }
                         _ => bail!("Failed to aquire swapchain image!"),
@@ -153,7 +129,7 @@ impl Renderer {
 
             let submit_info = vk::SubmitInfo::builder()
                 .signal_semaphores(&signal_semaphores)
-                .command_buffers(&[self.command_buffers.as_ref().unwrap()[img_index as usize]])
+                .command_buffers(&[self.command_buffer_data.command_buffers[img_index as usize]])
                 .wait_dst_stage_mask(&wait_stages)
                 .wait_semaphores(&wait_semaphores)
                 .build();
@@ -190,7 +166,7 @@ impl Renderer {
 
             if resized {
                 self.is_resized = false;
-                self.recreate_swapchain()?;
+                self.recreate_swapchain(models)?;
             }
         }
 
@@ -199,19 +175,19 @@ impl Renderer {
         Ok(())
     }
 
-    fn clean_up_swapchian(&self) {
+    fn clean_up_swapchian(&self, models: &[Model]) -> Result<()> {
         info!("Cleanup Swapchain Called");
         unsafe {
             for frame_buffer in self.framebuffers.iter() {
                 self.device.destroy_framebuffer(*frame_buffer, None);
             }
 
-            self.device
-                .free_command_buffers(self.command_pool, &self.command_buffers.as_ref().unwrap());
+            for model in models {
+                model.cleanup(&self.device)?;
+            }
 
-            self.device.destroy_pipeline(self.pipeline, None);
-            self.device
-                .destroy_pipeline_layout(self.pipeline_layout, None);
+            self.command_buffer_data.cleanup_buffers(&self.device);
+
             self.device.destroy_render_pass(self.render_pass, None);
 
             for img_view in self.swapchain_data.image_views.iter() {
@@ -222,14 +198,16 @@ impl Renderer {
                 .swapchain_loader
                 .destroy_swapchain(self.swapchain_data.swapchain, None);
         }
+
+        Ok(())
     }
 
-    fn recreate_swapchain(&mut self) -> Result<()> {
+    fn recreate_swapchain(&mut self, models: &mut [Model]) -> Result<()> {
         info!("Recreate Swapchain Called");
 
         unsafe {
             self.device.device_wait_idle()?;
-            self.clean_up_swapchian();
+            self.clean_up_swapchian(models)?;
         }
 
         info!("Recreating Swapchain");
@@ -246,22 +224,23 @@ impl Renderer {
             &self.device,
         )?;
 
-        let pipeline_data = pipelines::pipeline::create_graphics_pipeline(
-            &self.device,
-            self.swapchain_data.extent,
-            self.render_pass,
-        )?;
-
-        self.pipeline = pipeline_data.0;
-        self.pipeline_layout = pipeline_data.1;
+        for model in models.iter_mut() {
+            model.build(&self)?;
+        }
 
         self.framebuffers =
             base::create_framebuffers(&self.swapchain_data, self.render_pass, &self.device)?;
 
-        self.command_buffers = Some(command_buffer::create_command_buffers(
-            &self,
-            &self.vk_mesh.as_ref().unwrap(),
-        )?);
+        self.command_buffer_data
+            .recreate_command_buffers(&self.device, &self.swapchain_data)?;
+
+        self.command_buffer_data.build_cb(
+            &self.device,
+            &self.swapchain_data,
+            &self.framebuffers,
+            self.render_pass,
+            models,
+        )?;
 
         Ok(())
     }
@@ -286,7 +265,7 @@ impl Renderer {
                 if (type_filter & (1 << i)) > 0
                     && (memory_type.property_flags.contains(required_properties))
                 {
-                    debug!("{}", debug_str);
+                    trace!("{}", debug_str);
                     return Ok(i as u32);
                 }
             }
@@ -298,14 +277,10 @@ impl Renderer {
             required_properties
         )
     }
-}
 
-impl Drop for Renderer {
-    fn drop(&mut self) {
+    pub(crate) fn cleanup(&self, models: &[Model]) -> Result<()> {
         unsafe {
-            self.clean_up_swapchian();
-
-            self.vk_mesh.as_ref().unwrap().cleanup();
+            self.clean_up_swapchian(models)?;
 
             for i in 0..FRAMES_IN_FLIGHT {
                 self.device
@@ -315,8 +290,9 @@ impl Drop for Renderer {
                 self.device
                     .destroy_fence(self.in_flight_fences[i as usize], None);
             }
-            self.device.destroy_command_pool(self.command_pool, None);
+            self.command_buffer_data.cleanup_command_pool(&self.device);
 
+            debug!("Destroy Device");
             self.device.destroy_device(None);
             self.surface_loader.destroy_surface(self.surface, None);
 
@@ -325,6 +301,7 @@ impl Drop for Renderer {
 
             self.instance.destroy_instance(None);
         }
+        Ok(())
     }
 }
 

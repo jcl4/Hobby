@@ -13,6 +13,7 @@ impl Vertex {
     }
 }
 
+#[derive(Default)]
 pub struct VertexBuilder {
     position: [f32; 3],
     color: Option<[f32; 4]>,
@@ -35,7 +36,7 @@ impl VertexBuilder {
 
     pub fn with_position(self, position: [f32; 3]) -> VertexBuilder {
         VertexBuilder {
-            position: position,
+            position,
             color: self.color,
             normal: self.normal,
             tangent: self.tangent,

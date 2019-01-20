@@ -1,4 +1,4 @@
-use crate::Result;
+use crate::{core::MaterialType, Result};
 use ash::{version::DeviceV1_0, vk};
 use failure::bail;
 use log::{debug, info};
@@ -6,21 +6,15 @@ use shaderc;
 use std::fs;
 use std::path::Path;
 
-#[derive(Copy, Clone)]
-pub enum ShaderSet {
-    Basic,
-}
-
 pub fn get_shader_modules(
-    shader_set: ShaderSet,
+    material_type: MaterialType,
     device: &ash::Device,
 ) -> Result<Vec<vk::ShaderModule>> {
-
     //todo: need to not hardcode path to shaders...
     let root = Path::new("./hobby/res/shaders");
 
-    let file_names = match shader_set {
-        ShaderSet::Basic => ["basic.vert", "basic.frag"],
+    let file_names = match material_type {
+        MaterialType::Basic => ["basic.vert", "basic.frag"],
     };
 
     //todo: do something with the option returned from new

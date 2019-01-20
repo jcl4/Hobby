@@ -1,15 +1,15 @@
-use crate::renderer::Renderer;
-use crate::tools::FrameTimer;
+use crate::{core::Model, graphics::Renderer, tools::FrameTimer};
 use crate::{HobbySettings, Result};
 use ash::version::DeviceV1_0;
 
-use log::{debug, info};
+use log::info;
 use winit::{Event, EventsLoop, KeyboardInput, VirtualKeyCode, WindowEvent};
 
 pub struct Game {
     renderer: Renderer,
     events_loop: EventsLoop,
     frame_timer: FrameTimer,
+    models: Vec<Model>,
 }
 
 impl Game {
@@ -22,11 +22,20 @@ impl Game {
             &hobby_settings.app_info.app_name,
         );
 
+        let models = vec![];
+
         Ok(Game {
             renderer,
             events_loop,
             frame_timer,
+            models,
         })
+    }
+
+    pub fn add_model(&mut self, mut model: Model) -> Result<()> {
+        model.build(&self.renderer)?;
+        self.models.push(model);
+        Ok(())
     }
 
     pub fn run(&mut self) -> Result<()> {
@@ -36,13 +45,23 @@ impl Game {
 
         let mut _update_debug: bool;
 
+        // TODO: This really should be a part of the renderer
+        self.renderer.command_buffer_data.build_cb(
+            &self.renderer.device,
+            &self.renderer.swapchain_data,
+            &self.renderer.framebuffers,
+            self.renderer.render_pass,
+            &self.models,
+        )?;
+
         while running {
             _update_debug = self.frame_timer.kick();
-            self.renderer.draw_frame()?;
+            self.renderer.draw_frame(&mut self.models)?;
             running = manage_input(&mut self.events_loop, &mut self.renderer);
         }
         self.frame_timer.stop()?;
         unsafe { self.renderer.device.device_wait_idle()? };
+        self.renderer.cleanup(&self.models)?;
 
         Ok(())
     }

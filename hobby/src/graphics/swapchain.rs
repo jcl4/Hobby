@@ -4,7 +4,7 @@ use ash::{
     version::DeviceV1_0,
     vk,
 };
-use log::{debug, info};
+use log::info;
 
 #[derive(Clone)]
 pub struct SwapchainData {
@@ -67,12 +67,8 @@ pub fn create_swapchain_and_image_views(
 
     let swapchain = unsafe { swapchain_loader.create_swapchain(&swapchain_create_info, None)? };
     info!("Swapchain Created");
-    let image_views = create_image_views(
-        &swapchain_loader,
-        swapchain,
-        surface_format.format,
-        device,
-    )?;
+    let image_views =
+        create_image_views(&swapchain_loader, swapchain, surface_format.format, device)?;
 
     Ok(SwapchainData {
         swapchain,

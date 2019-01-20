@@ -1,12 +1,15 @@
-use crate::core::Vertex;
-use std::sync::Arc;
-use vulkano::buffer::{BufferAccess, TypedBufferAccess};
+use crate::{
+    core::{MaterialType, Vertex},
+    graphics::{pipelines::BasicVertex, Renderer, VkMesh},
+    Result,
+};
+use ash::vk;
+use log::debug;
 
 pub struct Mesh {
     pub vertices: Vec<Vertex>,
     pub indices: Vec<u32>,
-    vertex_buffer: Option<Arc<BufferAccess + Send + Sync>>,
-    index_buffer: Option<Arc<TypedBufferAccess<Content = [u32]> + Send + Sync>>,
+    vk_mesh: Option<VkMesh>,
 }
 
 impl Mesh {
@@ -14,27 +17,31 @@ impl Mesh {
         Mesh {
             vertices,
             indices,
-            vertex_buffer: None,
-            index_buffer: None,
+            vk_mesh: None,
         }
     }
 
-    pub fn set_vertex_buffer(&mut self, vertex_buffer: Arc<BufferAccess + Send + Sync>) {
-        self.vertex_buffer = Some(vertex_buffer);
-    }
-
-    pub fn set_index_buffer(
+    pub(crate) fn build_mesh(
         &mut self,
-        index_buffer: Arc<TypedBufferAccess<Content = [u32]> + Send + Sync>,
-    ) {
-        self.index_buffer = Some(index_buffer);
+        renderer: &Renderer,
+        material_type: &MaterialType,
+    ) -> Result<()> {
+        let vk_mesh = match material_type {
+            MaterialType::Basic => {
+                VkMesh::new::<BasicVertex>(renderer, &self.vertices, &self.indices)?
+            }
+        };
+
+        self.vk_mesh = Some(vk_mesh);
+        Ok(())
     }
 
-    pub fn vertex_buffer(&self) -> Arc<BufferAccess + Send + Sync> {
-        self.vertex_buffer.clone().unwrap()
+    pub(crate) fn draw(&self, cb: vk::CommandBuffer) {
+        self.vk_mesh.as_ref().unwrap().draw(cb);
     }
 
-    pub fn index_buffer(&self) -> Arc<TypedBufferAccess<Content = [u32]> + Send + Sync> {
-        self.index_buffer.clone().unwrap()
+    pub(crate) fn cleanup(&self) {
+        debug!("Mesh Cleaned up");
+        self.vk_mesh.as_ref().unwrap().cleanup();
     }
 }
