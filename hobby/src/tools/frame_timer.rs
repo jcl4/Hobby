@@ -39,6 +39,7 @@ impl FrameTimer {
         self.last_update = Instant::now();
     }
 
+    //TODO: f64?
     pub fn frame_time(&self) -> f32 {
         self.frame_time
     }

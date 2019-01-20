@@ -1,7 +1,6 @@
-use crate::{core::Model, graphics::Renderer, tools::FrameTimer};
+use crate::{core::Model, graphics::Renderer, na, tools::FrameTimer};
 use crate::{HobbySettings, Result};
 use ash::version::DeviceV1_0;
-
 use log::info;
 use winit::{Event, EventsLoop, KeyboardInput, VirtualKeyCode, WindowEvent};
 
@@ -43,8 +42,6 @@ impl Game {
 
         self.frame_timer.start();
 
-        let mut _update_debug: bool;
-
         // TODO: This really should be a part of the renderer
         self.renderer.command_buffer_data.build_cb(
             &self.renderer.device,
@@ -54,11 +51,21 @@ impl Game {
             &self.models,
         )?;
 
+        let view = na::Matrix4::identity();
+        let proj = na::Matrix4::identity();
+
         while running {
-            _update_debug = self.frame_timer.kick();
-            self.renderer.draw_frame(&mut self.models)?;
+            let update_debug = self.frame_timer.kick();
+            let dt = self.frame_timer.frame_time();
+
+            for model in self.models.iter_mut() {
+                model.update(dt, update_debug);
+            }
+
+            self.renderer.draw_frame(&mut self.models, view, proj)?;
             running = manage_input(&mut self.events_loop, &mut self.renderer);
         }
+
         self.frame_timer.stop()?;
         unsafe { self.renderer.device.device_wait_idle()? };
         self.renderer.cleanup(&self.models)?;
