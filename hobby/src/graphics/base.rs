@@ -21,7 +21,7 @@ type DeviceExtensions = [&'static str; 1];
 
 const DEVICE_EXTENSIONS: DeviceExtensions = ["VK_KHR_swapchain\0"];
 
-pub fn required_extensions() -> Vec<*const i8> {
+pub(crate) fn required_extensions() -> Vec<*const i8> {
     vec![
         Surface::name().as_ptr(),
         XlibSurface::name().as_ptr(),
@@ -29,14 +29,14 @@ pub fn required_extensions() -> Vec<*const i8> {
     ]
 }
 
-pub struct QueueData {
-    pub graphics_queue_family: u32,
-    pub graphics_queue: vk::Queue,
-    pub present_queue_family: u32,
-    pub present_queue: vk::Queue,
+pub(crate) struct QueueData {
+    pub(crate) graphics_queue_family: u32,
+    pub(crate) graphics_queue: vk::Queue,
+    pub(crate) _present_queue_family: u32,
+    pub(crate) present_queue: vk::Queue,
 }
 
-pub unsafe extern "system" fn vulkan_debug_callback(
+pub(crate) unsafe extern "system" fn vulkan_debug_callback(
     flags: vk::DebugReportFlagsEXT,
     _: vk::DebugReportObjectTypeEXT,
     _: u64,
@@ -61,7 +61,10 @@ pub unsafe extern "system" fn vulkan_debug_callback(
     vk::FALSE
 }
 
-pub fn create_window(events_loop: &EventsLoop, window_settings: &WindowSettings) -> Result<Window> {
+pub(crate) fn create_window(
+    events_loop: &EventsLoop,
+    window_settings: &WindowSettings,
+) -> Result<Window> {
     let monitor = events_loop.get_primary_monitor();
     let dpi = monitor.get_hidpi_factor();
 
@@ -82,7 +85,7 @@ pub fn create_window(events_loop: &EventsLoop, window_settings: &WindowSettings)
     Ok(window)
 }
 
-pub fn create_instance(app_info: &AppInfo, entry: &ash::Entry) -> Result<ash::Instance> {
+pub(crate) fn create_instance(app_info: &AppInfo, entry: &ash::Entry) -> Result<ash::Instance> {
     let app_name = CString::new(app_info.app_name.clone())?;
     let engine_name = CString::new(env!("CARGO_PKG_NAME"))?;
 
@@ -123,7 +126,7 @@ pub fn create_instance(app_info: &AppInfo, entry: &ash::Entry) -> Result<ash::In
     Ok(instance)
 }
 
-pub fn setup_debug_callback(
+pub(crate) fn setup_debug_callback(
     entry: &ash::Entry,
     instance: &ash::Instance,
 ) -> Result<(vk::DebugReportCallbackEXT, DebugReport)> {
@@ -144,7 +147,7 @@ pub fn setup_debug_callback(
     Ok((debug_callback, debug_loader))
 }
 
-pub fn create_framebuffers(
+pub(crate) fn create_framebuffers(
     swapchain_data: &SwapchainData,
     render_pass: vk::RenderPass,
     device: &ash::Device,
@@ -172,7 +175,7 @@ pub fn create_framebuffers(
     Ok(frame_buffers)
 }
 
-pub unsafe fn create_surface(
+pub(crate) unsafe fn create_surface(
     entry: &ash::Entry,
     instance: &ash::Instance,
     window: &winit::Window,
@@ -194,7 +197,7 @@ pub unsafe fn create_surface(
     Ok(surface)
 }
 
-pub fn create_device_and_queues(
+pub(crate) fn create_device_and_queues(
     instance: &ash::Instance,
     physical_device: vk::PhysicalDevice,
     surface_loader: &Surface,
@@ -253,7 +256,7 @@ pub fn create_device_and_queues(
     let queue_data = QueueData {
         graphics_queue_family,
         graphics_queue,
-        present_queue_family,
+        _present_queue_family: present_queue_family,
         present_queue,
     };
 
@@ -337,8 +340,30 @@ fn get_present_queue_family(
     Ok(present_queue_family.unwrap() as u32)
 }
 
+pub(crate) fn create_descriptor_pool(
+    num_sets: u32,
+    device: &ash::Device,
+) -> Result<vk::DescriptorPool> {
+    let pool_size = vk::DescriptorPoolSize::builder()
+        .descriptor_count(num_sets)
+        .ty(vk::DescriptorType::UNIFORM_BUFFER)
+        .build();
+
+    let pool_sizes = [pool_size];
+
+    let pool_info = vk::DescriptorPoolCreateInfo::builder()
+        .pool_sizes(&pool_sizes)
+        .max_sets(num_sets);
+
+    let descriptor_pool;
+    unsafe {
+        descriptor_pool = device.create_descriptor_pool(&pool_info, None)?;
+    }
+    Ok(descriptor_pool)
+}
+
 #[allow(dead_code)]
-pub fn log_physical_device_and_queue_info(instance: &ash::Instance) -> Result<()> {
+pub(crate) fn log_physical_device_and_queue_info(instance: &ash::Instance) -> Result<()> {
     unsafe {
         let physical_devices = instance.enumerate_physical_devices()?;
         for (index, physical_device) in physical_devices.into_iter().enumerate() {
@@ -358,7 +383,7 @@ pub fn log_physical_device_and_queue_info(instance: &ash::Instance) -> Result<()
     Ok(())
 }
 
-// pub fn pick_physical_device(
+// pub(crate) fn pick_physical_device(
 //     instance: &ash::Instance,
 //     surface_stuff: &SurfaceStuff,
 //     required_device_extensions: &DeviceExtensions,
@@ -386,7 +411,7 @@ pub fn log_physical_device_and_queue_info(instance: &ash::Instance) -> Result<()
 //     Ok(physical_device)
 // }
 
-// pub fn is_physical_device_suitable(
+// pub(crate) fn is_physical_device_suitable(
 //     instance: &ash::Instance,
 //     physical_device: vk::PhysicalDevice,
 //     surface_stuff: &SurfaceStuff,
@@ -410,7 +435,7 @@ pub fn log_physical_device_and_queue_info(instance: &ash::Instance) -> Result<()
 //         && is_support_sampler_anisotropy;
 // }
 
-// pub fn query_swapchain_support(
+// pub(crate) fn query_swapchain_support(
 //     physical_device: vk::PhysicalDevice,
 //     surface_stuff: &SurfaceStuff,
 // ) -> SwapChainSupportDetail {
@@ -436,7 +461,7 @@ pub fn log_physical_device_and_queue_info(instance: &ash::Instance) -> Result<()
 //     }
 // }
 
-// pub fn find_queue_family(
+// pub(crate) fn find_queue_family(
 //     instance: &ash::Instance,
 //     physical_device: vk::PhysicalDevice,
 //     surface_stuff: &SurfaceStuff,
@@ -477,7 +502,7 @@ pub fn log_physical_device_and_queue_info(instance: &ash::Instance) -> Result<()
 //     queue_family_indices
 // }
 
-// pub fn check_device_extension_support(
+// pub(crate) fn check_device_extension_support(
 //     instance: &ash::Instance,
 //     physical_device: vk::PhysicalDevice,
 //     device_extensions: &DeviceExtensions,

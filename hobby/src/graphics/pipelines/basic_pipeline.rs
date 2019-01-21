@@ -27,6 +27,7 @@ impl Pipeline for BasicPipeline {
         device: &ash::Device,
         swap_extent: vk::Extent2D,
         render_pass: vk::RenderPass,
+        mvp_layout: vk::DescriptorSetLayout,
     ) -> Result<()> {
         let material_type = MaterialType::Basic;
         let modules = shader::get_shader_modules(material_type, &device.clone())?;
@@ -61,6 +62,7 @@ impl Pipeline for BasicPipeline {
             render_pass,
             &shader_stage_create_infos,
             vertex_input_info,
+            mvp_layout,
         )?;
 
         self.pipeline = pipeline;
@@ -76,6 +78,10 @@ impl Pipeline for BasicPipeline {
 
     fn get_pipeline(&self) -> vk::Pipeline {
         self.pipeline
+    }
+
+    fn get_layout(&self) -> vk::PipelineLayout {
+        self.pipeline_layout
     }
 
     fn cleanup(&self, device: &ash::Device) -> Result<()> {
@@ -131,5 +137,3 @@ impl VkVertex for BasicVertex {
         }
     }
 }
-
-// fn check_vertex()
