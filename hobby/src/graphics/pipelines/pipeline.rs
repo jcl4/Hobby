@@ -1,25 +1,28 @@
 use crate::Result;
 use ash::{version::DeviceV1_0, vk};
 
-pub trait Pipeline {
+pub(crate) trait Pipeline {
     fn create_pipeline(
         &mut self,
         device: &ash::Device,
         swap_extent: vk::Extent2D,
         render_pass: vk::RenderPass,
+        mvp_layout: vk::DescriptorSetLayout,
     ) -> Result<()>;
 
     fn cleanup(&self, device: &ash::Device) -> Result<()>;
 
     fn get_pipeline(&self) -> vk::Pipeline;
+    fn get_layout(&self) -> vk::PipelineLayout;
 }
 
-pub fn create_graphics_pipeline(
+pub(crate) fn create_graphics_pipeline(
     device: &ash::Device,
     swap_extent: vk::Extent2D,
     render_pass: vk::RenderPass,
     shader_stage_create_infos: &[vk::PipelineShaderStageCreateInfo],
     vertex_input_info: vk::PipelineVertexInputStateCreateInfo,
+    descriptor_set_layout: vk::DescriptorSetLayout,
 ) -> Result<(vk::Pipeline, vk::PipelineLayout)> {
     let pipeline_input_assembly = vk::PipelineInputAssemblyStateCreateInfo::builder()
         .primitive_restart_enable(false)
@@ -71,7 +74,9 @@ pub fn create_graphics_pipeline(
         .attachments(&color_blend_attachments)
         .logic_op_enable(false);
 
-    let pipeline_layout_create_info = vk::PipelineLayoutCreateInfo::default();
+    let layouts = [descriptor_set_layout];
+
+    let pipeline_layout_create_info = vk::PipelineLayoutCreateInfo::builder().set_layouts(&layouts);
 
     let pipeline_layout =
         unsafe { device.create_pipeline_layout(&pipeline_layout_create_info, None)? };

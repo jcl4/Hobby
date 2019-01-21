@@ -69,7 +69,7 @@ impl CommandBufferData {
                 device.cmd_begin_render_pass(*cb, &rp_begin_info, vk::SubpassContents::INLINE);
 
                 for model in models {
-                    model.draw(*cb, device)?;
+                    model.draw(*cb, device, i)?;
                 }
                 device.cmd_end_render_pass(*cb);
                 device.end_command_buffer(*cb)?;

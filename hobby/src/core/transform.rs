@@ -112,8 +112,8 @@ impl Default for Transform {
 #[cfg(test)]
 mod tests {
     use crate::core::Transform;
-    use crate::glm;
     use crate::na;
+    use nalgebra_glm as glm;
 
     #[test]
     fn test_default() {

@@ -2,7 +2,7 @@ use super::{
     base, base::QueueData, command_buffer::CommandBufferData, render_pass, swapchain,
     swapchain::SwapchainData,
 };
-use crate::{core::Model, settings::HobbySettings, Result};
+use crate::{core::Model, na, settings::HobbySettings, Result};
 use ash;
 use ash::{
     extensions::{ext::DebugReport, khr::Surface},
@@ -35,6 +35,7 @@ pub(crate) struct Renderer {
     in_flight_fences: Vec<vk::Fence>,
     current_frame: u32,
     pub(crate) is_resized: bool,
+    pub(crate) ubo_pool: vk::DescriptorPool,
 }
 
 impl Renderer {
@@ -71,6 +72,9 @@ impl Renderer {
         let (img_available_semaphores, render_finished_sempahores, in_flight_fences) =
             create_sync_objects(&device)?;
 
+        let ubo_pool =
+            base::create_descriptor_pool(swapchain_data.image_views.len() as u32, &device)?;
+
         let renderer = Renderer {
             _window: window,
             _entry: entry,
@@ -91,12 +95,18 @@ impl Renderer {
             in_flight_fences,
             current_frame: 0,
             is_resized: false,
+            ubo_pool,
         };
 
         Ok(renderer)
     }
 
-    pub fn draw_frame(&mut self, models: &mut [Model]) -> Result<()> {
+    pub fn draw_frame(
+        &mut self,
+        models: &mut [Model],
+        view: na::Matrix4<f32>,
+        proj: na::Matrix4<f32>,
+    ) -> Result<()> {
         unsafe {
             self.device.wait_for_fences(
                 &[self.in_flight_fences[self.current_frame as usize]],
@@ -122,6 +132,10 @@ impl Renderer {
                     },
                 }
             };
+
+            for model in models.iter_mut() {
+                model.update_mvp(view, proj, img_index as usize, &self.device)?;
+            }
 
             let wait_semaphores = [self.img_available_semaphores[self.current_frame as usize]];
             let signal_semaphores = [self.render_finished_sempahores[self.current_frame as usize]];
@@ -197,6 +211,9 @@ impl Renderer {
             self.swapchain_data
                 .swapchain_loader
                 .destroy_swapchain(self.swapchain_data.swapchain, None);
+
+            self.device
+                .reset_descriptor_pool(self.ubo_pool, vk::DescriptorPoolResetFlags::empty())?;
         }
 
         Ok(())
@@ -291,6 +308,7 @@ impl Renderer {
                     .destroy_fence(self.in_flight_fences[i as usize], None);
             }
             self.command_buffer_data.cleanup_command_pool(&self.device);
+            self.device.destroy_descriptor_pool(self.ubo_pool, None);
 
             debug!("Destroy Device");
             self.device.destroy_device(None);
