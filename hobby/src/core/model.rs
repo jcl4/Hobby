@@ -42,6 +42,10 @@ impl Model {
         }
     }
 
+    pub fn add_update_fn(&mut self, f: Box<dyn FnMut(Transform, f32, bool) -> Transform>) {
+        self.model_update = f;
+    }
+
     pub(crate) fn build(&mut self, renderer: &Renderer) -> Result<()> {
         let mut pipeline = match self.material_type {
             MaterialType::Basic => BasicPipeline::default(),
@@ -194,7 +198,3 @@ fn create_descriptor_sets(
 
     Ok(sets)
 }
-
-//     pub fn add_update_fn(&mut self, f: Box<dyn FnMut(Transform, f32, bool) -> Transform>) {
-//         self.model_update = f;
-//     }

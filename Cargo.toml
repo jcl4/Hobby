@@ -2,6 +2,6 @@
 members = [
     "hobby",
     "examples/triangle",
-    # "examples/colored-quad",
+    "examples/colored-quad",
     # "examples/gltf-loading"
 ]

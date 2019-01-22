@@ -1,19 +1,20 @@
 use failure;
-use hobby::core::{MaterialType, Mesh, Model, Transform, Vertex};
-use hobby::{AppInfo, Game, HobbySettings};
+use hobby::{
+    core::{MaterialType, Mesh, Model, Transform, Vertex},
+    AppInfo, Game, HobbySettings, Version,
+};
 use nalgebra as na;
 use nalgebra_glm as glm;
 use simplelog as sl;
-use std::fs::File;
 use std::iter::Iterator;
 use std::result;
 
 pub type Result<T> = result::Result<T, failure::Error>;
 
-static LOG_FILE_PATH: &str = "./logs/colored_quad.log";
-
 fn main() -> Result<()> {
-    setup_logging();
+    let mut config = sl::Config::default();
+    config.time_format = Some("%Y-%m-%d %H:%M:%S%.3f");
+    sl::TermLogger::init(sl::LevelFilter::Debug, config)?;
 
     let app_name = env!("CARGO_PKG_NAME");
 
@@ -21,15 +22,17 @@ fn main() -> Result<()> {
     let minor = env!("CARGO_PKG_VERSION_MINOR").parse().unwrap();
     let patch = env!("CARGO_PKG_VERSION_PATCH").parse().unwrap();
 
+    let version = Version::new(major, minor, patch);
+
     let app_info = AppInfo {
         app_name: app_name.to_string(),
-        app_version: (major, minor, patch),
+        app_version: version,
     };
 
     let mut hobby_settings = HobbySettings::default();
     hobby_settings.app_info = app_info;
 
-    let mut game = Game::new(hobby_settings)?;
+    let mut game = Game::new(&hobby_settings)?;
 
     let mut vertices = vec![];
     let positions = vec![
@@ -66,20 +69,6 @@ fn main() -> Result<()> {
     game.run()?;
 
     Ok(())
-}
-
-fn setup_logging() {
-    let mut config = sl::Config::default();
-    config.time_format = Some("[%Z: %H:%M:%S%.3f]");
-
-    let file = File::create(LOG_FILE_PATH).expect("Unable to create log file");
-
-    sl::CombinedLogger::init(vec![
-        sl::WriteLogger::new(sl::LevelFilter::Info, config, file),
-        sl::TermLogger::new(sl::LevelFilter::Warn, config)
-            .expect("unable to create terminal logger"),
-    ])
-    .expect("Can not create combined logger");
 }
 
 fn get_cube_update() -> Box<dyn FnMut(Transform, f32, bool) -> Transform> {
