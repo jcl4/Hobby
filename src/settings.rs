@@ -1,5 +1,4 @@
-use std::path::PathBuf;
-use std::time::Duration;
+use ash::vk_make_version;
 
 pub struct WindowSettings {
     pub width: f64,
@@ -36,19 +35,13 @@ impl Default for AppInfo {
 pub struct HobbySettings {
     pub window_settings: WindowSettings,
     pub app_info: AppInfo,
-    pub display_update_duration: Duration,
-    pub resource_path: PathBuf,
 }
 
 impl Default for HobbySettings {
     fn default() -> HobbySettings {
-        let display_update_duration = Duration::from_millis(2000);
-        let resource_path = PathBuf::new();
         HobbySettings {
             window_settings: WindowSettings::default(),
             app_info: AppInfo::default(),
-            display_update_duration,
-            resource_path,
         }
     }
 }
@@ -69,10 +62,6 @@ impl Version {
     }
 
     pub fn vulkan_version(&self) -> u32 {
-        assert!(self.major <= 0x3ff);
-        assert!(self.minor <= 0x3ff);
-        assert!(self.patch <= 0xfff);
-
-        u32::from(self.major) << 22 | u32::from(self.minor) << 12 | u32::from(self.patch)
+        vk_make_version!(self.major, self.minor, self.patch)
     }
 }
