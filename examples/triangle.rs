@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 use simplelog::{
     CombinedLogger, ConfigBuilder, LevelFilter, SharedLogger, TermLogger, TerminalMode, WriteLogger,
 };
@@ -41,25 +40,3 @@ fn create_log_folder() {
         std::fs::create_dir(path).unwrap();
     }
 }
-=======
-use hobby::{HobbySettings, Version, WindowSettings, AppInfo};
-
-
-fn main() {
-	let app_name = String::from("Triangle");
-	let version = Version::new(1, 0, 0);
-
-	let app_info = AppInfo{
-		app_name,
-		app_version: version,
-	};
-
-	let window_settings = WindowSettings::default();
-
-	let hobby_settings = HobbySettings {
-		window_settings,
-		app_info,
-	};
-	
-}
->>>>>>> 5e450d96c31cd9d53e1b2c310689f766cb67c48b

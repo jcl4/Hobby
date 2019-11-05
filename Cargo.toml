@@ -5,7 +5,6 @@ authors = ["James Longino <james.longino@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-<<<<<<< HEAD
 log = "^0.4"
 winit = "0.20.0-alpha4"
 raw-window-handle = "^0.3"
@@ -13,11 +12,3 @@ wgpu = "^0.4"
 
 [dev-dependencies]
 simplelog = "^0.7"
-=======
-ash = "^0.29"
-winit = "0.20.0-alpha4"
-log = "^0.4"
-
-[dev-dependencies]
-simplelog = "^0.7"
->>>>>>> 5e450d96c31cd9d53e1b2c310689f766cb67c48b
