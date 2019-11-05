@@ -1,7 +1,14 @@
-[workspace]
-members = [
-    "hobby",
-    "examples/triangle",
-    "examples/colored-quad",
-    # "examples/gltf-loading"
-]
+[package]
+name = "hobby"
+version = "0.1.0"
+authors = ["James Longino <james.longino@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+log = "^0.4"
+winit = "0.20.0-alpha4"
+raw-window-handle = "^0.3"
+wgpu = "^0.4"
+
+[dev-dependencies]
+simplelog = "^0.7"

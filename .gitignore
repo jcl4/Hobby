@@ -13,7 +13,7 @@ Cargo.lock
 **/*.spv
 
 # Log Files
-*.log
+logs/
 
 # Raw Resource Files
 **/raw/
@@ -21,3 +21,4 @@ Cargo.lock
 
 # sublime date
 *.sublime-workspace
+
