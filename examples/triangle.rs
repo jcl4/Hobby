@@ -3,7 +3,10 @@ use simplelog::{
 };
 use std::fs::File;
 
-use hobby::{Application, WindowSettings};
+use hobby::{
+    renderer::pipelines::{ColoredMeshModel, ColoredMeshPipeline, ColoredMeshVertex},
+    Application, WindowSettings,
+};
 
 fn main() {
     create_log_folder();
@@ -11,8 +14,18 @@ fn main() {
 
     let window_settings = WindowSettings::default();
 
+    let vertices = vec![
+        ColoredMeshVertex::new([0.0, 0.5, 0.0], [1.0, 0.0, 0.0, 1.0]),
+        ColoredMeshVertex::new([-0.5, -0.5, 0.0], [0.0, 1.0, 0.0, 1.0]),
+        ColoredMeshVertex::new([0.5, -0.5, 0.0], [0.0, 0.0, 1.0, 1.0]),
+    ];
+    let indices: Vec<u16> = vec![0, 1, 2];
+    let triangle_model = ColoredMeshModel::new(vertices, indices);
+    let mut pipeline = ColoredMeshPipeline::new();
+    pipeline.add_model(triangle_model);
+
     let app = Application::new(window_settings);
-    app.start();
+    app.start(pipeline);
 }
 
 fn setup_logging() {

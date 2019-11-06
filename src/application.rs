@@ -1,4 +1,7 @@
-use crate::{renderer::Renderer, InputState, WindowSettings};
+use crate::{
+    renderer::{pipelines::ColoredMeshPipeline, Renderer},
+    InputState, WindowSettings,
+};
 use log::info;
 
 use winit::{
@@ -19,7 +22,7 @@ impl Application {
         Application { window_settings }
     }
 
-    pub fn start(self) {
+    pub fn start(self, pipeline: ColoredMeshPipeline) {
         info!("Starting Application Loop");
 
         let (window, event_loop) = {
@@ -44,7 +47,9 @@ impl Application {
         };
         info!("Window and Event Loop Created");
 
-        let renderer = Renderer::new(&window, &self.window_settings);
+        let mut renderer = Renderer::new(&window, &self.window_settings);
+        renderer.add_pipeline(pipeline);
+
         let input_state = InputState::new();
 
         run(window, event_loop, renderer, input_state);

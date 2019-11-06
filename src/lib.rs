@@ -1,6 +1,6 @@
 mod application;
 mod input;
-mod renderer;
+pub mod renderer;
 mod settings;
 
 pub use application::Application;

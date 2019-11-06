@@ -1,10 +1,10 @@
-mod pipelines;
+pub mod pipelines;
 
 use log::info;
 use raw_window_handle;
 use wgpu::{Adapter, BackendBit, Device, PowerPreference, Queue, RequestAdapterOptions, Surface};
 
-use crate::WindowSettings;
+use crate::{renderer::pipelines::ColoredMeshPipeline, WindowSettings};
 
 pub(crate) struct Renderer {
     surface: Surface,
@@ -13,8 +13,7 @@ pub(crate) struct Renderer {
     queue: Queue,
     sc_desc: wgpu::SwapChainDescriptor,
     swap_chain: wgpu::SwapChain,
-    pipeline: wgpu::RenderPipeline,
-    bind_group: wgpu::BindGroup,
+    pipeline: Option<ColoredMeshPipeline>,
 }
 
 impl Renderer {
@@ -47,9 +46,6 @@ impl Renderer {
 
         let swap_chain = device.create_swap_chain(&surface, &sc_desc);
 
-        let (pipeline, bind_group) =
-            crate::renderer::pipelines::create_colored_mesh_pipeline(&device, &sc_desc);
-
         Renderer {
             surface,
             adapter,
@@ -57,8 +53,12 @@ impl Renderer {
             queue,
             sc_desc,
             swap_chain,
-            pipeline,
-            bind_group,
+            pipeline: None,
         }
+    }
+
+    pub fn add_pipeline(&mut self, mut pipeline: ColoredMeshPipeline) {
+        pipeline.build(&self.device, &self.sc_desc);
+        self.pipeline = Some(pipeline);
     }
 }
