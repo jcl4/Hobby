@@ -56,7 +56,12 @@ impl Application {
     }
 }
 
-fn run(window: Window, event_loop: EventLoop<()>, renderer: Renderer, mut input_state: InputState) {
+fn run(
+    window: Window,
+    event_loop: EventLoop<()>,
+    mut renderer: Renderer,
+    mut input_state: InputState,
+) {
     event_loop.run(move |event, _, control_flow| {
         match event {
             Event::EventsCleared => {
@@ -69,7 +74,9 @@ fn run(window: Window, event_loop: EventLoop<()>, renderer: Renderer, mut input_
             Event::WindowEvent {
                 event: WindowEvent::RedrawRequested,
                 ..
-            } => {}
+            } => {
+                renderer.render();
+            }
             Event::WindowEvent {
                 event: WindowEvent::CloseRequested,
                 ..

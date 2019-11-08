@@ -1,6 +1,7 @@
 use log::info;
 use std::fs::File;
 
+#[derive(Clone, Copy)]
 pub struct ColoredMeshVertex {
     pos: [f32; 4],
     color: [f32; 4],
@@ -13,6 +14,7 @@ impl ColoredMeshVertex {
     }
 }
 
+#[derive(Default)]
 pub struct ColoredMeshModel {
     vertices: Vec<ColoredMeshVertex>,
     indices: Vec<u16>,
@@ -24,20 +26,27 @@ impl ColoredMeshModel {
     }
 }
 
+#[derive(Default)]
 pub struct ColoredMeshPipeline {
     pipeline: Option<wgpu::RenderPipeline>,
     bind_group: Option<wgpu::BindGroup>,
-    models: Vec<ColoredMeshModel>,
+    vertex_buf: Option<wgpu::Buffer>,
+    index_buf: Option<wgpu::Buffer>,
+    index_count: usize,
+    model: ColoredMeshModel,
 }
 
 impl ColoredMeshPipeline {
     pub fn new() -> ColoredMeshPipeline {
-        let models: Vec<ColoredMeshModel> = vec![];
+        let model = ColoredMeshModel::default();
 
         ColoredMeshPipeline {
             pipeline: None,
             bind_group: None,
-            models,
+            vertex_buf: None,
+            index_buf: None,
+            index_count: 0,
+            model,
         }
     }
 
@@ -53,8 +62,6 @@ impl ColoredMeshPipeline {
         let frag_spv = wgpu::read_spirv(frag_file)
             .expect("Unable to create spirv data from fragment shader for colored_mesh pipeline");
         let frag_mod = device.create_shader_module(&frag_spv);
-
-        // let pipeline_desc = wgpu::RenderPipelineDescriptor
 
         let bind_group_layout =
             device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor { bindings: &[] });
@@ -117,16 +124,29 @@ impl ColoredMeshPipeline {
 
         let pipeline = device.create_render_pipeline(&pipeline_desc);
 
+        let vertex_buf = device
+            .create_buffer_mapped(self.model.vertices.len(), wgpu::BufferUsage::VERTEX)
+            .fill_from_slice(&self.model.vertices);
+        let index_buf = device
+            .create_buffer_mapped(self.model.indices.len(), wgpu::BufferUsage::INDEX)
+            .fill_from_slice(&self.model.indices);
         self.pipeline = Some(pipeline);
         self.bind_group = Some(bind_group);
+        self.vertex_buf = Some(vertex_buf);
+        self.index_buf = Some(index_buf);
+        self.index_count = self.model.indices.len();
         info!("Colored Mesh Pipeline Built");
     }
 
-    pub fn add_model(&mut self, model: ColoredMeshModel) {
-        self.models.push(model);
+    pub fn draw(&mut self, render_pass: &mut wgpu::RenderPass) {
+        render_pass.set_pipeline(self.pipeline.as_mut().unwrap());
+        render_pass.set_bind_group(0, &self.bind_group.as_mut().unwrap(), &[]);
+        render_pass.set_vertex_buffers(0, &[(&self.vertex_buf.as_mut().unwrap(), 0)]);
+        render_pass.set_index_buffer(&self.index_buf.as_mut().unwrap(), 0);
+        render_pass.draw_indexed(0..self.index_count as u32, 0, 0..1)
     }
 
-    pub fn add_models(&mut self, mut models: Vec<ColoredMeshModel>) {
-        self.models.append(&mut models);
+    pub fn add_model(&mut self, model: ColoredMeshModel) {
+        self.model = model;
     }
 }
