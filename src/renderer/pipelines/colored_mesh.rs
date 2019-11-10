@@ -1,5 +1,7 @@
+use crate::math::matrix4::Matrix4;
 use log::info;
 use std::fs::File;
+use std::time::{Duration, Instant};
 
 #[derive(Clone, Copy)]
 pub struct ColoredMeshVertex {
@@ -32,7 +34,9 @@ pub struct ColoredMeshPipeline {
     vertex_buf: wgpu::Buffer,
     index_buf: wgpu::Buffer,
     index_count: usize,
+    uniform_buf: wgpu::Buffer,
     model: ColoredMeshModel,
+    t_start: Instant,
 }
 
 impl ColoredMeshPipeline {
@@ -53,20 +57,29 @@ impl ColoredMeshPipeline {
             .expect("Unable to create spirv data from fragment shader for colored_mesh pipeline");
         let frag_mod = device.create_shader_module(&frag_spv);
 
-        // let bind_group_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
-        //     bindings: &[wgpu::BindGroupLayoutBinding {
-        //         binding: 0,
-        //         visibility: wgpu::ShaderStage::VERTEX,
-        //         ty: wgpu::BindingType::UniformBuffer { dynamic: false },
-        //     }],
-        // });
+        let bind_group_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+            bindings: &[wgpu::BindGroupLayoutBinding {
+                binding: 0,
+                visibility: wgpu::ShaderStage::VERTEX,
+                ty: wgpu::BindingType::UniformBuffer { dynamic: false },
+            }],
+        });
 
-        let bind_group_layout =
-            device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor { bindings: &[] });
+        let mut transform = Matrix4::identity();
+
+        let uniform_buf = device
+            .create_buffer_mapped(16, wgpu::BufferUsage::UNIFORM | wgpu::BufferUsage::COPY_DST)
+            .fill_from_slice(&transform.data);
 
         let bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
             layout: &bind_group_layout,
-            bindings: &[],
+            bindings: &[wgpu::Binding {
+                binding: 0,
+                resource: wgpu::BindingResource::Buffer {
+                    buffer: &uniform_buf,
+                    range: 0..64,
+                },
+            }],
         });
         let pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
             bind_group_layouts: &[&bind_group_layout],
@@ -136,8 +149,25 @@ impl ColoredMeshPipeline {
             vertex_buf,
             index_buf,
             index_count: model.indices.len(),
+            uniform_buf,
             model,
+            t_start: Instant::now(),
         }
+    }
+
+    pub fn update_uniform_buffer(
+        &mut self,
+        device: &wgpu::Device,
+        encoder: &mut wgpu::CommandEncoder,
+    ) {
+        let delta_t = Instant::now().duration_since(self.t_start).as_secs_f32();
+        let transform = Matrix4::rotate_about_z(delta_t * 2.0 * std::f32::consts::PI);
+
+        let temp_buf = device
+            .create_buffer_mapped(16, wgpu::BufferUsage::COPY_SRC)
+            .fill_from_slice(&transform.data);
+
+        encoder.copy_buffer_to_buffer(&temp_buf, 0, &self.uniform_buf, 0, 64);
     }
 
     pub fn draw(&mut self, render_pass: &mut wgpu::RenderPass) {

@@ -1,5 +1,6 @@
 mod application;
 mod input;
+pub mod math;
 pub mod renderer;
 mod settings;
 
