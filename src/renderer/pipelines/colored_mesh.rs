@@ -1,5 +1,7 @@
+use crate::math::matrix4::Matrix4;
 use log::info;
 use std::fs::File;
+use std::time::{Duration, Instant};
 
 #[derive(Clone, Copy)]
 pub struct ColoredMeshVertex {
@@ -26,31 +28,23 @@ impl ColoredMeshModel {
     }
 }
 
-#[derive(Default)]
 pub struct ColoredMeshPipeline {
-    pipeline: Option<wgpu::RenderPipeline>,
-    bind_group: Option<wgpu::BindGroup>,
-    vertex_buf: Option<wgpu::Buffer>,
-    index_buf: Option<wgpu::Buffer>,
+    pipeline: wgpu::RenderPipeline,
+    bind_group: wgpu::BindGroup,
+    vertex_buf: wgpu::Buffer,
+    index_buf: wgpu::Buffer,
     index_count: usize,
+    uniform_buf: wgpu::Buffer,
     model: ColoredMeshModel,
+    t_start: Instant,
 }
 
 impl ColoredMeshPipeline {
-    pub fn new() -> ColoredMeshPipeline {
-        let model = ColoredMeshModel::default();
-
-        ColoredMeshPipeline {
-            pipeline: None,
-            bind_group: None,
-            vertex_buf: None,
-            index_buf: None,
-            index_count: 0,
-            model,
-        }
-    }
-
-    pub(crate) fn build(&mut self, device: &wgpu::Device, sc_desc: &wgpu::SwapChainDescriptor) {
+    pub fn new(
+        device: &wgpu::Device,
+        sc_desc: &wgpu::SwapChainDescriptor,
+        model: ColoredMeshModel,
+    ) -> ColoredMeshPipeline {
         let vert_file = File::open("src/renderer/shaders/colored_mesh.vert.spv")
             .expect("Unable to find vertex shader spirv file for colored_mesh pipeline");
         let frag_file = File::open("src/renderer/shaders/colored_mesh.frag.spv")
@@ -63,11 +57,29 @@ impl ColoredMeshPipeline {
             .expect("Unable to create spirv data from fragment shader for colored_mesh pipeline");
         let frag_mod = device.create_shader_module(&frag_spv);
 
-        let bind_group_layout =
-            device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor { bindings: &[] });
+        let bind_group_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+            bindings: &[wgpu::BindGroupLayoutBinding {
+                binding: 0,
+                visibility: wgpu::ShaderStage::VERTEX,
+                ty: wgpu::BindingType::UniformBuffer { dynamic: false },
+            }],
+        });
+
+        let mut transform = Matrix4::identity();
+
+        let uniform_buf = device
+            .create_buffer_mapped(16, wgpu::BufferUsage::UNIFORM | wgpu::BufferUsage::COPY_DST)
+            .fill_from_slice(&transform.data);
+
         let bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
             layout: &bind_group_layout,
-            bindings: &[],
+            bindings: &[wgpu::Binding {
+                binding: 0,
+                resource: wgpu::BindingResource::Buffer {
+                    buffer: &uniform_buf,
+                    range: 0..64,
+                },
+            }],
         });
         let pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
             bind_group_layouts: &[&bind_group_layout],
@@ -125,24 +137,44 @@ impl ColoredMeshPipeline {
         let pipeline = device.create_render_pipeline(&pipeline_desc);
 
         let vertex_buf = device
-            .create_buffer_mapped(self.model.vertices.len(), wgpu::BufferUsage::VERTEX)
-            .fill_from_slice(&self.model.vertices);
+            .create_buffer_mapped(model.vertices.len(), wgpu::BufferUsage::VERTEX)
+            .fill_from_slice(&model.vertices);
         let index_buf = device
-            .create_buffer_mapped(self.model.indices.len(), wgpu::BufferUsage::INDEX)
-            .fill_from_slice(&self.model.indices);
-        self.pipeline = Some(pipeline);
-        self.bind_group = Some(bind_group);
-        self.vertex_buf = Some(vertex_buf);
-        self.index_buf = Some(index_buf);
-        self.index_count = self.model.indices.len();
-        info!("Colored Mesh Pipeline Built");
+            .create_buffer_mapped(model.indices.len(), wgpu::BufferUsage::INDEX)
+            .fill_from_slice(&model.indices);
+
+        ColoredMeshPipeline {
+            pipeline,
+            bind_group,
+            vertex_buf,
+            index_buf,
+            index_count: model.indices.len(),
+            uniform_buf,
+            model,
+            t_start: Instant::now(),
+        }
+    }
+
+    pub fn update_uniform_buffer(
+        &mut self,
+        device: &wgpu::Device,
+        encoder: &mut wgpu::CommandEncoder,
+    ) {
+        let delta_t = Instant::now().duration_since(self.t_start).as_secs_f32();
+        let transform = Matrix4::rotate_about_z(delta_t * 2.0 * std::f32::consts::PI);
+
+        let temp_buf = device
+            .create_buffer_mapped(16, wgpu::BufferUsage::COPY_SRC)
+            .fill_from_slice(&transform.data);
+
+        encoder.copy_buffer_to_buffer(&temp_buf, 0, &self.uniform_buf, 0, 64);
     }
 
     pub fn draw(&mut self, render_pass: &mut wgpu::RenderPass) {
-        render_pass.set_pipeline(self.pipeline.as_mut().unwrap());
-        render_pass.set_bind_group(0, &self.bind_group.as_mut().unwrap(), &[]);
-        render_pass.set_vertex_buffers(0, &[(&self.vertex_buf.as_mut().unwrap(), 0)]);
-        render_pass.set_index_buffer(&self.index_buf.as_mut().unwrap(), 0);
+        render_pass.set_pipeline(&self.pipeline);
+        render_pass.set_bind_group(0, &self.bind_group, &[]);
+        render_pass.set_vertex_buffers(0, &[(&self.vertex_buf, 0)]);
+        render_pass.set_index_buffer(&self.index_buf, 0);
         render_pass.draw_indexed(0..self.index_count as u32, 0, 0..1)
     }
 

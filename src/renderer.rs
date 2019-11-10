@@ -4,7 +4,10 @@ use log::info;
 use raw_window_handle;
 use wgpu::{Adapter, BackendBit, Device, PowerPreference, Queue, RequestAdapterOptions, Surface};
 
-use crate::{renderer::pipelines::ColoredMeshPipeline, WindowSettings};
+use crate::{
+    renderer::pipelines::{ColoredMeshModel, ColoredMeshPipeline},
+    WindowSettings,
+};
 
 pub(crate) struct Renderer {
     _surface: Surface,
@@ -13,13 +16,14 @@ pub(crate) struct Renderer {
     queue: Queue,
     sc_desc: wgpu::SwapChainDescriptor,
     swap_chain: wgpu::SwapChain,
-    pipeline: Option<ColoredMeshPipeline>,
+    pipeline: ColoredMeshPipeline,
 }
 
 impl Renderer {
     pub fn new<W: raw_window_handle::HasRawWindowHandle>(
         window: &W,
         window_settings: &WindowSettings,
+        model: ColoredMeshModel,
     ) -> Renderer {
         let surface = Surface::create(window);
         info!("Surface Created");
@@ -46,6 +50,8 @@ impl Renderer {
 
         let swap_chain = device.create_swap_chain(&surface, &sc_desc);
 
+        let pipeline = ColoredMeshPipeline::new(&device, &sc_desc, model);
+
         Renderer {
             _surface: surface,
             _adapter: adapter,
@@ -53,16 +59,11 @@ impl Renderer {
             queue,
             sc_desc,
             swap_chain,
-            pipeline: None,
+            pipeline,
         }
     }
 
-    pub fn add_pipeline(&mut self, mut pipeline: ColoredMeshPipeline) {
-        pipeline.build(&self.device, &self.sc_desc);
-        self.pipeline = Some(pipeline);
-    }
-
-    pub fn render(&mut self) {
+    pub fn draw(&mut self) {
         let frame = self.swap_chain.get_next_texture();
         let mut encoder = self
             .device
@@ -74,19 +75,23 @@ impl Renderer {
             load_op: wgpu::LoadOp::Clear,
             store_op: wgpu::StoreOp::Store,
             clear_color: wgpu::Color {
-                r: 0.5,
-                g: 0.8,
-                b: 0.5,
+                r: 0.07,
+                g: 0.12,
+                b: 0.08,
                 a: 1.0,
             },
         };
+
+        self.pipeline
+            .update_uniform_buffer(&self.device, &mut encoder);
+
         {
             let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                 color_attachments: &[color_att],
                 depth_stencil_attachment: None,
             });
 
-            self.pipeline.as_mut().unwrap().draw(&mut render_pass);
+            self.pipeline.draw(&mut render_pass);
         }
         let command_buffer = encoder.finish();
         self.queue.submit(&[command_buffer]);
