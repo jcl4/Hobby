@@ -63,7 +63,7 @@ impl Renderer {
         }
     }
 
-    pub fn render(&mut self) {
+    pub fn draw(&mut self) {
         let frame = self.swap_chain.get_next_texture();
         let mut encoder = self
             .device
