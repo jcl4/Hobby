@@ -3,32 +3,7 @@ use simplelog::{
 };
 use std::fs::File;
 
-use hobby::{
-    renderer::pipelines::{ColoredMeshModel, ColoredMeshPipeline, ColoredMeshVertex},
-    Application, WindowSettings,
-};
-
-fn main() {
-    create_log_folder();
-    setup_logging();
-
-    let window_settings = WindowSettings::default();
-
-    let vertices = vec![
-        ColoredMeshVertex::new([0.0, -0.5, 0.0], [1.0, 0.0, 0.0, 1.0]),
-        ColoredMeshVertex::new([-0.5, -0.5, 0.0], [0.0, 1.0, 0.0, 1.0]),
-        ColoredMeshVertex::new([0.5, 0.5, 0.0], [0.0, 0.0, 1.0, 1.0]),
-    ];
-    let indices: Vec<u16> = vec![0, 1, 2];
-    let triangle_model = ColoredMeshModel::new(vertices, indices);
-    let mut pipeline = ColoredMeshPipeline::new();
-    pipeline.add_model(triangle_model);
-
-    let app = Application::new(window_settings);
-    app.start(pipeline);
-}
-
-fn setup_logging() {
+pub fn setup_logging() {
     let file = File::create("./logs/log.txt").expect("Log File Creation Error");
 
     let config = ConfigBuilder::new()
@@ -45,7 +20,7 @@ fn setup_logging() {
     CombinedLogger::init(loggers).expect("Unable to create combined logger");
 }
 
-fn create_log_folder() {
+pub fn create_log_folder() {
     let mut path = std::env::current_dir().unwrap();
     path.push("logs");
     if let false = path.as_path().exists() {
@@ -53,3 +28,9 @@ fn create_log_folder() {
         std::fs::create_dir(path).unwrap();
     }
 }
+
+// From wgup-rs examples:
+// This allows treating this mod as a standalone example,
+// thus avoiding listing the example names in `Cargo.toml`.
+#[allow(dead_code)]
+fn main() {}
