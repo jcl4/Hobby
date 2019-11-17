@@ -20,7 +20,7 @@ scene.add_object(object);
 app.start(scene);
 
 ```
-
+- [Game Struct Design](Game.md)
 
 
 ## Structs
