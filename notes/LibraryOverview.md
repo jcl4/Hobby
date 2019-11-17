@@ -1,11 +1,11 @@
 # Hobby Library Functionality
 
-## Game
-The Game object is the main entry point to the library and configured via the `GameSettings` struct. Game loop lives here
+## Overview
+The Application object is the main entry point to the library and configured via the `AppSettings` struct. Game loop lives here
 
 ### Creation
 ``` Rust
-let game_settings = GameSettings::defualt();
+let game_settings = AppSettings::defualt();
 let app = Application::new(game_settings);
 
 let object = ObjectBuilder()
@@ -20,14 +20,33 @@ scene.add_object(object);
 app.start(scene);
 
 ```
-- [Game Struct Design](Game.md)
-
 
 ## Structs
+### Application
+#### Properties
+- Window
+- Renderer
+- InputState
+
+#### Methods
+`new(app_settings) -> Application`
+- Creats window, renderer, and InputState
+
+`start(self, scene)`
+- pass list of unique pipelines to renderer
+- renderer creates and holds onto pipelines
+
 ### Object
-- Built using application
-- Holds all required buffers
-- Checks to make sure that vertex supports the material type
+#### Properties
+- Mesh
+- Material
+- IndexBuffer
+- VertexBuffer
+- UniformBuffer
+- UpdateFunction
+
+#### Methods
+`update(&mut self)`
 
 ### Scene
 - Scene has a vector of objects
