@@ -1,3 +1,4 @@
+#[repr(C)]
 pub struct Matrix4 {
     pub data: [f32; 16],
 }

@@ -82,9 +82,6 @@ impl Renderer {
             },
         };
 
-        self.pipeline
-            .update_uniform_buffer(&self.device, &mut encoder);
-
         {
             let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                 color_attachments: &[color_att],

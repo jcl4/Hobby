@@ -1,5 +1,8 @@
 use crate::{
-    renderer::{pipelines::ColoredMeshModel, Renderer},
+    renderer::{
+        pipelines::{ColoredMeshModel, RenderObject, Updatable},
+        Renderer,
+    },
     InputState, WindowSettings,
 };
 use log::info;
@@ -11,18 +14,34 @@ use winit::{
     window::{Window, WindowBuilder},
 };
 
-pub struct Application {
+pub struct Application<T: Updatable + RenderObject> {
     window_settings: WindowSettings,
+    models: Vec<T>,
 }
 
-impl Application {
-    pub fn new(window_settings: WindowSettings) -> Application {
+impl<T> Application<T>
+where
+    T: Updatable + RenderObject,
+{
+    pub fn new(window_settings: WindowSettings) -> Application<T> {
         info!("Window Settings: {:#?}", window_settings);
+        let models: Vec<T> = vec![];
 
-        Application { window_settings }
+        Application {
+            window_settings,
+            models,
+        }
     }
 
-    pub fn start(self, model: ColoredMeshModel) {
+    pub fn add_model(&mut self, model: T) {
+        self.models.push(model);
+    }
+
+    pub fn add_models(&mut self, models: Vec<T>){
+        self.models.append(&mut models);
+    }
+
+    pub fn start(self) {
         // pub fn start(self, pipeline: ColoredMeshPipeline) {
         info!("Starting Application Loop");
 
@@ -52,7 +71,7 @@ impl Application {
 
         let input_state = InputState::new();
 
-        run(window, event_loop, renderer, input_state);
+        run(window, event_loop, renderer, input_state, );
     }
 }
 
