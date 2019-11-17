@@ -1,17 +1,12 @@
-# Hobby Library Design Document
-Planning doc for the library functionality
+# Hobby Library Functionality
 
-## Aplication
-- Entry Point to Library
-- Holds renderer, input, scene, etc
-- Game Loop
-- Created with a WindowSettings
-- factory functionality
+## Game
+The Game object is the main entry point to the library and configured via the `GameSettings` struct. Game loop lives here
 
-### API 
+### Creation
 ``` Rust
-let window_settings = WindowSettings::defualt();
-let app = Application::new(window_settings();
+let game_settings = GameSettings::defualt();
+let app = Application::new(game_settings);
 
 let object = ObjectBuilder()
 	.with_mesh(mesh)
@@ -25,6 +20,8 @@ scene.add_object(object);
 app.start(scene);
 
 ```
+
+
 
 ## Structs
 ### Object
