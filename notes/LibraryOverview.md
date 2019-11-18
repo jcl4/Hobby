@@ -32,7 +32,7 @@ app.start(scene);
 `new(app_settings) -> Application`
 - Creats window, renderer, and InputState
 
-`start(self, scene)`
+`run(self, scene)`
 - pass list of unique pipelines to renderer
 - renderer creates and holds onto pipelines
 

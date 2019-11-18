@@ -1,5 +1,6 @@
 use crate::{Scene};
 
+/// Application Settings
 #[derive(Debug)]
 pub struct ApplicationSettings {
     pub window_width: u32,
@@ -17,17 +18,17 @@ impl ApplicationSettings {
     }
 }
 
+/// Application
+pub struct Application {
 
-pub struct Application{}
+}
 
 impl Application {
 	pub fn new(app_settings: ApplicationSettings) -> Application {
 		Application{}
 	}
 
-	pub fn start(&self, scene: Scene) {
+	pub fn run(&self, scene: Scene) {
 
 	}
-
-	
 }
