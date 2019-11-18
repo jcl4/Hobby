@@ -5,8 +5,8 @@ The Application object is the main entry point to the library and configured via
 
 ### Creation
 ``` Rust
-let game_settings = AppSettings::defualt();
-let app = Application::new(game_settings);
+let app_settings = AppSettings::defualt();
+let app = Application::new(app_settings);
 
 let object = ObjectBuilder()
 	.with_mesh(mesh)
@@ -51,7 +51,6 @@ app.start(scene);
 ### Scene
 - Scene has a vector of objects
 - Also creates list of unique materials
-
 - May eventually becoem a scene graph???
 
 ### Mesh
@@ -66,7 +65,7 @@ app.start(scene);
 ### Renderer
 - Holds all the required rendering data
 - Holds pipelines
-- Application passes list unique materials to renderer create_pipelines 
+- Application passes list of unique materials to renderer create_pipelines 
 
 
 

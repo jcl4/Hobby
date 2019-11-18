@@ -1,25 +1,31 @@
 #[path = "../base.rs"]
 mod base;
 
-use hobby::{
-    renderer::pipelines::{ColoredMeshModel, ColoredMeshPipeline, ColoredMeshVertex},
-    Application, WindowSettings,
-};
+use hobby::{Application, ApplicationSettings, Mesh, ObjectBuilder, Scene};
+use log::info;
 
 fn main() {
     base::create_log_folder();
     base::setup_logging();
 
-    let window_settings = WindowSettings::default();
+    let app_settings = ApplicationSettings::default();
 
-    let vertices = vec![
-        ColoredMeshVertex::new([0.0, -0.5, 0.0], [1.0, 0.0, 0.0, 1.0]),
-        ColoredMeshVertex::new([-0.5, 0.5, 0.0], [0.0, 1.0, 0.0, 1.0]),
-        ColoredMeshVertex::new([0.5, 0.5, 0.0], [0.0, 0.0, 1.0, 1.0]),
-    ];
-    let indices: Vec<u16> = vec![0, 1, 2];
-    let model = ColoredMeshModel::new(vertices, indices);
+    let app = Application::new(app_settings);
+    info!("Application Created");
 
-    let app = Application::new(window_settings);
-    app.start(model);
+    let mesh = Mesh::new();
+    let triangle = ObjectBuilder::new()
+        .with_mesh(mesh)
+        .with_transform()
+        .with_material()
+        .build(&app);
+
+    info!("Triangle Created");
+
+    let mut scene = Scene::new();
+    scene.add_object(triangle);
+    info!("Scene Created");
+
+    app.start(scene);
+    info!("Scene Finished");
 }

@@ -1,9 +1,7 @@
 mod application;
-mod input;
-pub mod math;
-pub mod renderer;
-mod settings;
+mod tools;
+mod scene;
 
-pub use application::Application;
-pub use input::InputState;
-pub use settings::WindowSettings;
+pub use application::{Application, ApplicationSettings};
+pub use scene::{Scene, Object, ObjectBuilder, Mesh};
+// pub use scene::
