@@ -1,6 +1,7 @@
 use crate::Application;
 use crate::Mesh;
 
+/// Object Builder
 pub struct ObjectBuilder{}
 
 impl ObjectBuilder {
@@ -26,4 +27,5 @@ impl ObjectBuilder {
 
 }
 
+/// Object
 pub struct Object {} 

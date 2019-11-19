@@ -9,9 +9,7 @@ fn main() {
     base::setup_logging();
 
     let app_settings = ApplicationSettings::default();
-
     let app = Application::new(app_settings);
-    info!("Application Created");
 
     let mesh = Mesh::new();
     let triangle = ObjectBuilder::new()
@@ -26,6 +24,5 @@ fn main() {
     scene.add_object(triangle);
     info!("Scene Created");
 
-    app.start(scene);
-    info!("Scene Finished");
+    app.run(scene);
 }
