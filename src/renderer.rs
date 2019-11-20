@@ -8,6 +8,9 @@ Renderer workflow thoughts
 - 
 - Object builder builds the buffers and bind group
 - to build the bind group the bind group layout will need to be created
+- bind group layouts need the pipeline to be created
+- build a piplenines struct with options for each pipeline
+- get piple line checks for is some if none creates pipeline
 */
 
 use winit::window::Window;

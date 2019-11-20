@@ -1,0 +1,3 @@
+pub Enum Material {
+	SolidColor
+}
