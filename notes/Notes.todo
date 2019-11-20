@@ -1,0 +1,17 @@
+Hobby Renderer:
+  Notes:
+    - Repo: https://github.com/jcl4/Hobby
+    - Coordinate Sytem: Top left is (-1, -1) in screen coordinates
+    - vertex winding order is CCW
+  Working on:
+    ✔ Frame Timer @done (19-11-19 14:21)
+
+  TODO:
+    ☐ Rendering Pipline re-write
+    ☐ Texturing
+    ☐ Camera
+    ☐ Window Resize
+    ☐ Lighting
+    ☐ Depth Attachement
+    ☐ Tranform
+  

@@ -79,3 +79,10 @@ enum Material {
 	Phong(PhongData),
 }
 ```
+
+### Frame Timer
+#### Needs
+- prints to command line number of frames and average frame rate
+- interval for printing is configurable - defined in ApplicationSettings
+- prints to command line at end of program
+

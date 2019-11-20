@@ -25,9 +25,10 @@
 #![warn(clippy::all)]
 
 mod application;
-mod tools;
 mod scene;
 mod input;
+
+pub(crate) mod tools;
 pub(crate) mod renderer;
 
 pub use application::{Application, ApplicationSettings};
