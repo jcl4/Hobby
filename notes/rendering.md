@@ -12,7 +12,7 @@
 	- Scenes are very simple right now and only hold a vector of objects
 * Scenes are sent to the application for rendering
 	-	Currently only supporting one scene being run
-	-	Set up splace screen during this phase?
+	-	Set up splash screen during this phase?
 
 ## Internal Process
 * the [Renderer](renderer.md) creates and stores the global GPU resources

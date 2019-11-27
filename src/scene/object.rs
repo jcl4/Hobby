@@ -1,31 +1,30 @@
+use crate::scene::Mesh;
 use crate::Application;
-use crate::Mesh;
 
 /// Object Builder
-pub struct ObjectBuilder{}
+pub struct ObjectBuilder {}
 
 impl ObjectBuilder {
-	pub fn new() -> Self{
-		ObjectBuilder {}
-	}
+    pub fn new() -> Self {
+        ObjectBuilder {}
+    }
 
-	pub fn with_mesh(self, mesh: Mesh) -> Self {
-		self
-	}
+    pub fn with_mesh(self, mesh: Mesh) -> Self {
+        self
+    }
 
-	pub fn with_transform(self) -> Self {
-		self
-	}
+    pub fn with_transform(self) -> Self {
+        self
+    }
 
-	pub fn with_material(self) -> Self {
-		self
-	}
+    pub fn with_material(self) -> Self {
+        self
+    }
 
-	pub fn build(self, app: &Application) -> Object {
-		Object{}
-	}
-
+    pub fn build(self, app: &Application) -> Object {
+        Object {}
+    }
 }
 
 /// Object
-pub struct Object {} 
+pub struct Object {}

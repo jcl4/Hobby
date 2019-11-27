@@ -8,3 +8,12 @@
 * [ ] Transform
 
 ## Rendering Pipleine Rewrite
+* [ ] Vertex
+* [ ] Mesh
+* [ ] Material Enum
+* [ ] Object Builder
+* [ ] Object
+* [ ] Material pipelines
+* [ ] Scene
+* [ ] Renderer
+* [ ] Spirv Creation

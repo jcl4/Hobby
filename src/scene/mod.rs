@@ -4,6 +4,7 @@ mod vertex;
 
 pub use object::{ObjectBuilder, Object};
 pub use mesh::Mesh;
+pub use vertex::{VertexBuilder, Vertex};
 
 pub struct Scene {}
 

@@ -1,6 +1,6 @@
 use std::time::{Duration, Instant};
 
-use crate::{renderer::Renderer, tools::timer::FrameTimer, InputState, Scene};
+use crate::{renderer::Renderer, tools::timer::FrameTimer, InputState, scene::Scene};
 
 use winit::{
     dpi::PhysicalSize,
