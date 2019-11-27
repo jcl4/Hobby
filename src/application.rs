@@ -1,6 +1,6 @@
 use std::time::{Duration, Instant};
 
-use crate::{renderer::Renderer, tools::timer::FrameTimer, InputState, scene::Scene};
+use crate::{renderer::Renderer, scene::Scene, tools::timer::FrameTimer, InputState};
 
 use winit::{
     dpi::PhysicalSize,
@@ -88,7 +88,7 @@ impl Application {
     }
 
     /// Game loop lives here
-    pub fn run(self, scene: Scene) {
+    pub fn run(self, _scene: Scene) {
         info!("Game Loop Starting");
         let mut input_state = self.input_state;
         let window = self.window;
@@ -103,7 +103,6 @@ impl Application {
                         *control_flow = ControlFlow::Exit;
                     }
                     window.request_redraw();
-                    
                 }
                 Event::WindowEvent {
                     event: WindowEvent::RedrawRequested,

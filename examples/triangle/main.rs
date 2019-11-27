@@ -2,7 +2,7 @@
 mod base;
 
 use hobby::{
-    scene::{Mesh, ObjectBuilder, Scene, Vertex, VertexBuilder},
+    scene::{Mesh, ObjectBuilder, Scene, VertexBuilder},
     Application, ApplicationSettings,
 };
 use log::info;

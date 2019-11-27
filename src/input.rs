@@ -19,6 +19,7 @@ impl InputState {
     }
 
     pub fn update(&mut self, event: &DeviceEvent) {
+        #![allow(clippy::single_match)]
         match event {
             DeviceEvent::Key(KeyboardInput {
                 virtual_keycode: Some(code),

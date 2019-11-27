@@ -21,19 +21,6 @@ impl Vector3 {
         Vector3::new(1.0, 1.0, 1.0)
     }
 
-    /// panics if vec.len() is < 3
-    /// only used first 4 elements if longer
-    pub fn from_vec(vec: Vec<f32>) -> Self {
-        if vec.len() < 3 {
-            panic!(
-                "Not enough elements in input vector: {:?} to create Vector3, min needed 3",
-                vec.len()
-            );
-        }
-
-        Vector3::new(vec[0], vec[1], vec[2])
-    }
-
     pub fn normalize(&mut self) {
         let n = 1.0 / (self.x * self.x + self.y * self.y + self.z * self.z).sqrt();
         self.x *= n;
@@ -42,53 +29,20 @@ impl Vector3 {
     }
 }
 
-// See https://stackoverflow.com/questions/30218886/how-to-implement-iterator-and-intoiterator-for-a-simple-struct
-impl IntoIterator for Vector3 {
-    type Item = f32;
-    type IntoIter = Vector3IntoIterator;
-
-    fn into_iter(self) -> Self::IntoIter {
-        Vector3IntoIterator {
-            vec3: self,
-            index: 0,
-        }
-    }
-}
-
-pub struct Vector3IntoIterator {
-    vec3: Vector3,
-    index: usize,
-}
-
-impl Iterator for Vector3IntoIterator {
-    type Item = f32;
-
-    fn next(&mut self) -> Option<f32> {
-        let result = match self.index {
-            0 => self.vec3.x,
-            1 => self.vec3.y,
-            2 => self.vec3.z,
-            _ => return None,
-        };
-        self.index += 1;
-        Some(result)
-    }
-}
-
 impl Mul<f32> for Vector3 {
     type Output = Self;
 
-    fn mul(self, other: f32) -> Self::Output {
-        Vector3::new(self.x * other, self.y * other, self.z * other)
+    fn mul(self, rhs: f32) -> Self::Output {
+        Vector3::new(self.x * rhs, self.y * rhs, self.z * rhs)
     }
 }
 
 impl MulAssign<Vector3> for Vector3 {
-    fn mul_assign(&mut self, other: Vector3) {
+    fn mul_assign(&mut self, rhs: Vector3) {
         *self = Self {
-            x: self.x * other.x,
-            y: self.y * other.y,
-            z: self.z * other.z,
+            x: self.x * rhs.x,
+            y: self.y * rhs.y,
+            z: self.z * rhs.z,
         }
     }
 }
@@ -107,28 +61,34 @@ impl Index<u8> for Vector3 {
 }
 
 impl PartialEq for Vector3 {
-    fn eq(&self, other: &Self) -> bool {
-        let mut iter = self.into_iter().zip(other.into_iter());
-        iter.all(|(a, b)| a.approx_eq(b, (1e-7, 0)))
+    fn eq(&self, rhs: &Self) -> bool {
+        let eps = 1e-7;
+        let ulps = 0;
+
+        self.x.approx_eq(rhs.x, (eps, ulps))
+            && self.y.approx_eq(rhs.y, (eps, ulps))
+            && self.z.approx_eq(rhs.z, (eps, ulps))
     }
 }
 
 impl Add for Vector3 {
     type Output = Self;
 
-    fn add(self, other: Vector3) -> Self::Output {
-        let iter = self.into_iter().zip(other.into_iter());
-        let vec: Vec<f32> = iter.map(|(a, b)| a + b).collect();
-        Vector3::from_vec(vec)
+    fn add(self, rhs: Vector3) -> Self::Output {
+        Vector3 {
+            x: self.x + rhs.x,
+            y: self.y + rhs.y,
+            z: self.z + rhs.z,
+        }
     }
 }
 
 impl AddAssign for Vector3 {
-    fn add_assign(&mut self, other: Self) {
+    fn add_assign(&mut self, rhs: Self) {
         *self = Self {
-            x: self.x + other.x,
-            y: self.y + other.y,
-            z: self.z + other.z,
+            x: self.x + rhs.x,
+            y: self.y + rhs.y,
+            z: self.z + rhs.z,
         }
     }
 }

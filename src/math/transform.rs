@@ -1,4 +1,4 @@
-use super::{Quaternion, Vector3};
+use super::{Matrix4, Quaternion, Vector3, Vector4};
 
 pub struct Transform {
     pub position: Vector3,
@@ -28,6 +28,17 @@ impl Transform {
 
     pub fn scale(&mut self, scale_factor: Vector3) {
         self.scale *= scale_factor;
+    }
+
+    pub fn transform_vec(&self, vec_in: Vector3) -> Vector3 {
+        let vec = Vector4::from_vec3(vec_in, 1.0);
+        let mat = self.get_model_matrix();
+        let vec = mat * vec;
+        Vector3::new(vec[0], vec[1], vec[2])
+    }
+
+    pub fn get_model_matrix(&self) -> Matrix4 {
+        Matrix4::identity()
     }
 }
 

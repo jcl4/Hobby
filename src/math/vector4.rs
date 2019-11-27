@@ -1,6 +1,7 @@
 use float_cmp::ApproxEq;
-use std::iter::FromIterator;
 use std::ops::{Add, Index, Mul};
+
+use crate::math::Vector3;
 
 #[derive(Debug, Copy, Clone)]
 pub struct Vector4 {
@@ -15,50 +16,13 @@ impl Vector4 {
         Vector4 { x, y, z, w }
     }
 
-    /// panics if vec.len() is < 4
-    /// only uses first 4 elements if longer
-    pub fn from_vec(vec: Vec<f32>) -> Self {
-        if vec.len() < 4 {
-            panic!(
-                "Not enough elements in input vector: {:?} to create Vector4, min needed 4",
-                vec.len()
-            );
+    pub fn from_vec3(vec: Vector3, w: f32) -> Self {
+        Vector4 {
+            x: vec.x,
+            y: vec.y,
+            z: vec.z,
+            w,
         }
-        Vector4::new(vec[0], vec[1], vec[2], vec[3])
-    }
-}
-
-// See https://stackoverflow.com/questions/30218886/how-to-implement-iterator-and-intoiterator-for-a-simple-struct
-impl IntoIterator for Vector4 {
-    type Item = f32;
-    type IntoIter = Vector4IntoIterator;
-
-    fn into_iter(self) -> Self::IntoIter {
-        Vector4IntoIterator {
-            vec3: self,
-            index: 0,
-        }
-    }
-}
-
-pub struct Vector4IntoIterator {
-    vec3: Vector4,
-    index: usize,
-}
-
-impl Iterator for Vector4IntoIterator {
-    type Item = f32;
-
-    fn next(&mut self) -> Option<f32> {
-        let result = match self.index {
-            0 => self.vec3.x,
-            1 => self.vec3.y,
-            2 => self.vec3.z,
-            3 => self.vec3.w,
-            _ => return None,
-        };
-        self.index += 1;
-        Some(result)
     }
 }
 
@@ -71,7 +35,7 @@ impl Index<u8> for Vector4 {
             1 => &self.y,
             2 => &self.z,
             3 => &self.w,
-            _ => panic!("Index: {:?}, out of range for Vec3", idx),
+            _ => panic!("Index: {:?}, out of range for Vector4", idx),
         }
     }
 }
@@ -88,16 +52,24 @@ impl Add for Vector4 {
     type Output = Self;
 
     fn add(self, rhs: Vector4) -> Self::Output {
-        let iter = self.into_iter().zip(rhs.into_iter());
-        let vec: Vec<f32> = iter.map(|(a, b)| a + b).collect();
-        Vector4::from_vec(vec)
+        Vector4 {
+            x: self.x + rhs.x,
+            y: self.y + rhs.y,
+            z: self.z + rhs.z,
+            w: self.w + rhs.w,
+        }
     }
 }
 
 impl PartialEq for Vector4 {
-    fn eq(&self, other: &Self) -> bool {
-        let mut iter = self.into_iter().zip(other.into_iter());
-        iter.all(|(a, b)| a.approx_eq(b, (1e-7, 0)))
+    fn eq(&self, rhs: &Self) -> bool {
+        let eps = 1e-7;
+        let ulps = 0;
+
+        self.x.approx_eq(rhs.x, (eps, ulps))
+            && self.y.approx_eq(rhs.y, (eps, ulps))
+            && self.z.approx_eq(rhs.z, (eps, ulps))
+            && self.w.approx_eq(rhs.w, (eps, ulps))
     }
 }
 

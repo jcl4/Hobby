@@ -1,4 +1,4 @@
-use super::Vector4;
+use super::{Quaternion, Vector3, Vector4};
 use std::ops::{Index, Mul};
 // Column Major Axis
 #[derive(Debug)]
@@ -12,6 +12,28 @@ pub struct Matrix4 {
 impl Matrix4 {
     pub fn from_cols(x: Vector4, y: Vector4, z: Vector4, w: Vector4) -> Self {
         Matrix4 { x, y, z, w }
+    }
+
+    pub fn from_scale(scale: Vector3) -> Self {
+        let col_0 = Vector4::new(scale[0], 0.0, 0.0, 0.0);
+        let col_1 = Vector4::new(0.0, scale[1], 0.0, 0.0);
+        let col_2 = Vector4::new(0.0, 0.0, scale[2], 0.0);
+        let col_3 = Vector4::new(0.0, 0.0, 0.0, 1.0);
+
+        Matrix4::from_cols(col_0, col_1, col_2, col_3)
+    }
+
+    pub fn from_translation(translation: Vector3) -> Self {
+        let col_0 = Vector4::new(1.0, 0.0, 0.0, 0.0);
+        let col_1 = Vector4::new(0.0, 1.0, 0.0, 0.0);
+        let col_2 = Vector4::new(0.0, 0.0, 1.0, 0.0);
+        let col_3 = Vector4::from_vec3(translation, 1.0);
+
+        Matrix4::from_cols(col_0, col_1, col_2, col_3)
+    }
+
+    pub fn from_rotation(rotation: Quaternion) -> Matrix4 {
+        rotation.into()
     }
 
     pub fn identity() -> Self {
