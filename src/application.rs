@@ -17,6 +17,8 @@ pub struct ApplicationSettings {
     pub window_width: u32,
     pub window_height: u32,
     pub window_title: String,
+    pub app_name: String,
+    pub app_version: u32,
     pub frame_timer_display_interval: Duration,
 }
 
@@ -26,6 +28,8 @@ impl ApplicationSettings {
             window_width: 1600,
             window_height: 900,
             window_title: String::from("Hobby Window"),
+            app_name: String::from("Hobby Application"),
+            app_version: 0,
             frame_timer_display_interval: Duration::from_secs_f32(60.0),
         }
     }
@@ -70,7 +74,7 @@ impl Application {
         };
         info!("Window and Event Loop Created");
 
-        let renderer = Renderer::new(&window);
+        let renderer = Renderer::new(&window, &app_settings.app_name, app_settings.app_version);
         let input_state = InputState::new();
 
         info!(

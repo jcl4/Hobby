@@ -21,21 +21,36 @@ use crate::{
     scene::{Mesh, ObjectBufferGroup, Scene},
 };
 
+use gfx_hal as hal;
+use hal::Instance;
+
+use gfx_backend_vulkan as back;
+
+use std::mem::ManuallyDrop;
+
 /// The renderer is responsible for displaying a scene on screan
 ///
 /// It holds all required GPU resources
 #[allow(dead_code)]
-pub(crate) struct Renderer {}
+pub(crate) struct Renderer {
+    _instance: ManuallyDrop<back::Instance>,
+}
 
 impl Renderer {
-    pub(crate) fn new(window: &Window) -> Renderer {
-        Renderer {}
+    pub(crate) fn new(window: &Window, app_title: &str, app_version: u32) -> Renderer {
+        let instance =
+            back::Instance::create(app_title, app_version).expect("Instance Creation expect");
+        info!("Instance Created");
+
+        Renderer {
+            _instance: ManuallyDrop::new(instance),
+        }
     }
 
     pub(crate) fn get_object_buffer_group(
         &self,
-        mesh: &Mesh,
-        material: MaterialType,
+        _mesh: &Mesh,
+        _material: MaterialType,
     ) -> ObjectBufferGroup {
         unimplemented!()
     }
@@ -43,4 +58,8 @@ impl Renderer {
     pub(crate) fn render(&self, scene: &Scene) {
         unimplemented!()
     }
+}
+
+impl Drop for Renderer {
+    fn drop(&mut self) {}
 }
