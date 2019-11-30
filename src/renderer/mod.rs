@@ -22,18 +22,19 @@ use crate::{
 };
 
 use gfx_hal as hal;
-use hal::Instance;
+use hal::{adapter, queue, queue::family::QueueFamily, window::Surface, Instance};
 
 use gfx_backend_vulkan as back;
 
-use std::mem::ManuallyDrop;
+use std::{mem::ManuallyDrop, ptr};
 
 /// The renderer is responsible for displaying a scene on screan
 ///
 /// It holds all required GPU resources
 #[allow(dead_code)]
 pub(crate) struct Renderer {
-    _instance: ManuallyDrop<back::Instance>,
+    instance: back::Instance,
+    surface: ManuallyDrop<<back::Backend as hal::Backend>::Surface>,
 }
 
 impl Renderer {
@@ -42,8 +43,34 @@ impl Renderer {
             back::Instance::create(app_title, app_version).expect("Instance Creation expect");
         info!("Instance Created");
 
+        let surface = unsafe {
+            instance
+                .create_surface(window)
+                .expect("Surface Creation expect")
+        };
+        info!("Surface Created");
+
+        let adapter = {
+            let adapter = instance
+                .enumerate_adapters()
+                .into_iter()
+                .find(|a| a.info.device_type == adapter::DeviceType::DiscreteGpu)
+                .expect("Unable to find descrete gpu in system");
+
+            let supported = adapter.queue_families.iter().any(|qf| {
+                qf.queue_type() == queue::QueueType::General && surface.supports_queue_family(qf)
+            });
+
+            if !supported {
+                panic!("Unable to find adapter with an appropriate queue family");
+            }
+            adapter
+        };
+        info!("Adapder selected: {:#?}", adapter);
+
         Renderer {
-            _instance: ManuallyDrop::new(instance),
+            instance: instance,
+            surface: ManuallyDrop::new(surface),
         }
     }
 
@@ -61,5 +88,10 @@ impl Renderer {
 }
 
 impl Drop for Renderer {
-    fn drop(&mut self) {}
+    fn drop(&mut self) {
+        unsafe {
+            let surface = ManuallyDrop::into_inner(ptr::read(&self.surface));
+            self.instance.destroy_surface(surface);
+        }
+    }
 }

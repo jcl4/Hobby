@@ -10,7 +10,10 @@ winit = "0.20.0-alpha4"
 raw-window-handle = "^0.3"
 float-cmp = "^0.6"
 gfx-hal = "^0.4"
-gfx-backend-vulkan = "^0.4"
+
+[dependencies.gfx-backend-vulkan]
+version = "0.4"
+features = ["x11"]
 
 [dev-dependencies]
 simplelog = "^0.7"
