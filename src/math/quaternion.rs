@@ -30,9 +30,9 @@ impl Quaternion {
 
     pub fn zero() -> Self {
         Quaternion {
-            s: 0.0,
+            s: 1.0,
             v: Vector3::zero(),
-            normalized: false,
+            normalized: true,
         }
     }
 

@@ -8,9 +8,9 @@ edition = "2018"
 log = "^0.4"
 winit = "0.20.0-alpha4"
 raw-window-handle = "^0.3"
-wgpu = "^0.4"
 float-cmp = "^0.6"
+gfx-hal = "^0.4"
+gfx-backend-vulkan = "^0.4"
 
 [dev-dependencies]
 simplelog = "^0.7"
-

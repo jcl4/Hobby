@@ -1,5 +1,6 @@
 use super::{Matrix4, Quaternion, Vector3, Vector4};
 
+#[derive(Debug)]
 pub struct Transform {
     pub position: Vector3,
     pub orientation: Quaternion,
@@ -38,7 +39,10 @@ impl Transform {
     }
 
     pub fn get_model_matrix(&self) -> Matrix4 {
-        Matrix4::identity()
+        let scale_mat = Matrix4::from_scale(self.scale);
+        let rot_mat = Matrix4::from_rotation(self.orientation);
+        let trans_mat = Matrix4::from_translation(self.position);
+        trans_mat * rot_mat * scale_mat
     }
 }
 
@@ -48,7 +52,7 @@ mod tests {
     use crate::math::Degree;
 
     #[test]
-    fn tranform_rotate() {
+    fn transform_rotate() {
         let mut transform = Transform::default();
         let orientation =
             Quaternion::from_axis_angle(Vector3::new(0.0, 0.0, 1.0), Degree::new(90.0));
@@ -67,25 +71,73 @@ mod tests {
 
     #[test]
     fn transform_translate() {
-        let mut transform = Transform::default();
         let translation = Vector3::new(1.0, 2.0, 3.0);
+
+        let mut transform = Transform::default();
         transform.translate(translation);
-        let pos = transform.position;
 
-        let pos_test = Vector3::new(1.0, 2.0, 3.0);
+        let vec = Vector3::one();
+        let vec = transform.transform_vec(vec);
 
-        assert_eq!(pos, pos_test);
+        let test_vec = Vector3::new(2.0, 3.0, 4.0);
+
+        assert_eq!(vec, test_vec);
     }
 
     #[test]
     fn transform_scale() {
         let mut transform = Transform::default();
-        let translation = Vector3::new(1.0, 2.0, 3.0);
+        let scale = Vector3::new(1.0, 2.0, 3.0);
+        transform.scale(scale);
+
+        let vec = Vector3::one();
+        let vec = transform.transform_vec(vec);
+
+        let test_vec = Vector3::new(1.0, 2.0, 3.0);
+
+        assert_eq!(vec, test_vec);
+    }
+
+    #[test]
+    fn transform_rotation() {
+        let mut transform = Transform::default();
+        let orientation =
+            Quaternion::from_axis_angle(Vector3::new(0.0, 0.0, 1.0), Degree::new(45.0));
+        transform.orientation = orientation;
+
+        let vec = Vector3::new(1.0, 0.0, 3.0);
+        let vec = transform.transform_vec(vec);
+
+        let test_vec = Vector3::new(
+            std::f32::consts::FRAC_1_SQRT_2,
+            std::f32::consts::FRAC_1_SQRT_2,
+            3.0,
+        );
+
+        assert_eq!(vec, test_vec);
+    }
+
+    #[test]
+    fn transform() {
+        let mut transform = Transform::default();
+        let orientation =
+            Quaternion::from_axis_angle(Vector3::new(0.0, 0.0, 1.0), Degree::new(45.0));
+        let scale = Vector3::new(2.0, 2.0, 2.0);
+        let translation = Vector3::new(1.0, 1.0, 1.0);
+
         transform.translate(translation);
-        let pos = transform.position;
+        transform.scale(scale);
+        transform.orientation = orientation;
 
-        let pos_test = Vector3::new(1.0, 2.0, 3.0);
+        let vec = Vector3::new(0.0, 0.5, 1.0);
+        let vec = transform.transform_vec(vec);
 
-        assert_eq!(pos, pos_test);
+        let test_vec = Vector3::new(
+            -std::f32::consts::FRAC_1_SQRT_2 + 1.0,
+            std::f32::consts::FRAC_1_SQRT_2 + 1.0,
+            3.0,
+        );
+
+        assert_eq!(vec, test_vec);
     }
 }

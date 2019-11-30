@@ -1,6 +1,6 @@
 use std::time::{Duration, Instant};
 
-use crate::{renderer::Renderer, scene::Scene, tools::timer::FrameTimer, InputState};
+use crate::{core::InputState, renderer::Renderer, scene::Scene, tools::timer::FrameTimer};
 
 use winit::{
     dpi::PhysicalSize,
@@ -39,7 +39,7 @@ impl ApplicationSettings {
 pub struct Application {
     window: Window,
     event_loop: EventLoop<()>,
-    renderer: Renderer,
+    pub(crate) renderer: Renderer,
     input_state: InputState,
     app_settings: ApplicationSettings,
 }
@@ -88,7 +88,7 @@ impl Application {
     }
 
     /// Game loop lives here
-    pub fn run(self, _scene: Scene) {
+    pub fn run(self, mut scene: Scene) {
         info!("Game Loop Starting");
         let mut input_state = self.input_state;
         let window = self.window;
@@ -102,13 +102,14 @@ impl Application {
                         info!("Escape Key Pressed.");
                         *control_flow = ControlFlow::Exit;
                     }
+                    scene.update();
                     window.request_redraw();
                 }
                 Event::WindowEvent {
                     event: WindowEvent::RedrawRequested,
                     ..
                 } => {
-                    renderer.render();
+                    renderer.render(&scene);
                     frame_timer.tic();
                 }
                 Event::WindowEvent {

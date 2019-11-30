@@ -2,6 +2,8 @@
 mod base;
 
 use hobby::{
+    core::MaterialType,
+    math::Transform,
     scene::{Mesh, ObjectBuilder, Scene, VertexBuilder},
     Application, ApplicationSettings,
 };
@@ -20,7 +22,7 @@ fn main() {
     base::setup_logging();
 
     let app_settings = ApplicationSettings::default();
-    let app = Application::new(app_settings);
+    let mut app = Application::new(app_settings);
 
     let (positions, indices) = triangle_verts();
     let vertices = positions
@@ -30,11 +32,14 @@ fn main() {
 
     let mesh = Mesh::new(vertices, indices);
 
+    let transform = Transform::default();
+    let material = MaterialType::SolidColor;
+
     let triangle = ObjectBuilder::new()
         .with_mesh(mesh)
-        .with_transform()
-        .with_material()
-        .build(&app);
+        .with_transform(transform)
+        .with_material(material)
+        .build(&mut app);
 
     info!("Triangle Created");
 

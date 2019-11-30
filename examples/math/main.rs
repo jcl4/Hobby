@@ -1,11 +1,12 @@
 use float_cmp::ApproxEq;
-use hobby::math::{Degree, Quaternion, Radian, Transform, Vector3, Vector4};
+use hobby::math::{Degree, Quaternion, Transform, Vector3};
 
 // really used for testing varios math funcitons
 fn main() {
     transform_test();
 }
 
+#[allow(dead_code)]
 fn normalize_vector() {
     let mut vec = Vector3::new(1.0, 1.0, 1.0);
     vec.normalize();

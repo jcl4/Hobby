@@ -62,7 +62,7 @@ impl Index<u8> for Vector3 {
 
 impl PartialEq for Vector3 {
     fn eq(&self, rhs: &Self) -> bool {
-        let eps = 1e-7;
+        let eps = 1e-6;
         let ulps = 0;
 
         self.x.approx_eq(rhs.x, (eps, ulps))

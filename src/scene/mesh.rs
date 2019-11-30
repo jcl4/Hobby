@@ -1,6 +1,6 @@
 use super::vertex::Vertex;
 
-#[allow(dead_code)]
+#[derive(Debug, Default)]
 pub struct Mesh {
     vertices: Vec<Vertex>,
     indices: Vec<u16>,
