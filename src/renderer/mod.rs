@@ -17,7 +17,7 @@ use ash::{
         ext::DebugReport,
         khr::{Surface, Swapchain},
     },
-    version::{EntryV1_0, InstanceV1_0},
+    version::{DeviceV1_0, EntryV1_0, InstanceV1_0},
     vk,
 };
 use log::info;
@@ -35,6 +35,10 @@ use crate::{
 
 mod context;
 mod debug;
+mod swapchain;
+
+use context::Context;
+use swapchain::{SwapchainProperties, SwapchainSupportDetails};
 
 #[cfg(debug_assertions)]
 pub const ENABLE_VALIDATION_LAYERS: bool = true;
@@ -51,7 +55,12 @@ struct QueueFamiliesIndices {
 ///
 /// It holds all required GPU resources
 #[allow(dead_code)]
-pub struct Renderer {}
+pub struct Renderer {
+    context: Context,
+    queue_families_indices: QueueFamiliesIndices,
+    graphics_queue: vk::Queue,
+    present_queue: vk::Queue,
+}
 
 impl Renderer {
     pub fn new(window: &Window, app_name: &str, app_version: u32) -> Renderer {
@@ -75,7 +84,7 @@ impl Renderer {
             queue_families_indices,
         );
 
-        let vk_context = context::Context::new(
+        let context = Context::new(
             entry,
             instance,
             debug_report_callback,
@@ -85,7 +94,15 @@ impl Renderer {
             device,
         );
 
-        Renderer {}
+        let window_size = window.inner_size();
+        let window_size = window_size.to_physical(window.hidpi_factor());
+
+        Renderer {
+            context,
+            queue_families_indices,
+            graphics_queue,
+            present_queue,
+        }
     }
 
     pub fn get_object_buffer_group(
@@ -184,7 +201,7 @@ fn pick_physical_device(
         CStr::from_ptr(props.device_name.as_ptr())
     });
 
-    let (graphics, present) = Self::find_queue_families(instance, surface, surface_khr, device);
+    let (graphics, present) = find_queue_families(instance, surface, surface_khr, device);
     let queue_families_indices = QueueFamiliesIndices {
         graphics_index: graphics.unwrap(),
         present_index: present.unwrap(),
@@ -200,7 +217,7 @@ fn is_device_suitable(
     device: vk::PhysicalDevice,
 ) -> bool {
     let (graphics, present) = find_queue_families(instance, surface, surface_khr, device);
-    let extention_support = Self::check_device_extension_support(instance, device);
+    let extention_support = check_device_extension_support(instance, device);
     let is_swapchain_adequate = {
         let details = SwapchainSupportDetails::new(device, surface, surface_khr);
         !details.formats.is_empty() && !details.present_modes.is_empty()
@@ -214,7 +231,7 @@ fn is_device_suitable(
 }
 
 fn check_device_extension_support(instance: &ash::Instance, device: vk::PhysicalDevice) -> bool {
-    let required_extentions = Self::get_required_device_extensions();
+    let required_extentions = get_required_device_extensions();
 
     let extension_props = unsafe {
         instance
@@ -269,4 +286,67 @@ fn find_queue_families(
     }
 
     (graphics, present)
+}
+
+fn create_logical_device_with_graphics_queue(
+    instance: &ash::Instance,
+    device: vk::PhysicalDevice,
+    queue_families_indices: QueueFamiliesIndices,
+) -> (ash::Device, vk::Queue, vk::Queue) {
+    let graphics_family_index = queue_families_indices.graphics_index;
+    let present_family_index = queue_families_indices.present_index;
+    let queue_priorities = [1.0f32];
+
+    let queue_create_infos = {
+        // Vulkan specs does not allow passing an array containing duplicated family indices.
+        // And since the family for graphics and presentation could be the same we need to
+        // deduplicate it.
+        let mut indices = vec![graphics_family_index, present_family_index];
+        indices.dedup();
+
+        // Now we build an array of `DeviceQueueCreateInfo`.
+        // One for each different family index.
+        indices
+            .iter()
+            .map(|index| {
+                vk::DeviceQueueCreateInfo::builder()
+                    .queue_family_index(*index)
+                    .queue_priorities(&queue_priorities)
+                    .build()
+            })
+            .collect::<Vec<_>>()
+    };
+
+    let device_extensions = get_required_device_extensions();
+    let device_extensions_ptrs = device_extensions
+        .iter()
+        .map(|ext| ext.as_ptr())
+        .collect::<Vec<_>>();
+
+    let device_features = vk::PhysicalDeviceFeatures::builder()
+        .sampler_anisotropy(true)
+        .build();
+
+    let (_layer_names, layer_names_ptrs) = debug::get_layer_names_and_pointers();
+
+    let mut device_create_info_builder = vk::DeviceCreateInfo::builder()
+        .queue_create_infos(&queue_create_infos)
+        .enabled_extension_names(&device_extensions_ptrs)
+        .enabled_features(&device_features);
+    if ENABLE_VALIDATION_LAYERS {
+        device_create_info_builder =
+            device_create_info_builder.enabled_layer_names(&layer_names_ptrs)
+    }
+    let device_create_info = device_create_info_builder.build();
+
+    // Build device and queues
+    let device = unsafe {
+        instance
+            .create_device(device, &device_create_info, None)
+            .expect("Failed to create logical device.")
+    };
+    let graphics_queue = unsafe { device.get_device_queue(graphics_family_index, 0) };
+    let present_queue = unsafe { device.get_device_queue(present_family_index, 0) };
+
+    (device, graphics_queue, present_queue)
 }
