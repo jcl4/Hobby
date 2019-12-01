@@ -1,6 +1,6 @@
 use std::time::{Duration, Instant};
 
-use crate::{core::InputState, renderer::Renderer, scene::Scene, tools::timer::FrameTimer};
+use crate::{core::InputState, renderer::Renderer, scene::Scene, tools::FrameTimer};
 
 use winit::{
     dpi::PhysicalSize,
@@ -113,7 +113,7 @@ impl Application {
                     event: WindowEvent::RedrawRequested,
                     ..
                 } => {
-                    renderer.render(&scene);
+                    renderer.draw_frame(&scene);
                     frame_timer.tic();
                 }
                 Event::WindowEvent {

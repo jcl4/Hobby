@@ -6,7 +6,7 @@ pub use mesh::Mesh;
 pub use object::{Object, ObjectBuilder};
 pub use vertex::{Vertex, VertexBuilder};
 
-pub(crate) use object::ObjectBufferGroup;
+pub use object::ObjectBufferGroup;
 
 #[derive(Debug, Default)]
 pub struct Scene {

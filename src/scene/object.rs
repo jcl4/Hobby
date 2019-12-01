@@ -65,9 +65,9 @@ impl Object {
 }
 
 #[derive(Debug)]
-pub(crate) struct ObjectBufferGroup {
+pub struct ObjectBufferGroup {
     // vertex_buffer: wgpu::Buffer,
-    // index_buffer: wgpu::Buffer,
-    // uniform_buffer: wgpu::Buffer,
-    // bind_group: wgpu::BindGroup,
+// index_buffer: wgpu::Buffer,
+// uniform_buffer: wgpu::Buffer,
+// bind_group: wgpu::BindGroup,
 }

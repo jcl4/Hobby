@@ -6,7 +6,7 @@
 
 use std::time::{Duration, Instant};
 
-pub(crate) struct FrameTimer {
+pub struct FrameTimer {
     display_interval: Duration,
     timer_start: Instant,
     total_frame_count: u32,

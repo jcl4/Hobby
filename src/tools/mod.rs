@@ -1,1 +1,3 @@
-pub(crate) mod timer;
+mod timer;
+
+pub use timer::FrameTimer;
