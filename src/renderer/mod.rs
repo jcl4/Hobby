@@ -38,7 +38,7 @@ mod debug;
 mod swapchain;
 
 use context::Context;
-use swapchain::{SwapchainProperties, SwapchainSupportDetails};
+use swapchain::{SwapchainData, SwapchainSupportDetails};
 
 #[cfg(debug_assertions)]
 pub const ENABLE_VALIDATION_LAYERS: bool = true;
@@ -46,7 +46,7 @@ pub const ENABLE_VALIDATION_LAYERS: bool = true;
 pub const ENABLE_VALIDATION_LAYERS: bool = false;
 
 #[derive(Clone, Copy)]
-struct QueueFamiliesIndices {
+pub struct QueueFamiliesIndices {
     graphics_index: u32,
     present_index: u32,
 }
@@ -60,6 +60,7 @@ pub struct Renderer {
     queue_families_indices: QueueFamiliesIndices,
     graphics_queue: vk::Queue,
     present_queue: vk::Queue,
+    swapchain_data: SwapchainData,
 }
 
 impl Renderer {
@@ -95,13 +96,17 @@ impl Renderer {
         );
 
         let window_size = window.inner_size();
-        let window_size = window_size.to_physical(window.hidpi_factor());
+        let (width, height): (u32, u32) = window_size.to_physical(window.hidpi_factor()).into();
+        let swapchain_data =
+            swapchain::create_swapchain_data(&context, queue_families_indices, width, height);
+        log::info!("Swapchain Created");
 
         Renderer {
             context,
             queue_families_indices,
             graphics_queue,
             present_queue,
+            swapchain_data,
         }
     }
 
@@ -119,7 +124,9 @@ impl Renderer {
 }
 
 impl Drop for Renderer {
-    fn drop(&mut self) {}
+    fn drop(&mut self) {
+        swapchain::cleanup_swapchain(self.context.device(), &self.swapchain_data);
+    }
 }
 
 fn create_instance(entry: &ash::Entry, app_name: &str, app_version: u32) -> ash::Instance {

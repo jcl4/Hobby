@@ -1,5 +1,8 @@
-use ash::extensions::khr::{Surface, Swapchain};
-use ash::vk;
+use ash::{
+    extensions::khr::{Surface, Swapchain},
+    version::DeviceV1_0,
+    vk,
+};
 
 use super::context::Context;
 use super::QueueFamiliesIndices;
@@ -37,13 +40,10 @@ impl SwapchainSupportDetails {
         }
     }
 
-    pub fn get_ideal_swapchain_properties(
-        &self,
-        preferred_dimensions: [u32; 2],
-    ) -> SwapchainProperties {
+    pub fn get_ideal_swapchain_properties(&self, width: u32, height: u32) -> SwapchainProperties {
         let format = Self::choose_swapchain_surface_format(&self.formats);
         let present_mode = Self::choose_swapchain_surface_present_mode(&self.present_modes);
-        let extent = Self::choose_swapchain_extent(self.capabilities, preferred_dimensions);
+        let extent = Self::choose_swapchain_extent(self.capabilities, width, height);
         SwapchainProperties {
             format,
             present_mode,
@@ -83,10 +83,10 @@ impl SwapchainSupportDetails {
     ) -> vk::PresentModeKHR {
         if available_present_modes.contains(&vk::PresentModeKHR::MAILBOX) {
             vk::PresentModeKHR::MAILBOX
-        } else if available_present_modes.contains(&vk::PresentModeKHR::FIFO) {
-            vk::PresentModeKHR::FIFO
-        } else {
+        } else if available_present_modes.contains(&vk::PresentModeKHR::IMMEDIATE) {
             vk::PresentModeKHR::IMMEDIATE
+        } else {
+            vk::PresentModeKHR::FIFO
         }
     }
 
@@ -97,7 +97,8 @@ impl SwapchainSupportDetails {
     /// and max image extent will be returned.
     fn choose_swapchain_extent(
         capabilities: vk::SurfaceCapabilitiesKHR,
-        preferred_dimensions: [u32; 2],
+        width: u32,
+        height: u32,
     ) -> vk::Extent2D {
         if capabilities.current_extent.width != std::u32::MAX {
             return capabilities.current_extent;
@@ -105,8 +106,8 @@ impl SwapchainSupportDetails {
 
         let min = capabilities.min_image_extent;
         let max = capabilities.max_image_extent;
-        let width = preferred_dimensions[0].min(max.width).max(min.width);
-        let height = preferred_dimensions[1].min(max.height).max(min.height);
+        let width = width.min(max.width).max(min.width);
+        let height = height.min(max.height).max(min.height);
         vk::Extent2D { width, height }
     }
 }
@@ -118,22 +119,26 @@ pub struct SwapchainProperties {
     pub extent: vk::Extent2D,
 }
 
-fn create_swapchain_and_images(
-    vk_context: &Context,
+pub struct SwapchainData {
+    swapchain: Swapchain,
+    swapchain_khr: vk::SwapchainKHR,
+    properties: SwapchainProperties,
+    images: Vec<vk::Image>,
+    image_views: Vec<vk::ImageView>,
+}
+
+pub fn create_swapchain_data(
+    context: &Context,
     queue_families_indices: QueueFamiliesIndices,
-    dimensions: [u32; 2],
-) -> (
-    Swapchain,
-    vk::SwapchainKHR,
-    SwapchainProperties,
-    Vec<vk::Image>,
-) {
+    width: u32,
+    height: u32,
+) -> SwapchainData {
     let details = SwapchainSupportDetails::new(
-        vk_context.physical_device(),
-        vk_context.surface(),
-        vk_context.surface_khr(),
+        context.physical_device(),
+        context.surface(),
+        context.surface_khr(),
     );
-    let properties = details.get_ideal_swapchain_properties(dimensions);
+    let properties = details.get_ideal_swapchain_properties(width, height);
 
     let format = properties.format;
     let present_mode = properties.present_mode;
@@ -162,7 +167,7 @@ fn create_swapchain_and_images(
 
     let create_info = {
         let mut builder = vk::SwapchainCreateInfoKHR::builder()
-            .surface(vk_context.surface_khr())
+            .surface(context.surface_khr())
             .min_image_count(image_count)
             .image_format(format.format)
             .image_color_space(format.color_space)
@@ -187,8 +192,71 @@ fn create_swapchain_and_images(
         // .old_swapchain() We don't have an old swapchain but can't pass null
     };
 
-    let swapchain = Swapchain::new(vk_context.instance(), vk_context.device());
+    let swapchain = Swapchain::new(context.instance(), context.device());
     let swapchain_khr = unsafe { swapchain.create_swapchain(&create_info, None).unwrap() };
     let images = unsafe { swapchain.get_swapchain_images(swapchain_khr).unwrap() };
-    (swapchain, swapchain_khr, properties, images)
+    let image_views = create_swapchain_image_views(context.device(), &images, properties);
+
+    SwapchainData {
+        swapchain,
+        swapchain_khr,
+        properties,
+        images,
+        image_views,
+    }
+}
+
+fn create_swapchain_image_views(
+    device: &ash::Device,
+    swapchain_images: &[vk::Image],
+    swapchain_properties: SwapchainProperties,
+) -> Vec<vk::ImageView> {
+    swapchain_images
+        .iter()
+        .map(|image| {
+            create_image_view(
+                device,
+                *image,
+                1,
+                swapchain_properties.format.format,
+                vk::ImageAspectFlags::COLOR,
+            )
+        })
+        .collect::<Vec<_>>()
+}
+
+fn create_image_view(
+    device: &ash::Device,
+    image: vk::Image,
+    mip_levels: u32,
+    format: vk::Format,
+    aspect_mask: vk::ImageAspectFlags,
+) -> vk::ImageView {
+    let create_info = vk::ImageViewCreateInfo::builder()
+        .image(image)
+        .view_type(vk::ImageViewType::TYPE_2D)
+        .format(format)
+        .subresource_range(vk::ImageSubresourceRange {
+            aspect_mask,
+            base_mip_level: 0,
+            level_count: mip_levels,
+            base_array_layer: 0,
+            layer_count: 1,
+        })
+        .build();
+
+    unsafe { device.create_image_view(&create_info, None).unwrap() }
+}
+
+pub fn cleanup_swapchain(device: &ash::Device, swapchain_data: &SwapchainData) {
+    unsafe {
+        swapchain_data
+            .image_views
+            .iter()
+            .for_each(|v| device.destroy_image_view(*v, None));
+        swapchain_data
+            .swapchain
+            .destroy_swapchain(swapchain_data.swapchain_khr, None);
+    }
+    log::info!("Swapchain Cleaned");
 }
