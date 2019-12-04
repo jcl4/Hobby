@@ -152,7 +152,16 @@ pub fn create_swapchain_data(
         preferred
     };
 
-    log::debug!(
+    log::info!(
+            "Creating swapchain.\n\tFormat: {:?}\n\tColorSpace: {:?}\n\tPresentMode: {:?}\n\tExtent: {:?}\n\tImageCount: {:?}",
+            format.format,
+            format.color_space,
+            present_mode,
+            extent,
+            image_count,
+        );
+
+    println!(
             "Creating swapchain.\n\tFormat: {:?}\n\tColorSpace: {:?}\n\tPresentMode: {:?}\n\tExtent: {:?}\n\tImageCount: {:?}",
             format.format,
             format.color_space,

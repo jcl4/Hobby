@@ -198,15 +198,20 @@ fn pick_physical_device(
             .enumerate_physical_devices()
             .expect("Unable to enumerate physical devices")
     };
+
     let device = devices
         .into_iter()
         .find(|device| is_device_suitable(instance, surface, surface_khr, *device))
         .expect("No suitable physical device.");
 
     let props = unsafe { instance.get_physical_device_properties(device) };
-    log::debug!("Selected physical device: {:?}", unsafe {
-        CStr::from_ptr(props.device_name.as_ptr())
-    });
+    log::info!("Selected physical device: {:#?}", props);
+    unsafe {
+        println!(
+            "Device Selcted: {:?}",
+            CStr::from_ptr(props.device_name.as_ptr())
+        );
+    }
 
     let (graphics, present) = find_queue_families(instance, surface, surface_khr, device);
     let queue_families_indices = QueueFamiliesIndices {
@@ -223,6 +228,8 @@ fn is_device_suitable(
     surface_khr: vk::SurfaceKHR,
     device: vk::PhysicalDevice,
 ) -> bool {
+    let props = unsafe { instance.get_physical_device_properties(device) };
+    let device_type = props.device_type;
     let (graphics, present) = find_queue_families(instance, surface, surface_khr, device);
     let extention_support = check_device_extension_support(instance, device);
     let is_swapchain_adequate = {
@@ -230,11 +237,13 @@ fn is_device_suitable(
         !details.formats.is_empty() && !details.present_modes.is_empty()
     };
     let features = unsafe { instance.get_physical_device_features(device) };
+
     graphics.is_some()
         && present.is_some()
         && extention_support
         && is_swapchain_adequate
         && features.sampler_anisotropy == vk::TRUE
+        && device_type == vk::PhysicalDeviceType::DISCRETE_GPU
 }
 
 fn check_device_extension_support(instance: &ash::Instance, device: vk::PhysicalDevice) -> bool {
