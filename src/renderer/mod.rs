@@ -35,13 +35,14 @@ use crate::{
 
 mod context;
 mod debug;
+mod pipelines;
 mod swapchain;
 
 use context::Context;
 use swapchain::{SwapchainData, SwapchainSupportDetails};
 
 #[cfg(debug_assertions)]
-pub const ENABLE_VALIDATION_LAYERS: bool = true;
+pub const ENABLE_VALIDATION_LAYERS: bool = false;
 #[cfg(not(debug_assertions))]
 pub const ENABLE_VALIDATION_LAYERS: bool = false;
 
@@ -212,6 +213,12 @@ fn pick_physical_device(
             CStr::from_ptr(props.device_name.as_ptr())
         );
     }
+    println!(
+        "Vulkan API Version: Major: {:?}, Minor: {:?}, Patch: {:?}",
+        ash::vk_version_major!(props.api_version),
+        ash::vk_version_minor!(props.api_version),
+        ash::vk_version_patch!(props.api_version)
+    );
 
     let (graphics, present) = find_queue_families(instance, surface, surface_khr, device);
     let queue_families_indices = QueueFamiliesIndices {
