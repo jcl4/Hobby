@@ -1,6 +1,9 @@
 # Hobby
 Hobby "game" engine based on [wgpu-rs](https://github.com/gfx-rs/wgpu-rs)
 
+#### Validation Layers
+- Validation layers enabled through vkconfig
+
 #### Credits
 - Math
     - [cgmath](https://github.com/rustgd/cgmath)

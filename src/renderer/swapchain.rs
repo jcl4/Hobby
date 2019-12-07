@@ -4,8 +4,7 @@ use ash::{
     vk,
 };
 
-use super::context::Context;
-use super::QueueFamiliesIndices;
+use super::context::{Context, QueueFamiliesIndices};
 
 pub struct SwapchainSupportDetails {
     pub capabilities: vk::SurfaceCapabilitiesKHR,
@@ -170,8 +169,8 @@ pub fn create_swapchain_data(
             image_count,
         );
 
-    let graphics = queue_families_indices.graphics_index;
-    let present = queue_families_indices.present_index;
+    let graphics = queue_families_indices.graphics_index();
+    let present = queue_families_indices.present_index();
     let families_indices = [graphics, present];
 
     let create_info = {

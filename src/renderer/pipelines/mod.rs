@@ -3,7 +3,9 @@ use std::{fs::File, path::Path};
 
 mod solid_color;
 
-fn create_shader_module(shader_file: &Path, device: ash::Device) -> vk::ShaderModule {
+pub use solid_color::SolidColor;
+
+fn create_shader_module(shader_file: &Path, device: &ash::Device) -> vk::ShaderModule {
     log::info!("Loading Shader File: {:?}", shader_file);
     let mut file = File::open(shader_file)
         .unwrap_or_else(|_| panic!("Unable to open Shader File: {:?}", shader_file));
