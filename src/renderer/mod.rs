@@ -64,7 +64,7 @@ impl Renderer {
                 .get_device_queue(queue_families_indices.present_index(), 0)
         };
 
-        let solid_color_pipeline = SolidColor::new(context.device());
+        let solid_color_pipeline = SolidColor::new(context.device(), &swapchain_data.properties());
 
         Renderer {
             context,
@@ -90,6 +90,7 @@ impl Renderer {
 
 impl Drop for Renderer {
     fn drop(&mut self) {
+        self.solid_color_pipeline.cleanup(self.context.device());
         swapchain::cleanup_swapchain(self.context.device(), &self.swapchain_data);
     }
 }
