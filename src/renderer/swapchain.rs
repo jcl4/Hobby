@@ -12,6 +12,27 @@ pub struct SwapchainSupportDetails {
     pub present_modes: Vec<vk::PresentModeKHR>,
 }
 
+#[derive(Clone, Copy, Debug)]
+pub struct SwapchainProperties {
+    pub format: vk::SurfaceFormatKHR,
+    pub present_mode: vk::PresentModeKHR,
+    pub extent: vk::Extent2D,
+}
+
+pub struct SwapchainData {
+    swapchain: Swapchain,
+    swapchain_khr: vk::SwapchainKHR,
+    properties: SwapchainProperties,
+    images: Vec<vk::Image>,
+    image_views: Vec<vk::ImageView>,
+}
+
+impl SwapchainData {
+    pub fn properties(&self) -> &SwapchainProperties {
+        &self.properties
+    }
+}
+
 impl SwapchainSupportDetails {
     pub fn new(device: vk::PhysicalDevice, surface: &Surface, surface_khr: vk::SurfaceKHR) -> Self {
         let capabilities = unsafe {
@@ -109,21 +130,6 @@ impl SwapchainSupportDetails {
         let height = height.min(max.height).max(min.height);
         vk::Extent2D { width, height }
     }
-}
-
-#[derive(Clone, Copy, Debug)]
-pub struct SwapchainProperties {
-    pub format: vk::SurfaceFormatKHR,
-    pub present_mode: vk::PresentModeKHR,
-    pub extent: vk::Extent2D,
-}
-
-pub struct SwapchainData {
-    swapchain: Swapchain,
-    swapchain_khr: vk::SwapchainKHR,
-    properties: SwapchainProperties,
-    images: Vec<vk::Image>,
-    image_views: Vec<vk::ImageView>,
 }
 
 pub fn create_swapchain_data(
