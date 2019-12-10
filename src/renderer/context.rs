@@ -160,7 +160,7 @@ fn create_logical_device_with_graphics_queue(
         .sampler_anisotropy(true)
         .build();
 
-    let mut device_create_info = vk::DeviceCreateInfo::builder()
+    let device_create_info = vk::DeviceCreateInfo::builder()
         .queue_create_infos(&queue_create_infos)
         .enabled_extension_names(&device_extensions_ptrs)
         .enabled_features(&device_features)
@@ -220,7 +220,7 @@ fn pick_physical_device(
         .expect("No suitable physical device.");
 
     let props = unsafe { instance.get_physical_device_properties(device) };
-    log::info!("Selected physical device: {:#?}", props);
+    log::debug!("Selected physical device: {:#?}", props);
     unsafe {
         println!(
             "Device Selcted: {:?}",

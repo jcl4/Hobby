@@ -26,7 +26,7 @@ mod swapchain;
 
 use context::Context;
 use pipelines::SolidColor;
-use swapchain::SwapchainData;
+use swapchain::{SwapchainData, SwapchainProperties};
 
 /// The renderer is responsible for displaying a scene on screan
 ///
@@ -38,12 +38,13 @@ pub struct Renderer {
     present_queue: vk::Queue,
     swapchain_data: SwapchainData,
     solid_color_pipeline: SolidColor,
+    render_pass: vk::RenderPass,
 }
 
 impl Renderer {
     pub fn new(window: &Window, app_name: &str, app_version: u32) -> Renderer {
         let context = Context::new(window, app_name, app_version);
-        log::debug!("Context Created");
+        log::info!("Context Created");
 
         let queue_families_indices = context.queue_families_indices();
 
@@ -51,7 +52,7 @@ impl Renderer {
         let (width, height): (u32, u32) = window_size.to_physical(window.hidpi_factor()).into();
         let swapchain_data =
             swapchain::create_swapchain_data(&context, queue_families_indices, width, height);
-        log::debug!("Swapchain Created");
+        log::info!("Swapchain Created");
 
         let graphics_queue = unsafe {
             context
@@ -64,7 +65,11 @@ impl Renderer {
                 .get_device_queue(queue_families_indices.present_index(), 0)
         };
 
-        let solid_color_pipeline = SolidColor::new(context.device(), &swapchain_data.properties());
+        let render_pass = create_render_pass(context.device(), &swapchain_data.properties());
+        log::info!("Render Pass Created");
+
+        let solid_color_pipeline =
+            SolidColor::new(context.device(), &swapchain_data.properties(), render_pass);
 
         Renderer {
             context,
@@ -72,6 +77,7 @@ impl Renderer {
             present_queue,
             swapchain_data,
             solid_color_pipeline,
+            render_pass,
         }
     }
 
@@ -93,4 +99,38 @@ impl Drop for Renderer {
         self.solid_color_pipeline.cleanup(self.context.device());
         swapchain::cleanup_swapchain(self.context.device(), &self.swapchain_data);
     }
+}
+
+fn create_render_pass(
+    device: &ash::Device,
+    swapchain_properties: &SwapchainProperties,
+) -> vk::RenderPass {
+    let color_attachment_desc = vk::AttachmentDescription::builder()
+        .format(swapchain_properties.format.format)
+        .samples(vk::SampleCountFlags::TYPE_1)
+        .load_op(vk::AttachmentLoadOp::CLEAR)
+        .store_op(vk::AttachmentStoreOp::STORE)
+        .initial_layout(vk::ImageLayout::UNDEFINED)
+        .final_layout(vk::ImageLayout::PRESENT_SRC_KHR)
+        .build();
+    let attachment_descs = [color_attachment_desc];
+
+    let color_attachment_ref = vk::AttachmentReference::builder()
+        .attachment(0)
+        .layout(vk::ImageLayout::COLOR_ATTACHMENT_OPTIMAL)
+        .build();
+    let color_attachment_refs = [color_attachment_ref];
+
+    let subpass_desc = vk::SubpassDescription::builder()
+        .pipeline_bind_point(vk::PipelineBindPoint::GRAPHICS)
+        .color_attachments(&color_attachment_refs)
+        .build();
+    let subpass_descs = [subpass_desc];
+
+    let render_pass_info = vk::RenderPassCreateInfo::builder()
+        .attachments(&attachment_descs)
+        .subpasses(&subpass_descs)
+        .build();
+
+    unsafe { device.create_render_pass(&render_pass_info, None).unwrap() }
 }

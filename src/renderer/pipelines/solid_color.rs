@@ -5,10 +5,15 @@ use std::{ffi::CString, path::Path};
 /// Solid Color pipeline
 pub struct SolidColor {
     layout: vk::PipelineLayout,
+    pipeline: vk::Pipeline,
 }
 
 impl SolidColor {
-    pub fn new(device: &ash::Device, swapchain_properties: &SwapchainProperties) -> Self {
+    pub fn new(
+        device: &ash::Device,
+        swapchain_properties: &SwapchainProperties,
+        render_pass: vk::RenderPass,
+    ) -> Self {
         let vertex_file = Path::new("resources/shaders/solid_color.frag.spv");
         let fragment_file = Path::new("resources/shaders/solid_color.frag.spv");
 
@@ -22,15 +27,17 @@ impl SolidColor {
             .build();
 
         let frag_module = super::create_shader_module(fragment_file, device);
-        let frag_shader_state = vk::PipelineShaderStageCreateInfo::builder()
+        let frag_shader_stage = vk::PipelineShaderStageCreateInfo::builder()
             .stage(vk::ShaderStageFlags::FRAGMENT)
             .module(frag_module)
             .name(&entry_point_name)
             .build();
 
+        let shader_stages = [vert_shader_stage, frag_shader_stage];
+
         let vetex_input_info = vk::PipelineVertexInputStateCreateInfo::builder().build();
 
-        let input_assembly = vk::PipelineInputAssemblyStateCreateInfo::builder()
+        let input_assembly_info = vk::PipelineInputAssemblyStateCreateInfo::builder()
             .topology(vk::PrimitiveTopology::TRIANGLE_LIST)
             .primitive_restart_enable(false)
             .build();
@@ -91,9 +98,33 @@ impl SolidColor {
                 .expect("Unable to create pipeline layout")
         };
 
-        log::debug!("Solid Color Graphics Pipleline Built");
+        let pipeline_info = vk::GraphicsPipelineCreateInfo::builder()
+            .stages(&shader_stages)
+            .vertex_input_state(&vetex_input_info)
+            .input_assembly_state(&input_assembly_info)
+            .viewport_state(&viewport_info)
+            .rasterization_state(&rasterizer_info)
+            .multisample_state(&multisampling_info)
+            .color_blend_state(&color_blending_info)
+            .layout(layout)
+            .render_pass(render_pass)
+            .subpass(0)
+            .build();
 
-        SolidColor { layout }
+        let pipeline_infos = [pipeline_info];
+        println!("DEBUG - 1");
+
+        let pipelines = unsafe {
+            device
+                .create_graphics_pipelines(vk::PipelineCache::null(), &pipeline_infos, None)
+                .expect("Unable to create Solid Color Pipeline")
+        };
+        println!("Number of pipelines created: {:?}", pipelines.len());
+        let pipeline = pipelines[0];
+
+        log::info!("Solid Color Graphics Pipleline Built");
+
+        SolidColor { layout, pipeline }
     }
 
     pub fn cleanup(&self, device: &ash::Device) {
