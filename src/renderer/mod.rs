@@ -98,6 +98,11 @@ impl Drop for Renderer {
     fn drop(&mut self) {
         self.solid_color_pipeline.cleanup(self.context.device());
         swapchain::cleanup_swapchain(self.context.device(), &self.swapchain_data);
+        unsafe {
+            self.context
+                .device()
+                .destroy_render_pass(self.render_pass, None)
+        };
     }
 }
 

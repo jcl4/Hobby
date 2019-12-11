@@ -1,0 +1,3 @@
+export VK_INSTANCE_LAYERS=
+
+echo $VK_INSTANCE_LAYERS

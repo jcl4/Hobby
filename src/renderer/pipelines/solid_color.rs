@@ -14,7 +14,7 @@ impl SolidColor {
         swapchain_properties: &SwapchainProperties,
         render_pass: vk::RenderPass,
     ) -> Self {
-        let vertex_file = Path::new("resources/shaders/solid_color.frag.spv");
+        let vertex_file = Path::new("resources/shaders/solid_color.vert.spv");
         let fragment_file = Path::new("resources/shaders/solid_color.frag.spv");
 
         let entry_point_name = CString::new("main").unwrap();
@@ -114,13 +114,16 @@ impl SolidColor {
         let pipeline_infos = [pipeline_info];
         println!("DEBUG - 1");
 
-        let pipelines = unsafe {
+        let pipeline = unsafe {
             device
                 .create_graphics_pipelines(vk::PipelineCache::null(), &pipeline_infos, None)
-                .expect("Unable to create Solid Color Pipeline")
+                .expect("Unable to create Solid Color Pipeline")[0]
         };
-        println!("Number of pipelines created: {:?}", pipelines.len());
-        let pipeline = pipelines[0];
+
+        unsafe {
+            device.destroy_shader_module(vert_module, None);
+            device.destroy_shader_module(frag_module, None);
+        }
 
         log::info!("Solid Color Graphics Pipleline Built");
 
@@ -130,6 +133,7 @@ impl SolidColor {
     pub fn cleanup(&self, device: &ash::Device) {
         unsafe {
             device.destroy_pipeline_layout(self.layout, None);
+            device.destroy_pipeline(self.pipeline, None);
         }
     }
 }
