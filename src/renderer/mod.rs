@@ -37,6 +37,7 @@ pub struct Renderer {
     graphics_queue: vk::Queue,
     present_queue: vk::Queue,
     swapchain_data: SwapchainData,
+    swapchain_framebuffers: Vec<vk::Framebuffer>,
     solid_color_pipeline: SolidColor,
     render_pass: vk::RenderPass,
 }
@@ -71,11 +72,14 @@ impl Renderer {
         let solid_color_pipeline =
             SolidColor::new(context.device(), &swapchain_data.properties(), render_pass);
 
+        let swapchain_framebuffers = create_framebuffers();
+
         Renderer {
             context,
             graphics_queue,
             present_queue,
             swapchain_data,
+            swapchain_framebuffers,
             solid_color_pipeline,
             render_pass,
         }
@@ -138,4 +142,8 @@ fn create_render_pass(
         .build();
 
     unsafe { device.create_render_pass(&render_pass_info, None).unwrap() }
+}
+
+fn create_framebuffers() -> Vec<vk::Framebuffer> {
+    unimplemented!()
 }
