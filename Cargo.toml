@@ -6,10 +6,8 @@ edition = "2018"
 
 [dependencies]
 log = "^0.4"
-winit = "0.20.0-alpha4"
-raw-window-handle = "^0.3"
-float-cmp = "^0.6"
-ash = "^0.29"
+winit = "^0.20"
+wgpu = "^0.4"
 
 [dev-dependencies]
 simplelog = "^0.7"
