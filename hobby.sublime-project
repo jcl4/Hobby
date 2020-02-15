@@ -7,16 +7,5 @@
 	],
 	"settings":
 	{
-		"LSP":
-		{
-			"ra-lsp":
-			{
-				"enabled": true
-			},
-			"rls":
-			{
-				"enabled": false
-			}
-		}
 	}
 }

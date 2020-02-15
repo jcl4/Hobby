@@ -6,8 +6,9 @@ edition = "2018"
 
 [dependencies]
 log = "^0.4"
-winit = "^0.20"
+winit = "^0.21"
 wgpu = "^0.4"
+glsl-to-spirv = "^0.1"
 
 [dev-dependencies]
 simplelog = "^0.7"
