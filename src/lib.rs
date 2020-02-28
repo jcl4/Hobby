@@ -1,4 +1,5 @@
-// #![warn(clippy::all)]
+#![warn(clippy::all)]
+
 use log::info;
 use std::time::{Duration, Instant};
 use winit::{
@@ -9,7 +10,7 @@ use winit::{
 };
 
 pub mod input;
-pub(crate) mod renderer;
+pub mod renderer;
 
 #[derive(Debug)]
 pub struct HobbySettings {

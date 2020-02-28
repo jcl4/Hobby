@@ -1,5 +1,7 @@
 use winit::{dpi::PhysicalSize, window::Window};
 
+pub mod pipeline;
+
 pub struct Renderer {
     surface: wgpu::Surface,
     adapter: wgpu::Adapter,
