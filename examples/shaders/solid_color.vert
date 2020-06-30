@@ -1,5 +1,3 @@
-qa#version 450
-
 #version 450
 
 const vec2 positions[3] = vec2[3](
