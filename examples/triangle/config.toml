@@ -7,3 +7,4 @@ bg_color = [0.25, 0.3, 0.25, 1.0]
 
 [application]
 name = "Triangle Example"
+

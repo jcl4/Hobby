@@ -1,19 +1,34 @@
-2020-06-30 21:55:27.614 [INFO] Initialization of Hobby Engine Started
-2020-06-30 21:55:27.615 [INFO] Config {
+2020-07-05 05:44:40.385 [INFO] Initialization of Hobby Engine Started
+2020-07-05 05:44:40.392 [INFO] Config {
     window: WindowConfig {
         fullscreen: false,
         vsync: false,
         width: 1600,
         height: 900,
         bg_color: [
-            0.25,
-            0.3,
-            0.25,
+            0.757,
+            0.258,
+            0.121,
             1.0,
         ],
     },
     application: AppConfig {
         name: "Triangle Example",
+        version: [
+            0,
+            1,
+            0,
+        ],
     },
 }
-2020-06-30 21:55:27.615 [INFO] Initialization complete in 0.000437302 s
+2020-07-05 05:44:40.407 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
+2020-07-05 05:44:40.407 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
+2020-07-05 05:44:40.408 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
+2020-07-05 05:44:40.409 [INFO] Guessed window scale factor: 1
+2020-07-05 05:44:40.409 [DEBUG] (1) winit::platform_impl::platform::x11::window: Calculated physical dimensions: 1600x900
+2020-07-05 05:44:40.410 [INFO] Window and Event Loop Created
+2020-07-05 05:44:40.410 [INFO] Renderer Created
+2020-07-05 05:44:40.411 [INFO] Initialization complete in 0.025701106 s
+2020-07-05 05:44:40.411 [INFO] Game Loop Starting
+2020-07-05 05:44:41.248 [INFO] Escape Key Pressed.
+2020-07-05 05:44:41.249 [INFO] Game Loop Stopped
