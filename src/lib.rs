@@ -77,13 +77,13 @@ impl Hobby {
         info!("Game Loop Starting");
         let mut input_state = self.input_state;
         let window = self.window;
-        // let mut renderer = self.renderer;
+        let mut renderer = self.renderer;
 
         self.event_loop.run(move |event, _, control_flow| {
             match event {
                 Event::MainEventsCleared => {
                     if input_state.is_key_pressed(VirtualKeyCode::Escape) {
-                        info!("Escape Key Pressed.");
+                        info!("Escape Key Pressed");
                         *control_flow = ControlFlow::Exit;
                     }
                     // scene.update();
@@ -107,7 +107,11 @@ impl Hobby {
                 //     ..
                 // } => renderer.resize(*new_inner_size),
                 Event::LoopDestroyed => {
+                    
                     info!("Game Loop Stopped");
+                    renderer.cleanup();
+                    std::process::exit(0);
+
                 }
                 Event::DeviceEvent { event, .. } => {
                     input_state.update(&event);

@@ -39,7 +39,6 @@ fn main() -> Result<()> {
         .name("Triangle Example")
         .version([major, minor, patch])
         .build();
-    print!("{:#?}", app_config);
     
     let bg_color = [0.757, 0.258, 0.121, 1.0];
     let window_config = WindowConfig::builder().bg_color(bg_color).build();
