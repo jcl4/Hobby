@@ -1,15 +1,16 @@
 use ash::{
     extensions::{
         ext::DebugUtils,
-        khr::{Surface, XlibSurface},
     },
-    version::{EntryV1_0, InstanceV1_0, DeviceV1_0},
+    version::{EntryV1_0},
     vk,
-    Entry, Instance, Device,
+    Entry, Instance,
 };
 
-use log::{debug, error, info, warn};
 use std::{ffi::CStr, os::raw::c_void};
+
+use log::{debug, info, warn, error};
+
 
 pub const REQUIRED_LAYERS: [&'static str; 1] = ["VK_LAYER_KHRONOS_validation"];
 
@@ -80,76 +81,4 @@ pub fn setup_debug_messenger(
     };
 
     (debug_utils, debug_utils_messenger)
-}
-
-pub fn required_extension_names() -> Vec<*const i8> {
-    vec![
-        Surface::name().as_ptr(),
-        XlibSurface::name().as_ptr(),
-        DebugUtils::name().as_ptr(),
-    ]
-}
-
-pub fn pick_physical_device(instance: &Instance) -> vk::PhysicalDevice {
-    let devices = unsafe { instance.enumerate_physical_devices().unwrap() };
-    let device = devices
-        .into_iter()
-        .find(|device| is_device_suitable(instance, *device))
-        .expect("No suitable physical device.");
-
-    let props = unsafe { instance.get_physical_device_properties(device) };
-    info!("Selected physical device: {:?}", unsafe {
-        CStr::from_ptr(props.device_name.as_ptr())
-    });
-    device
-}
-
-fn is_device_suitable(instance: &Instance, device: vk::PhysicalDevice) -> bool {
-    find_queue_families(instance, device).is_some()
-}
-
-fn find_queue_families(instance: &Instance, device: vk::PhysicalDevice) -> Option<u32> {
-    let props = unsafe { instance.get_physical_device_queue_family_properties(device) };
-    props
-        .iter()
-        .enumerate()
-        .find(|(_, family)| {
-            family.queue_count > 0 && family.queue_flags.contains(vk::QueueFlags::GRAPHICS)
-        })
-        .map(|(index, _)| index as _)
-}
-
-pub fn create_logical_device_w_graphics_queue(
-    instance: &Instance,
-    physical_device: vk::PhysicalDevice,
-) -> (Device, vk::Queue) {
-    let queue_family_index =
-        find_queue_families(instance, physical_device).expect("Unable to find appropriate Queue Families");
-    let queue_priorities = [1.0];
-
-    let queue_create_infos = [vk::DeviceQueueCreateInfo::builder()
-        .queue_family_index(queue_family_index)
-        .queue_priorities(&queue_priorities)
-        .build()];
-
-    debug!("Queue Create Infos: {:?}", queue_create_infos);
-
-    let device_features = vk::PhysicalDeviceFeatures::builder();
-
-    debug!("Device Features: {:#?}", *device_features);
-
-    let mut device_create_info_builder = vk::DeviceCreateInfo::builder()
-        .queue_create_infos(&queue_create_infos)
-        .enabled_features(&device_features);
-
-    let device_create_info = device_create_info_builder.build();
-
-    let device = unsafe {
-        instance
-            .create_device(physical_device, &device_create_info, None)
-            .expect("Failed to create logical device.")
-    };
-    let graphics_queue = unsafe { device.get_device_queue(queue_family_index, 0) };
-
-    (device, graphics_queue)
 }

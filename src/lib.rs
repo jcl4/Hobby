@@ -59,7 +59,7 @@ impl Hobby {
 
         let input_state = input::InputState::new();
 
-        let renderer = renderer::Renderer::new(config);
+        let renderer = renderer::Renderer::new(config, &window);
         info!("Renderer Created");
 
         let init_time = start.elapsed();

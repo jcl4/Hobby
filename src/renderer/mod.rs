@@ -1,100 +1,103 @@
-mod util;
+mod context;
+mod debug;
 
-use log::{debug, info};
-use std::ffi::CString;
+use context::Context;
 
 use ash::{
     extensions::ext::DebugUtils,
-    version::{EntryV1_0, InstanceV1_0},
-    vk,
-    Entry, Instance, Device,
+    version::{DeviceV1_0, InstanceV1_0},
+    vk, Device, Instance,
 };
+use winit::window::Window;
 
 use crate::config::Config;
 
-pub(crate) struct Renderer {
-    _entry: Entry,
-    instance: Instance,
+pub struct Renderer {
+    context: Context,
     debug_utils: (DebugUtils, vk::DebugUtilsMessengerEXT),
-    _physical_device: vk::PhysicalDevice,
     device: Device,
     graphics_queue: vk::Queue,
+    present_queue: vk::Queue,
 }
 
 impl Renderer {
-    pub(crate) fn new(config: Config) -> Renderer {
-        let entry = Entry::new().expect("Unable to create Ash Entry");
+    pub(crate) fn new(config: Config, window: &Window) -> Renderer {
+        let context = Context::new(config, window);
 
-        util::check_validation_layer_support(&entry);
+        debug::check_validation_layer_support(&context.entry);
 
-        let app_name = CString::new(config.application.name)
-            .expect("Unable to convert application name to CString");
-        let app_version = vk::make_version(
-            config.application.version[0],
-            config.application.version[1],
-            config.application.version[2],
-        );
+        let debug_utils = debug::setup_debug_messenger(&context.entry, &context.instance);
+        log::debug!("Vulkan Debug Utils Created");
 
-        let major = env!("CARGO_PKG_VERSION_MAJOR").parse::<u32>().unwrap();
-        let minor = env!("CARGO_PKG_VERSION_MINOR").parse::<u32>().unwrap();
-        let patch = env!("CARGO_PKG_VERSION_PATCH").parse::<u32>().unwrap();
-        let engine_version = vk::make_version(major, minor, patch);
-        let engine_name = CString::new("Hobby").unwrap();
-
-        let api_version = vk::make_version(1, 2, 0);
-
-        let app_info = vk::ApplicationInfo::builder()
-            .application_name(&app_name)
-            .application_version(app_version)
-            .engine_name(&engine_name)
-            .engine_version(engine_version)
-            .api_version(api_version);
-
-        let required_extensions = util::required_extension_names();
-
-        let layer_names = util::REQUIRED_LAYERS
-            .iter()
-            .map(|name| CString::new(*name).expect("Failed to build CString"))
-            .collect::<Vec<_>>();
-        let layer_names_ptrs = layer_names
-            .iter()
-            .map(|name| name.as_ptr())
-            .collect::<Vec<_>>();
-
-        let instance_create_info = vk::InstanceCreateInfo::builder()
-            .application_info(&app_info)
-            .enabled_extension_names(&required_extensions)
-            .enabled_layer_names(&layer_names_ptrs);
-
-        let instance = unsafe { entry.create_instance(&instance_create_info, None).expect("Unable to create instance") };
-        debug!("Vulkan Instance Created");
-
-        let debug_utils = util::setup_debug_messenger(&entry, &instance);
-        debug!("Vulkan Debug Utils Created");
-
-        let physical_device = util::pick_physical_device(&instance);
-        debug!("Vulkan Physical Device Created");
-
-        let (device, graphics_queue) =
-            util::create_logical_device_w_graphics_queue(&instance, physical_device);
+        let (device, graphics_queue, present_queue) = create_logical_device_and_queues(&context);
+        log::debug!("Logical Device, Graphics and Present Queue Created");
 
         Renderer {
-            _entry: entry,
-            instance,
+            context,
             debug_utils,
-            _physical_device: physical_device,
             device,
             graphics_queue,
+            present_queue
         }
     }
 
     pub(crate) fn cleanup(&self) {
-        info!("Renderer Cleanup");
+        log::info!("Renderer Cleanup");
         unsafe {
+            self.device.destroy_device(None);
             self.debug_utils
                 .0
                 .destroy_debug_utils_messenger(self.debug_utils.1, None);
-            self.instance.destroy_instance(None);
         }
+        self.context.cleanup();
     }
+}
+
+fn create_logical_device_and_queues(context: &Context) -> (Device, vk::Queue, vk::Queue) {
+    let (graphics_family_index, present_family_index) = context::find_queue_families(
+        &context.instance,
+        &context.surface,
+        context.surface_khr,
+        context.physical_device,
+    );
+
+    let graphics_family_index = graphics_family_index.unwrap();
+    let present_family_index = present_family_index.unwrap();
+
+    let queue_priorities = [1.0];
+
+    let queue_create_infos = {
+        let mut indices = vec![graphics_family_index, present_family_index];
+        indices.dedup();
+
+        indices
+            .iter()
+            .map(|index| {
+                vk::DeviceQueueCreateInfo::builder()
+                    .queue_family_index(*index)
+                    .queue_priorities(&queue_priorities)
+                    .build()
+            })
+            .collect::<Vec<_>>()
+    };
+
+    let device_features = vk::PhysicalDeviceFeatures::builder();
+
+    log::debug!("Device Features: {:#?}", *device_features);
+
+    let device_create_info = vk::DeviceCreateInfo::builder()
+        .queue_create_infos(&queue_create_infos)
+        .enabled_features(&device_features);
+
+    let device = unsafe {
+        context
+            .instance
+            .create_device(context.physical_device, &device_create_info, None)
+            .expect("Failed to create logical device.")
+    };
+
+    let graphics_queue = unsafe { device.get_device_queue(graphics_family_index, 0) };
+    let present_queue = unsafe { device.get_device_queue(present_family_index, 0) };
+
+    (device, graphics_queue, present_queue)
 }
