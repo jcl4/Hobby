@@ -4,10 +4,10 @@ use simplelog as sl;
 
 use hobby::{
     config::{AppConfig, Config, WindowConfig},
-    Hobby, Result,
+    Hobby,
 };
 
-fn main() -> Result<()> {
+fn main() {
     let time_format = "%F %H:%M:%S.%3f";
     let log_config = sl::ConfigBuilder::new()
         .set_time_format_str(time_format)
@@ -15,7 +15,6 @@ fn main() -> Result<()> {
 
     let root_dir = Path::new(env!("CARGO_MANIFEST_DIR"));
     let example_dir = root_dir.join("examples").join("triangle");
-    let config_file = example_dir.join("config.toml");
     let log_file = example_dir.join("triangle.log");
 
     sl::CombinedLogger::init(vec![
@@ -29,11 +28,11 @@ fn main() -> Result<()> {
             log_config,
             File::create(log_file).unwrap(),
         ),
-    ])?;
+    ]).expect("Unable to create logger");
 
-    let major = env!("CARGO_PKG_VERSION_MAJOR").parse::<u32>()?;
-    let minor = env!("CARGO_PKG_VERSION_MINOR").parse::<u32>()?;
-    let patch = env!("CARGO_PKG_VERSION_PATCH").parse::<u32>()?;
+    let major = env!("CARGO_PKG_VERSION_MAJOR").parse::<u32>().unwrap();
+    let minor = env!("CARGO_PKG_VERSION_MINOR").parse::<u32>().unwrap();
+    let patch = env!("CARGO_PKG_VERSION_PATCH").parse::<u32>().unwrap();
 
     let app_config = AppConfig::builder()
         .name("Triangle Example")
@@ -48,8 +47,6 @@ fn main() -> Result<()> {
         application: app_config,
     };
 
-    let hobby = Hobby::from_config(config)?;
+    let hobby = Hobby::from_config(config);
     hobby.run();
-
-    Ok(())
 }

@@ -1,5 +1,5 @@
-2020-07-07 21:09:24.965 [INFO] Initialization of Hobby Engine Started
-2020-07-07 21:09:24.965 [INFO] Config {
+2020-07-14 09:48:27.905 [INFO] Initialization of Hobby Engine Started
+2020-07-14 09:48:27.905 [INFO] Config {
     window: WindowConfig {
         fullscreen: false,
         vsync: false,
@@ -21,16 +21,346 @@
         ],
     },
 }
-2020-07-07 21:09:24.980 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
-2020-07-07 21:09:24.980 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
-2020-07-07 21:09:24.980 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
-2020-07-07 21:09:24.981 [INFO] Guessed window scale factor: 1
-2020-07-07 21:09:24.982 [DEBUG] (1) winit::platform_impl::platform::x11::window: Calculated physical dimensions: 1600x900
-2020-07-07 21:09:24.982 [INFO] Window and Event Loop Created
-2020-07-07 21:09:25.007 [INFO] Vulkan Instance Created
-2020-07-07 21:09:25.007 [INFO] Renderer Created
-2020-07-07 21:09:25.007 [INFO] Initialization complete in 0.042192914 s
-2020-07-07 21:09:25.007 [INFO] Game Loop Starting
-2020-07-07 21:09:28.024 [INFO] Escape Key Pressed
-2020-07-07 21:09:28.024 [INFO] Game Loop Stopped
-2020-07-07 21:09:28.024 [INFO] Renderer Cleanup
+2020-07-14 09:48:27.919 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
+2020-07-14 09:48:27.919 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
+2020-07-14 09:48:27.920 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
+2020-07-14 09:48:27.921 [INFO] Guessed window scale factor: 1
+2020-07-14 09:48:27.921 [DEBUG] (1) winit::platform_impl::platform::x11::window: Calculated physical dimensions: 1600x900
+2020-07-14 09:48:27.921 [INFO] Window and Event Loop Created
+2020-07-14 09:48:27.947 [DEBUG] (1) hobby::renderer: Vulkan Instance Created
+2020-07-14 09:48:27.948 [DEBUG] (1) hobby::renderer: Vulkan Debug Utils Created
+2020-07-14 09:48:27.948 [INFO] Selected physical device: "GeForce GTX 1070"
+2020-07-14 09:48:27.948 [DEBUG] (1) hobby::renderer: Vulkan Physical Device Created
+2020-07-14 09:48:27.948 [DEBUG] (1) hobby::renderer::util: Queue Create Infos: [DeviceQueueCreateInfo { s_type: DEVICE_QUEUE_CREATE_INFO, p_next: 0x0, flags: , queue_family_index: 0, queue_count: 1, p_queue_priorities: 0x7ffcc051a9c4 }]
+2020-07-14 09:48:27.948 [DEBUG] (1) hobby::renderer::util: Device Features: PhysicalDeviceFeatures {
+    robust_buffer_access: 0,
+    full_draw_index_uint32: 0,
+    image_cube_array: 0,
+    independent_blend: 0,
+    geometry_shader: 0,
+    tessellation_shader: 0,
+    sample_rate_shading: 0,
+    dual_src_blend: 0,
+    logic_op: 0,
+    multi_draw_indirect: 0,
+    draw_indirect_first_instance: 0,
+    depth_clamp: 0,
+    depth_bias_clamp: 0,
+    fill_mode_non_solid: 0,
+    depth_bounds: 0,
+    wide_lines: 0,
+    large_points: 0,
+    alpha_to_one: 0,
+    multi_viewport: 0,
+    sampler_anisotropy: 0,
+    texture_compression_etc2: 0,
+    texture_compression_astc_ldr: 0,
+    texture_compression_bc: 0,
+    occlusion_query_precise: 0,
+    pipeline_statistics_query: 0,
+    vertex_pipeline_stores_and_atomics: 0,
+    fragment_stores_and_atomics: 0,
+    shader_tessellation_and_geometry_point_size: 0,
+    shader_image_gather_extended: 0,
+    shader_storage_image_extended_formats: 0,
+    shader_storage_image_multisample: 0,
+    shader_storage_image_read_without_format: 0,
+    shader_storage_image_write_without_format: 0,
+    shader_uniform_buffer_array_dynamic_indexing: 0,
+    shader_sampled_image_array_dynamic_indexing: 0,
+    shader_storage_buffer_array_dynamic_indexing: 0,
+    shader_storage_image_array_dynamic_indexing: 0,
+    shader_clip_distance: 0,
+    shader_cull_distance: 0,
+    shader_float64: 0,
+    shader_int64: 0,
+    shader_int16: 0,
+    shader_resource_residency: 0,
+    shader_resource_min_lod: 0,
+    sparse_binding: 0,
+    sparse_residency_buffer: 0,
+    sparse_residency_image2_d: 0,
+    sparse_residency_image3_d: 0,
+    sparse_residency2_samples: 0,
+    sparse_residency4_samples: 0,
+    sparse_residency8_samples: 0,
+    sparse_residency16_samples: 0,
+    sparse_residency_aliased: 0,
+    variable_multisample_rate: 0,
+    inherited_queries: 0,
+}
+2020-07-14 09:48:27.949 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_8bit_storage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.949 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_16bit_storage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.949 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_bind_memory2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.949 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_create_renderpass2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_depth_stencil_resolve (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_descriptor_update_template (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_device_group (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_draw_indirect_count (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_driver_properties (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_fence (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_fence_fd (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_memory (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.950 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_memory_fd (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_semaphore (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_semaphore_fd (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_get_memory_requirements2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_image_format_list (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_imageless_framebuffer (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_maintenance1 (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_maintenance2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_maintenance3 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_multiview (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.951 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_pipeline_executable_properties (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.952 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_push_descriptor (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.952 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_relaxed_block_layout (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.952 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_sampler_mirror_clamp_to_edge (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.952 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_sampler_ycbcr_conversion (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.952 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_atomic_int64 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.952 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_draw_parameters (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.952 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_float16_int8 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.952 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_float_controls (libGLX_nvidia.so.0) version 0.0.4\""
+2020-07-14 09:48:27.952 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_storage_buffer_storage_class (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_swapchain (libGLX_nvidia.so.0) version 0.0.70\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_swapchain_mutable_format (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_timeline_semaphore (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_uniform_buffer_standard_layout (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_variable_pointers (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_vulkan_memory_model (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_blend_operation_advanced (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_buffer_device_address (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_calibrated_timestamps (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.953 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_conditional_rendering (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.954 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_conservative_rasterization (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.954 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_depth_clip_enable (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.954 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_depth_range_unrestricted (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.954 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_descriptor_indexing (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.954 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_discard_rectangles (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.954 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_display_control (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.954 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_fragment_shader_interlock (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.954 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_global_priority (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.954 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_host_query_reset (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_index_type_uint8 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_inline_uniform_block (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_line_rasterization (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_memory_budget (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_pci_bus_info (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_pipeline_creation_feedback (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_post_depth_coverage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_sample_locations (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_sampler_filter_minmax (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.955 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_scalar_block_layout (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_separate_stencil_usage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_demote_to_helper_invocation (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_subgroup_ballot (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_subgroup_vote (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_viewport_index_layer (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_subgroup_size_control (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_texel_buffer_alignment (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_transform_feedback (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_vertex_attribute_divisor (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.956 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_ycbcr_image_arrays (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.957 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_clip_space_w_scaling (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.957 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.957 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_dedicated_allocation_image_aliasing (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.957 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_device_diagnostic_checkpoints (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.957 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_fill_rectangle (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.957 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_fragment_coverage_to_color (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.957 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_framebuffer_mixed_samples (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.957 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_coverage_reduction_mode (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.957 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_geometry_shader_passthrough (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.958 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_sample_mask_override_coverage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.958 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_shader_sm_builtins (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.958 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_shader_subgroup_partitioned (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.958 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_viewport_array2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.958 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_viewport_swizzle (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.958 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NVX_device_generated_commands (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.958 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NVX_multiview_per_view_attributes (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.958 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_ray_tracing (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.958 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_8bit_storage (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.959 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_16bit_storage (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.959 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_bind_memory2 (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.959 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_create_renderpass2 (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.959 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_dedicated_allocation (Unknown) version 0.0.3\""
+2020-07-14 09:48:27.959 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_depth_stencil_resolve (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.959 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_descriptor_update_template (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.959 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_device_group (Unknown) version 0.0.3\""
+2020-07-14 09:48:27.959 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_draw_indirect_count (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.960 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_driver_properties (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.960 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_fence (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.960 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_fence_fd (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.960 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_memory (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.960 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_memory_fd (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.960 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_semaphore (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_semaphore_fd (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_get_memory_requirements2 (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_image_format_list (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_imageless_framebuffer (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_maintenance1 (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_maintenance2 (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_maintenance3 (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_multiview (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_pipeline_executable_properties (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.961 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_push_descriptor (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.962 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_relaxed_block_layout (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.962 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_sampler_mirror_clamp_to_edge (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.962 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_sampler_ycbcr_conversion (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.962 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_atomic_int64 (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.962 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_draw_parameters (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.962 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_float16_int8 (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.962 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_float_controls (Unknown) version 0.0.4\""
+2020-07-14 09:48:27.962 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_storage_buffer_storage_class (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.962 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_swapchain (Unknown) version 0.0.70\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_swapchain_mutable_format (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_timeline_semaphore (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_uniform_buffer_standard_layout (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_variable_pointers (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_vulkan_memory_model (Unknown) version 0.0.3\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_blend_operation_advanced (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_buffer_device_address (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_calibrated_timestamps (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_conditional_rendering (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.963 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_conservative_rasterization (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.964 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_depth_clip_enable (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.964 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_depth_range_unrestricted (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.964 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_descriptor_indexing (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.964 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_discard_rectangles (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.964 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_display_control (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.964 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_fragment_shader_interlock (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.964 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_global_priority (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.964 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_host_query_reset (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.964 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_index_type_uint8 (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_inline_uniform_block (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_line_rasterization (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_memory_budget (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_pci_bus_info (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_pipeline_creation_feedback (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_post_depth_coverage (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_sample_locations (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_sampler_filter_minmax (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_scalar_block_layout (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.965 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_separate_stencil_usage (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.966 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_demote_to_helper_invocation (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.966 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_subgroup_ballot (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.966 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_subgroup_vote (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.966 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_viewport_index_layer (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.966 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_subgroup_size_control (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.966 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_texel_buffer_alignment (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.966 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_transform_feedback (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.966 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_vertex_attribute_divisor (Unknown) version 0.0.3\""
+2020-07-14 09:48:27.966 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_ycbcr_image_arrays (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.967 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_clip_space_w_scaling (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.967 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_dedicated_allocation (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.967 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_dedicated_allocation_image_aliasing (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.967 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_device_diagnostic_checkpoints (Unknown) version 0.0.2\""
+2020-07-14 09:48:27.967 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_fill_rectangle (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.967 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_fragment_coverage_to_color (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.967 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_framebuffer_mixed_samples (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.967 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_coverage_reduction_mode (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.967 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_geometry_shader_passthrough (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.968 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_sample_mask_override_coverage (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.968 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_shader_sm_builtins (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.968 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_shader_subgroup_partitioned (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.968 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_viewport_array2 (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.968 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_viewport_swizzle (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.968 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NVX_device_generated_commands (Unknown) version 0.0.3\""
+2020-07-14 09:48:27.968 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NVX_multiview_per_view_attributes (Unknown) version 0.0.1\""
+2020-07-14 09:48:27.968 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_ray_tracing (Unknown) version 0.0.3\""
+2020-07-14 09:48:27.969 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Loading layer library libVkLayer_khronos_validation.so\""
+2020-07-14 09:48:27.969 [INFO] "Validation Message: Sevarity: INFO; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Inserted device layer VK_LAYER_KHRONOS_validation (libVkLayer_khronos_validation.so)\""
+2020-07-14 09:48:27.969 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_8bit_storage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.970 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_16bit_storage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.970 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_bind_memory2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.970 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_create_renderpass2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.970 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.970 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_depth_stencil_resolve (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.970 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_descriptor_update_template (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.970 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_device_group (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.970 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_draw_indirect_count (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.970 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_driver_properties (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.971 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_fence (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.971 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_fence_fd (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.971 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_memory (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.971 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_memory_fd (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.971 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_semaphore (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.971 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_external_semaphore_fd (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.971 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_get_memory_requirements2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.971 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_image_format_list (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.972 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_imageless_framebuffer (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.972 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_maintenance1 (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.972 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_maintenance2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.972 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_maintenance3 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.972 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_multiview (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.972 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_pipeline_executable_properties (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.972 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_push_descriptor (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.972 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_relaxed_block_layout (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.972 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_sampler_mirror_clamp_to_edge (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.973 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_sampler_ycbcr_conversion (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.973 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_atomic_int64 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.973 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_draw_parameters (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.973 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_float16_int8 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.973 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_shader_float_controls (libGLX_nvidia.so.0) version 0.0.4\""
+2020-07-14 09:48:27.973 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_storage_buffer_storage_class (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.973 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_swapchain (libGLX_nvidia.so.0) version 0.0.70\""
+2020-07-14 09:48:27.973 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_swapchain_mutable_format (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.974 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_timeline_semaphore (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.974 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_uniform_buffer_standard_layout (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.974 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_variable_pointers (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.974 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_KHR_vulkan_memory_model (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.974 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_blend_operation_advanced (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.974 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_buffer_device_address (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.974 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_calibrated_timestamps (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.974 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_conditional_rendering (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.975 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_conservative_rasterization (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.975 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_depth_clip_enable (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.975 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_depth_range_unrestricted (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.975 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_descriptor_indexing (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.975 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_discard_rectangles (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.975 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_display_control (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.975 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_fragment_shader_interlock (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.975 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_global_priority (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.976 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_host_query_reset (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.976 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_index_type_uint8 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.976 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_inline_uniform_block (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.976 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_line_rasterization (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.976 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_memory_budget (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.976 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_pci_bus_info (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.976 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_pipeline_creation_feedback (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.976 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_post_depth_coverage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.977 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_sample_locations (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.977 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_sampler_filter_minmax (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.977 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_scalar_block_layout (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.977 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_separate_stencil_usage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.977 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_demote_to_helper_invocation (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.977 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_subgroup_ballot (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.977 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_subgroup_vote (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.977 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_shader_viewport_index_layer (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.977 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_subgroup_size_control (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.978 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_texel_buffer_alignment (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.978 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_transform_feedback (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.978 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_vertex_attribute_divisor (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.978 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_EXT_ycbcr_image_arrays (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.978 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_clip_space_w_scaling (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.978 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.978 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_dedicated_allocation_image_aliasing (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.978 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_device_diagnostic_checkpoints (libGLX_nvidia.so.0) version 0.0.2\""
+2020-07-14 09:48:27.978 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_fill_rectangle (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.979 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_fragment_coverage_to_color (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.979 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_framebuffer_mixed_samples (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.979 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_coverage_reduction_mode (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.979 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_geometry_shader_passthrough (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.979 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_sample_mask_override_coverage (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.979 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_shader_sm_builtins (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.980 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_shader_subgroup_partitioned (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.980 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_viewport_array2 (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.980 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_viewport_swizzle (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.980 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NVX_device_generated_commands (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:27.980 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NVX_multiview_per_view_attributes (libGLX_nvidia.so.0) version 0.0.1\""
+2020-07-14 09:48:27.980 [DEBUG] (1) hobby::renderer::util: "Validation Message: Sevarity: VERBOSE; Type: GENERAL; VUID: \"Loader Message\"; ID#: 0; Message: \"Device Extension: VK_NV_ray_tracing (libGLX_nvidia.so.0) version 0.0.3\""
+2020-07-14 09:48:28.015 [INFO] Renderer Created
+2020-07-14 09:48:28.015 [INFO] Initialization complete in 0.11069107 s
+2020-07-14 09:48:28.015 [INFO] Game Loop Starting
+2020-07-14 09:48:32.697 [INFO] Escape Key Pressed
+2020-07-14 09:48:32.697 [INFO] Game Loop Stopped
+2020-07-14 09:48:32.697 [INFO] Renderer Cleanup

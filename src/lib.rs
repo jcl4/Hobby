@@ -1,7 +1,11 @@
 #![warn(clippy::all)]
 
 use log::info;
-use std::{time::{Duration, Instant}, error::Error, path::Path};
+use std::{
+    error::Error,
+    path::Path,
+    time::{Duration, Instant},
+};
 use winit::{
     dpi::PhysicalSize,
     event::{Event, VirtualKeyCode, WindowEvent},
@@ -15,8 +19,6 @@ pub mod config;
 use config::Config;
 pub mod input;
 
-pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
-
 pub struct Hobby {
     window: Window,
     event_loop: EventLoop<()>,
@@ -26,15 +28,13 @@ pub struct Hobby {
 
 impl Hobby {
     // Start Hobby with default configuration
-    pub fn new() -> Result<Hobby> {
+    pub fn new() -> Hobby {
         let config = Config::default();
-        
-        Ok(
-            Hobby::from_config(config)?
-        )
+
+        Hobby::from_config(config)
     }
 
-    pub fn from_config(config: config::Config) -> Result<Hobby> {
+    pub fn from_config(config: config::Config) -> Hobby {
         let start = Instant::now();
         info!("Initialization of Hobby Engine Started");
         info!("{:#?}", config);
@@ -59,17 +59,18 @@ impl Hobby {
 
         let input_state = input::InputState::new();
 
-        let renderer = renderer::Renderer::new(config)?;
+        let renderer = renderer::Renderer::new(config);
         info!("Renderer Created");
 
         let init_time = start.elapsed();
         info!("Initialization complete in {} s", init_time.as_secs_f32());
-        Ok(Hobby {
+
+        Hobby {
             window,
             event_loop,
             input_state,
             renderer,
-        })
+        }
     }
 
     /// Game loop lives here
@@ -107,11 +108,9 @@ impl Hobby {
                 //     ..
                 // } => renderer.resize(*new_inner_size),
                 Event::LoopDestroyed => {
-                    
                     info!("Game Loop Stopped");
                     renderer.cleanup();
                     std::process::exit(0);
-
                 }
                 Event::DeviceEvent { event, .. } => {
                     input_state.update(&event);
