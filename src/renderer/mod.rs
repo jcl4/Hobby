@@ -1,12 +1,14 @@
 mod context;
 mod debug;
+mod swapchain;
 
 use context::Context;
+use swapchain::SwapchainDetails;
 
 use ash::{
     extensions::ext::DebugUtils,
     version::{DeviceV1_0, InstanceV1_0},
-    vk, Device, Instance,
+    vk, Device
 };
 use winit::window::Window;
 
@@ -18,10 +20,11 @@ pub struct Renderer {
     device: Device,
     graphics_queue: vk::Queue,
     present_queue: vk::Queue,
+    swapchain_details: SwapchainDetails,
 }
 
 impl Renderer {
-    pub(crate) fn new(config: Config, window: &Window) -> Renderer {
+    pub(crate) fn new(config: &Config, window: &Window) -> Renderer {
         let context = Context::new(config, window);
 
         debug::check_validation_layer_support(&context.entry);
@@ -32,18 +35,22 @@ impl Renderer {
         let (device, graphics_queue, present_queue) = create_logical_device_and_queues(&context);
         log::debug!("Logical Device, Graphics and Present Queue Created");
 
+        let swapchain_details = SwapchainDetails::new(&config.window, &context, &device);
+
         Renderer {
             context,
             debug_utils,
             device,
             graphics_queue,
-            present_queue
+            present_queue,
+            swapchain_details
         }
     }
 
     pub(crate) fn cleanup(&self) {
         log::info!("Renderer Cleanup");
-        unsafe {
+        self.swapchain_details.cleanup();
+        unsafe {            
             self.device.destroy_device(None);
             self.debug_utils
                 .0
@@ -82,11 +89,19 @@ fn create_logical_device_and_queues(context: &Context) -> (Device, vk::Queue, vk
     };
 
     let device_features = vk::PhysicalDeviceFeatures::builder();
-
     log::debug!("Device Features: {:#?}", *device_features);
+
+    let device_extensions = context::required_device_extension_names();
+    let device_extensions_ptrs = device_extensions
+            .iter()
+            .map(|ext| ext.as_ptr())
+            .collect::<Vec<_>>();
+
+
 
     let device_create_info = vk::DeviceCreateInfo::builder()
         .queue_create_infos(&queue_create_infos)
+        .enabled_extension_names(&device_extensions_ptrs)
         .enabled_features(&device_features);
 
     let device = unsafe {

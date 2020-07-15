@@ -28,7 +28,8 @@ fn main() {
             log_config,
             File::create(log_file).unwrap(),
         ),
-    ]).expect("Unable to create logger");
+    ])
+    .expect("Unable to create logger");
 
     let major = env!("CARGO_PKG_VERSION_MAJOR").parse::<u32>().unwrap();
     let minor = env!("CARGO_PKG_VERSION_MINOR").parse::<u32>().unwrap();
@@ -38,11 +39,13 @@ fn main() {
         .name("Triangle Example")
         .version([major, minor, patch])
         .build();
-    
     let bg_color = [0.757, 0.258, 0.121, 1.0];
-    let window_config = WindowConfig::builder().bg_color(bg_color).build();
+    let window_config = WindowConfig::builder()
+        .bg_color(bg_color)
+        .vsync(true)
+        .build();
 
-    let config = Config{
+    let config = Config {
         window: window_config,
         application: app_config,
     };

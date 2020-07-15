@@ -1,7 +1,7 @@
 use ash::{
     extensions::{
         ext::DebugUtils,
-        khr::{Surface, XlibSurface},
+        khr::{Surface, XlibSurface, Swapchain},
     },
     version::{EntryV1_0, InstanceV1_0},
     vk, Entry, Instance,
@@ -13,7 +13,8 @@ use std::ffi::{CStr, CString};
 use super::debug;
 use crate::config::Config;
 
-pub fn required_extension_names() -> Vec<*const i8> {
+
+fn required_extension_names() -> Vec<*const i8> {
     vec![
         Surface::name().as_ptr(),
         XlibSurface::name().as_ptr(),
@@ -21,19 +22,32 @@ pub fn required_extension_names() -> Vec<*const i8> {
     ]
 }
 
+pub fn required_device_extension_names() -> [&'static CStr; 1]{
+    [Swapchain::name()]
+}
+
+
+
+pub struct QueueFamilyIndices{
+    pub graphics: u32,
+    pub present: u32,
+}
+
+
 pub struct Context {
     pub entry: Entry,
     pub instance: Instance,
     pub physical_device: vk::PhysicalDevice,
     pub surface: Surface,
     pub surface_khr: vk::SurfaceKHR,
+    pub queue_family_indices: QueueFamilyIndices,
 }
 
 impl Context {
-    pub fn new(config: Config, window: &Window) -> Context {
+    pub fn new(config: &Config, window: &Window) -> Context {
         let entry = Entry::new().expect("Unable to create Ash Entry");
 
-        let app_name = CString::new(config.application.name)
+        let app_name = CString::new(config.application.name.clone())
             .expect("Unable to convert application name to CString");
         let app_version = vk::make_version(
             config.application.version[0],
@@ -86,12 +100,20 @@ impl Context {
         let physical_device = pick_physical_device(&instance, &surface, surface_khr);
         log::debug!("Vulkan Physical Device Created");
 
+        let(graphics, present) = find_queue_families(&instance, &surface, surface_khr, physical_device);
+
+        let queue_family_indices = QueueFamilyIndices{
+            graphics: graphics.unwrap(),
+            present: present.unwrap(),
+        };
+
         Context {
             entry,
             instance,
             physical_device,
             surface,
             surface_khr,
+            queue_family_indices,
         }
     }
 
@@ -125,8 +147,50 @@ fn is_device_suitable(
     device: vk::PhysicalDevice,
 ) -> bool {
     let (graphics, present) = find_queue_families(instance, surface, surface_khr, device);
-    graphics.is_some() && present.is_some()
+
+    let extention_support = check_device_extension_support(instance, device);
+
+    let is_swapchain_adequate = {
+        let formats = unsafe {
+            surface
+                .get_physical_device_surface_formats(device, surface_khr)
+                .expect("Unable to get surface formats")
+        };
+
+        let present_modes = unsafe {
+            surface
+                .get_physical_device_surface_present_modes(device, surface_khr)
+                .expect("Unable to get present modes")
+        };
+        !formats.is_empty() && !present_modes.is_empty()
+    };
+
+    graphics.is_some() && present.is_some() && extention_support && is_swapchain_adequate
 }
+
+fn check_device_extension_support(instance: &Instance, device: vk::PhysicalDevice) -> bool {
+    let required_extentions = required_device_extension_names();
+
+    let extension_props = unsafe {
+        instance
+            .enumerate_device_extension_properties(device)
+            .unwrap()
+    };
+
+    for required in required_extentions.iter() {
+        let found = extension_props.iter().any(|ext| {
+            let name = unsafe { CStr::from_ptr(ext.extension_name.as_ptr()) };
+            required == &name
+        });
+
+        if !found {
+            return false;
+        }
+    }
+
+    true
+}
+
 
 pub fn find_queue_families(
     instance: &Instance,
@@ -171,10 +235,10 @@ pub fn create_surface(entry: &Entry, instance: &Instance, window: &Window) -> vk
         .dpy(x11_display as *mut vk::Display);
 
     let xlib_surface_loader = XlibSurface::new(entry, instance);
-    let surface = unsafe {
+    unsafe {
         xlib_surface_loader
             .create_xlib_surface(&x11_create_info, None)
             .expect("Unable to create X11 Surface")
-    };
-    surface
+    }
+    
 }
