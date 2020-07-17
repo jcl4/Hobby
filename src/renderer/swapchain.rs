@@ -3,6 +3,7 @@ use crate::config::WindowConfig;
 
 use ash::{
     extensions::khr::{Surface, Swapchain},
+    version::DeviceV1_0,
     vk, Device,
 };
 
@@ -10,6 +11,7 @@ pub struct SwapchainDetails {
     pub swapchain: Swapchain,
     pub swapchain_khr: vk::SwapchainKHR,
     pub images: Vec<vk::Image>,
+    pub image_views: Vec<vk::ImageView>,
 }
 
 impl SwapchainDetails {
@@ -62,17 +64,20 @@ impl SwapchainDetails {
         let swapchain = Swapchain::new(&context.instance, device);
         let swapchain_khr = unsafe { swapchain.create_swapchain(&create_info, None).unwrap() };
         let images = unsafe { swapchain.get_swapchain_images(swapchain_khr).unwrap() };
-        // (swapchain, swapchain_khr, format.format, extent, images)
 
+        let image_views = create_image_views(device, &images, format.format);
+        
         SwapchainDetails {
             swapchain,
             swapchain_khr,
             images,
+            image_views
         }
     }
 
-    pub fn cleanup(&self) {
+    pub fn cleanup(&self, device: &Device) {
         unsafe {
+            self.image_views.iter().for_each(|v| device.destroy_image_view(*v, None));
             self.swapchain.destroy_swapchain(self.swapchain_khr, None);
         }
     }
@@ -159,4 +164,35 @@ fn get_image_count(context: &Context) -> u32 {
         preferred = max;
     }
     preferred
+}
+
+fn create_image_views(
+    device: &Device,
+    swapchain_images: &[vk::Image],
+    swapchain_format: vk::Format,
+) -> Vec<vk::ImageView> {
+    swapchain_images
+        .into_iter()
+        .map(|image| {
+            let create_info = vk::ImageViewCreateInfo::builder()
+                .image(*image)
+                .view_type(vk::ImageViewType::TYPE_2D)
+                .format(swapchain_format)
+                .components(vk::ComponentMapping {
+                    r: vk::ComponentSwizzle::IDENTITY,
+                    g: vk::ComponentSwizzle::IDENTITY,
+                    b: vk::ComponentSwizzle::IDENTITY,
+                    a: vk::ComponentSwizzle::IDENTITY,
+                })
+                .subresource_range(vk::ImageSubresourceRange {
+                    aspect_mask: vk::ImageAspectFlags::COLOR,
+                    base_mip_level: 0,
+                    level_count: 1,
+                    base_array_layer: 0,
+                    layer_count: 1,
+                });
+
+            unsafe { device.create_image_view(&create_info, None).unwrap() }
+        })
+        .collect::<Vec<_>>()
 }

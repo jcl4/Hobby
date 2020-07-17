@@ -49,7 +49,7 @@ impl Renderer {
 
     pub(crate) fn cleanup(&self) {
         log::info!("Renderer Cleanup");
-        self.swapchain_details.cleanup();
+        self.swapchain_details.cleanup(&self.device);
         unsafe {            
             self.device.destroy_device(None);
             self.debug_utils
