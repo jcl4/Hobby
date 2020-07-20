@@ -1,124 +1,45 @@
 #![warn(clippy::all)]
 
 use log::info;
-use std::{
-    error::Error,
-    path::Path,
-    time::{Duration, Instant},
-};
+// use std::time::{Duration, Instant},
+// };
+
 use winit::{
     dpi::PhysicalSize,
-    event::{Event, VirtualKeyCode, WindowEvent},
-    event_loop::{ControlFlow, EventLoop},
+    event_loop::EventLoop,
     window::{Window, WindowBuilder},
 };
 
+pub mod config;
+mod input;
+mod model;
 mod renderer;
 
-pub mod config;
+pub(crate) use renderer::pipeline::Pipeline;
+
+pub use input::InputState;
+pub use renderer::Renderer;
+pub use model::{Model, material::Material};
+
 use config::Config;
-pub mod input;
 
-pub struct Hobby {
-    window: Window,
-    event_loop: EventLoop<()>,
-    input_state: input::InputState,
-    renderer: renderer::Renderer,
-}
+pub fn get_window_and_event_loop(config: &Config) -> (Window, EventLoop<()>) {
+    let (window, event_loop) = {
+        let width = config.window.width;
+        let height = config.window.height;
 
-impl Hobby {
-    // Start Hobby with default configuration
-    pub fn new() -> Hobby {
-        let config = Config::default();
+        let title = config.application.name.clone();
 
-        Hobby::from_config(config)
-    }
+        let event_loop = EventLoop::new();
+        let physical_size = PhysicalSize::new(width, height);
 
-    pub fn from_config(config: config::Config) -> Hobby {
-        let start = Instant::now();
-        info!("Initialization of Hobby Engine Started");
-        info!("{:#?}", config);
-
-        let (window, event_loop) = {
-            let width = config.window.width;
-            let height = config.window.height;
-
-            let title = config.application.name.clone();
-
-            let event_loop = EventLoop::new();
-            let physical_size = PhysicalSize::new(width, height);
-
-            let window = WindowBuilder::new()
-                .with_inner_size(physical_size)
-                .with_title(title)
-                .build(&event_loop)
-                .unwrap();
-            (window, event_loop)
-        };
-        info!("Window and Event Loop Created");
-
-        let input_state = input::InputState::new();
-
-        let renderer = renderer::Renderer::new(&config, &window);
-        info!("Renderer Created");
-
-        let init_time = start.elapsed();
-        info!("Initialization complete in {} s", init_time.as_secs_f32());
-
-        Hobby {
-            window,
-            event_loop,
-            input_state,
-            renderer,
-        }
-    }
-
-    /// Game loop lives here
-    pub fn run(self) {
-        info!("Game Loop Starting");
-        let mut input_state = self.input_state;
-        let window = self.window;
-        let mut renderer = self.renderer;
-
-        self.event_loop.run(move |event, _, control_flow| {
-            match event {
-                Event::MainEventsCleared => {
-                    if input_state.is_key_pressed(VirtualKeyCode::Escape) {
-                        info!("Escape Key Pressed");
-                        *control_flow = ControlFlow::Exit;
-                    }
-                    // scene.update();
-                    window.request_redraw();
-                }
-                Event::RedrawRequested(_) => {
-                    // renderer.render();
-                    // frame_timer.tic();
-                }
-                Event::WindowEvent {
-                    event: WindowEvent::CloseRequested,
-                    ..
-                } => *control_flow = ControlFlow::Exit,
-                // Event::WindowEvent {
-                //     event: WindowEvent::Resized(physical_size),
-                //     ..
-                // } => renderer.resize(physical_size),
-
-                // Event::WindowEvent {
-                //     event: WindowEvent::ScaleFactorChanged { new_inner_size, .. },
-                //     ..
-                // } => renderer.resize(*new_inner_size),
-                Event::LoopDestroyed => {
-                    info!("Game Loop Stopped");
-                    renderer.cleanup();
-                    std::process::exit(0);
-                }
-                Event::DeviceEvent { event, .. } => {
-                    input_state.update(&event);
-                }
-                // ControlFlow::Poll continuously runs the event loop, even if the OS hasn't
-                // dispatched any events. This is ideal for games and similar applications.
-                _ => *control_flow = ControlFlow::Poll,
-            }
-        });
-    }
+        let window = WindowBuilder::new()
+            .with_inner_size(physical_size)
+            .with_title(title)
+            .build(&event_loop)
+            .unwrap();
+        (window, event_loop)
+    };
+    info!("Window and Event Loop Created");
+    (window, event_loop)
 }

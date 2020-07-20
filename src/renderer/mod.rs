@@ -2,6 +2,8 @@ mod context;
 mod debug;
 mod swapchain;
 
+pub(crate) mod pipeline;
+
 use context::Context;
 use swapchain::SwapchainDetails;
 
@@ -24,7 +26,7 @@ pub struct Renderer {
 }
 
 impl Renderer {
-    pub(crate) fn new(config: &Config, window: &Window) -> Renderer {
+    pub fn new(config: &Config, window: &Window) -> Renderer {
         let context = Context::new(config, window);
 
         debug::check_validation_layer_support(&context.entry);
@@ -47,7 +49,7 @@ impl Renderer {
         }
     }
 
-    pub(crate) fn cleanup(&self) {
+    pub fn cleanup(&self) {
         log::info!("Renderer Cleanup");
         self.swapchain_details.cleanup(&self.device);
         unsafe {            
