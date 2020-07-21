@@ -8,7 +8,7 @@ use crate::{Material, Renderer};
 
 pub struct Pipeline {
     vert_module: vk::ShaderModule,
-    frag_module: vk::ShaderModule
+    frag_module: vk::ShaderModule,
 }
 
 impl Pipeline {
@@ -18,11 +18,20 @@ impl Pipeline {
                 log::debug!("Creating Colored Vertex Pipeline");
                 let vert_code = include_bytes!("shaders/colored_vertex.vert.spv");
                 let vert_module = create_shader_module(&renderer.device, vert_code);
+
                 let frag_code = include_bytes!("shaders/colored_vertex.frag.spv");
                 let frag_module = create_shader_module(&renderer.device, frag_code);
-                
-                Pipeline {
 
+                let vertex_input_create_info = vk::PipelineVertexInputStateCreateInfo::builder();
+                // .vertex_binding_descriptions() null since vertices are hard coded in the shader
+                // .vertex_attribute_descriptions() same here
+
+                let input_assembly_create_info =
+                    vk::PipelineInputAssemblyStateCreateInfo::builder()
+                        .topology(vk::PrimitiveTopology::TRIANGLE_LIST)
+                        .primitive_restart_enable(false);
+
+                Pipeline {
                     vert_module,
                     frag_module,
                 }
@@ -33,12 +42,14 @@ impl Pipeline {
         // let vert_shader = create_shader_module(, code: &[u8]);
     }
 
-    
-
     pub(crate) fn cleanup(&self, renderer: &Renderer) {
         unsafe {
-            renderer.device.destroy_shader_module(self.vert_module, None);
-            renderer.device.destroy_shader_module(self.frag_module, None);
+            renderer
+                .device
+                .destroy_shader_module(self.vert_module, None);
+            renderer
+                .device
+                .destroy_shader_module(self.frag_module, None);
         }
     }
 }
