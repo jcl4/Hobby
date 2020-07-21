@@ -13,6 +13,7 @@ pub struct SwapchainDetails {
     pub images: Vec<vk::Image>,
     pub image_views: Vec<vk::ImageView>,
     pub extent: vk::Extent2D,
+    pub format: vk::SurfaceFormatKHR,
 }
 
 impl SwapchainDetails {
@@ -73,7 +74,8 @@ impl SwapchainDetails {
             swapchain_khr,
             images,
             image_views,
-            extent
+            extent,
+            format
         }
     }
 

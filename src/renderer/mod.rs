@@ -23,6 +23,7 @@ pub struct Renderer {
     graphics_queue: vk::Queue,
     present_queue: vk::Queue,
     swapchain_details: SwapchainDetails,
+    render_pass: vk::RenderPass,
 }
 
 impl Renderer {
@@ -38,6 +39,7 @@ impl Renderer {
         log::debug!("Logical Device, Graphics and Present Queue Created");
 
         let swapchain_details = SwapchainDetails::new(&config.window, &context, &device);
+        let render_pass = create_render_pass(&device, &swapchain_details);
 
         Renderer {
             context,
@@ -45,14 +47,16 @@ impl Renderer {
             device,
             graphics_queue,
             present_queue,
-            swapchain_details
+            swapchain_details,
+            render_pass
         }
     }
 
     pub fn cleanup(&self) {
         log::info!("Renderer Cleanup");
         self.swapchain_details.cleanup(&self.device);
-        unsafe {            
+        unsafe {       
+            self.device.destroy_render_pass(self.render_pass, None);     
             self.device.destroy_device(None);
             self.debug_utils
                 .0
@@ -117,4 +121,38 @@ fn create_logical_device_and_queues(context: &Context) -> (Device, vk::Queue, vk
     let present_queue = unsafe { device.get_device_queue(present_family_index, 0) };
 
     (device, graphics_queue, present_queue)
+}
+
+fn create_render_pass(
+    device: &Device,
+    details: &SwapchainDetails,
+) -> vk::RenderPass {
+    let attachment_desc = vk::AttachmentDescription::builder()
+        .format(details.format.format)
+        .samples(vk::SampleCountFlags::TYPE_1)
+        .load_op(vk::AttachmentLoadOp::CLEAR)
+        .store_op(vk::AttachmentStoreOp::STORE)
+        .initial_layout(vk::ImageLayout::UNDEFINED)
+        .final_layout(vk::ImageLayout::PRESENT_SRC_KHR)
+        .build();
+    let attachment_descs = [attachment_desc];
+
+    let attachment_ref = vk::AttachmentReference::builder()
+        .attachment(0)
+        .layout(vk::ImageLayout::COLOR_ATTACHMENT_OPTIMAL)
+        .build();
+    let attachment_refs = [attachment_ref];
+
+    let subpass_desc = vk::SubpassDescription::builder()
+        .pipeline_bind_point(vk::PipelineBindPoint::GRAPHICS)
+        .color_attachments(&attachment_refs)
+        .build();
+    let subpass_descs = [subpass_desc];
+
+    let render_pass_info = vk::RenderPassCreateInfo::builder()
+        .attachments(&attachment_descs)
+        .subpasses(&subpass_descs)
+        .build();
+
+    unsafe { device.create_render_pass(&render_pass_info, None).unwrap() }
 }

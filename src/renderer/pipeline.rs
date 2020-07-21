@@ -1,3 +1,4 @@
+use std::ffi::CString;
 use std::fs::File;
 use std::io::Cursor;
 use std::path::Path;
@@ -8,8 +9,8 @@ use super::swapchain::SwapchainDetails;
 use crate::{Material, Renderer};
 
 pub struct Pipeline {
-    vert_module: vk::ShaderModule,
-    frag_module: vk::ShaderModule,
+    layout: vk::PipelineLayout,
+    graphics_pipeline: vk::Pipeline,
 }
 
 impl Pipeline {
@@ -25,12 +26,7 @@ impl Pipeline {
 
     pub(crate) fn cleanup(&self, renderer: &Renderer) {
         unsafe {
-            renderer
-                .device
-                .destroy_shader_module(self.vert_module, None);
-            renderer
-                .device
-                .destroy_shader_module(self.frag_module, None);
+            renderer.device.destroy_pipeline_layout(self.layout, None);
         }
     }
 }
@@ -42,21 +38,79 @@ fn create_colored_vertex_pipeline(renderer: &Renderer) -> Pipeline {
     let frag_code = include_bytes!("shaders/colored_vertex.frag.spv");
     let frag_module = create_shader_module(&renderer.device, frag_code);
 
-    let vertex_input_create_info = vk::PipelineVertexInputStateCreateInfo::builder();
+    let entry_point_name = CString::new("main").unwrap();
+    let vertex_shader_stage_info = vk::PipelineShaderStageCreateInfo::builder()
+        .stage(vk::ShaderStageFlags::VERTEX)
+        .module(vert_module)
+        .name(&entry_point_name)
+        .build();
+    let frag_shader_stage_info = vk::PipelineShaderStageCreateInfo::builder()
+        .stage(vk::ShaderStageFlags::FRAGMENT)
+        .module(frag_module)
+        .name(&entry_point_name)
+        .build();
+
+    let shader_stage_infos = [vertex_shader_stage_info, frag_shader_stage_info];
+
+    let vertex_input_info = vk::PipelineVertexInputStateCreateInfo::builder();
     // .vertex_binding_descriptions() null since vertices are hard coded in the shader
     // .vertex_attribute_descriptions() same here
 
-    let input_assembly_create_info = vk::PipelineInputAssemblyStateCreateInfo::builder()
+    let input_assembly_info = vk::PipelineInputAssemblyStateCreateInfo::builder()
         .topology(vk::PrimitiveTopology::TRIANGLE_LIST)
         .primitive_restart_enable(false);
-    let viewports_create_info = get_viewports_create_info(&renderer.swapchain_details);
-    let rasterizer_create_info = get_rasterizer_create_info();
-    let multisample_create_info = get_multisampline_create_info();
-    let color_blending_create_info = get_color_blending_create_info();
+    let viewport_info = get_viewport_info(&renderer.swapchain_details);
+    let rasterizer_info = get_rasterizer_info();
+    let multisample_info = get_multisampline_info();
+    let color_blending_info = get_color_blending_info();
 
+    let layout = {
+        let pipeline_layout_info = vk::PipelineLayoutCreateInfo::builder()
+            // .set_layouts() null since we don't have uniforms in our shaders
+            // .push_constant_ranges
+            .build();
+
+        unsafe {
+            renderer
+                .device
+                .create_pipeline_layout(&pipeline_layout_info, None)
+                .unwrap()
+        }
+    };
+
+    let pipeline_info = vk::GraphicsPipelineCreateInfo::builder()
+        .stages(&shader_stage_infos)
+        .vertex_input_state(&vertex_input_info)
+        .input_assembly_state(&input_assembly_info)
+        .viewport_state(&viewport_info)
+        .rasterization_state(&rasterizer_info)
+        .multisample_state(&multisample_info)
+        // .depth_stencil_state() null since don't make use of depth/stencil tests
+        .color_blend_state(&color_blending_info)
+        // .dynamic_state() null since don't have any dynamic states
+        .layout(layout)
+        .render_pass(renderer.render_pass)
+        .subpass(0)
+        // .base_pipeline_handle() null since it is not derived from another
+        // .base_pipeline_index(-1) same
+        .build();
+    let pipeline_infos = [pipeline_info];
+
+    let graphics_pipeline = unsafe {
+        renderer
+            .device
+            .create_graphics_pipelines(vk::PipelineCache::null(), &pipeline_infos, None)
+            .expect("Unable to create graphics pipelin")[0]
+    };
+
+    unsafe {
+        renderer.device.destroy_shader_module(vert_module, None);
+        renderer.device.destroy_shader_module(frag_module, None);
+    }
+    
     Pipeline {
-        vert_module,
-        frag_module,
+        layout,
+        graphics_pipeline,
     }
 }
 
@@ -72,7 +126,7 @@ fn create_shader_module(device: &Device, code: &[u8]) -> vk::ShaderModule {
     }
 }
 
-fn get_viewports_create_info(details: &SwapchainDetails) -> vk::PipelineViewportStateCreateInfo {
+fn get_viewport_info(details: &SwapchainDetails) -> vk::PipelineViewportStateCreateInfo {
     let viewport = vk::Viewport {
         x: 0.0,
         y: 0.0,
@@ -94,7 +148,7 @@ fn get_viewports_create_info(details: &SwapchainDetails) -> vk::PipelineViewport
         .build()
 }
 
-fn get_rasterizer_create_info() -> vk::PipelineRasterizationStateCreateInfo {
+fn get_rasterizer_info() -> vk::PipelineRasterizationStateCreateInfo {
     vk::PipelineRasterizationStateCreateInfo::builder()
         .depth_clamp_enable(false)
         .rasterizer_discard_enable(false)
@@ -109,7 +163,7 @@ fn get_rasterizer_create_info() -> vk::PipelineRasterizationStateCreateInfo {
         .build()
 }
 
-fn get_multisampline_create_info() -> vk::PipelineMultisampleStateCreateInfo {
+fn get_multisampline_info() -> vk::PipelineMultisampleStateCreateInfo {
     vk::PipelineMultisampleStateCreateInfo::builder()
         .sample_shading_enable(false)
         .rasterization_samples(vk::SampleCountFlags::TYPE_1)
@@ -120,7 +174,7 @@ fn get_multisampline_create_info() -> vk::PipelineMultisampleStateCreateInfo {
         .build()
 }
 
-fn get_color_blending_create_info() -> vk::PipelineColorBlendStateCreateInfo {
+fn get_color_blending_info() -> vk::PipelineColorBlendStateCreateInfo {
     let color_blend_attachment = vk::PipelineColorBlendAttachmentState::builder()
         .color_write_mask(vk::ColorComponentFlags::all())
         .blend_enable(false)
