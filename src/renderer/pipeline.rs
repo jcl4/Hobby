@@ -18,7 +18,15 @@ impl Pipeline {
         match material {
             Material::ColoredVertex => {
                 log::debug!("Creating Colored Vertex Pipeline");
-                create_colored_vertex_pipeline(renderer)
+                let vert = include_bytes!("shaders/colored_vertex.vert.spv");
+                let frag = include_bytes!("shaders/colored_vertex.frag.spv");
+                let shaders = Shaders{
+                    vert,
+                    frag
+                };
+
+                
+
             }
             _ => unimplemented!(),
         }
@@ -31,6 +39,24 @@ impl Pipeline {
     }
 }
 
+struct Shaders {
+    vert: vk::ShaderModule,
+    frag: vk::ShaderModule
+}
+
+impl Shaders {
+    
+}
+
+
+
+
+fn create_graphics_pipeline(renderer: &Renderer, shaders: Shaders){
+
+}
+
+
+
 fn create_colored_vertex_pipeline(renderer: &Renderer) -> Pipeline {
     let vert_code = include_bytes!("shaders/colored_vertex.vert.spv");
     let vert_module = create_shader_module(&renderer.device, vert_code);
@@ -42,13 +68,13 @@ fn create_colored_vertex_pipeline(renderer: &Renderer) -> Pipeline {
     let vertex_shader_stage_info = vk::PipelineShaderStageCreateInfo::builder()
         .stage(vk::ShaderStageFlags::VERTEX)
         .module(vert_module)
-        .name(&entry_point_name)
-        .build();
+        .name(&entry_point_name);
+        
     let frag_shader_stage_info = vk::PipelineShaderStageCreateInfo::builder()
         .stage(vk::ShaderStageFlags::FRAGMENT)
         .module(frag_module)
-        .name(&entry_point_name)
-        .build();
+        .name(&entry_point_name);
+
 
     let shader_stage_infos = [vertex_shader_stage_info, frag_shader_stage_info];
 
@@ -107,7 +133,6 @@ fn create_colored_vertex_pipeline(renderer: &Renderer) -> Pipeline {
         renderer.device.destroy_shader_module(vert_module, None);
         renderer.device.destroy_shader_module(frag_module, None);
     }
-    
     Pipeline {
         layout,
         graphics_pipeline,
@@ -126,16 +151,25 @@ fn create_shader_module(device: &Device, code: &[u8]) -> vk::ShaderModule {
     }
 }
 
-fn get_viewport_info(details: &SwapchainDetails) -> vk::PipelineViewportStateCreateInfo {
-    let viewport = vk::Viewport {
-        x: 0.0,
-        y: 0.0,
-        width: details.extent.width as _,
-        height: details.extent.height as _,
-        min_depth: 0.0,
-        max_depth: 1.0,
-    };
+fn get_viewport_info(details: &SwapchainDetails) -> vk::PipelineViewportStateCreateInfoBuilder {
+    let viewport = vk::Viewport::builder()
+        .width(details.extent.width as f32)
+        .height(details.extent.height as f32)
+        .max_depth(1.0)
+        .build();
+
+    log::error!("Viewport {:#?}", viewport);
+    // {
+    //     x: 0.0,
+    //     y: 0.0,
+    //     width: details.extent.width as _,
+    //     height: details.extent.height as _,
+    //     min_depth: 0.0,
+    //     max_depth: 1.0,
+    // };
     let viewports = [viewport];
+    log::error!("Viewports: {:#?}", viewports);
+
     let scissor = vk::Rect2D {
         offset: vk::Offset2D { x: 0, y: 0 },
         extent: details.extent,
@@ -145,7 +179,6 @@ fn get_viewport_info(details: &SwapchainDetails) -> vk::PipelineViewportStateCre
     vk::PipelineViewportStateCreateInfo::builder()
         .viewports(&viewports)
         .scissors(&scissors)
-        .build()
 }
 
 fn get_rasterizer_info() -> vk::PipelineRasterizationStateCreateInfo {
