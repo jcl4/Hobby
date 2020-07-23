@@ -10,6 +10,9 @@ use config::Config;
 mod input;
 pub use input::InputState;
 
+mod renderer;
+pub use renderer::Renderer;
+
 
 
 pub fn get_window_and_event_loop(config: &Config) -> (Window, EventLoop<()>) {

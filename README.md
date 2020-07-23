@@ -7,5 +7,5 @@ A hobby development project aimed at developing and rendering real time simulati
 
 
 ### Credits
-List of crates and resources I have found usefull in the development of this project
+List of crates and resources I have found useful in the development of this project
 * [Learn WGPU](https://sotrh.github.io/learn-wgpu/)

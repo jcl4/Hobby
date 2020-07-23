@@ -1,5 +1,5 @@
-2020-07-23 10:22:41.006 [INFO] Starting!
-2020-07-23 10:22:41.006 [INFO] Config {
+2020-07-23 21:28:19.232 [INFO] Starting!
+2020-07-23 21:28:19.232 [INFO] Config {
     window: WindowConfig {
         fullscreen: false,
         vsync: true,
@@ -21,14 +21,1680 @@
         ],
     },
 }
-2020-07-23 10:22:41.020 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
-2020-07-23 10:22:41.021 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
-2020-07-23 10:22:41.021 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
-2020-07-23 10:22:41.022 [INFO] Guessed window scale factor: 1
-2020-07-23 10:22:41.022 [DEBUG] (1) winit::platform_impl::platform::x11::window: Calculated physical dimensions: 1600x900
-2020-07-23 10:22:41.023 [INFO] Window and Event Loop Created
-2020-07-23 10:22:41.023 [INFO] Creating Models
-2020-07-23 10:22:41.023 [INFO] Initialization complete in 0.017084688 s
-2020-07-23 10:22:41.023 [INFO] Starting Game Loop
-2020-07-23 10:22:59.761 [INFO] Escape Key Pressed
-2020-07-23 10:22:59.761 [INFO] Game Loop Stopped
+2020-07-23 21:28:19.247 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
+2020-07-23 21:28:19.247 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
+2020-07-23 21:28:19.248 [TRACE] (1) mio::poll: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.6.22/src/poll.rs:787] registering with poller
+2020-07-23 21:28:19.249 [INFO] Guessed window scale factor: 1
+2020-07-23 21:28:19.249 [DEBUG] (1) winit::platform_impl::platform::x11::window: Calculated physical dimensions: 1600x900
+2020-07-23 21:28:19.251 [INFO] Window and Event Loop Created
+2020-07-23 21:28:19.264 [INFO] Unable to find extension: VK_KHR_wayland_surface
+2020-07-23 21:28:19.278 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_16bit_storage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.278 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_8bit_storage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.279 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_bind_memory2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.279 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_buffer_device_address (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.279 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_create_renderpass2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.279 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.279 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_depth_stencil_resolve (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.279 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_descriptor_update_template (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.279 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_device_group (libGLX_nvidia.so.0) version 0.0.4
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.279 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_draw_indirect_count (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.280 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_driver_properties (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.280 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_fence (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.280 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_fence_fd (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.280 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_memory (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.280 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_memory_fd (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.280 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_semaphore (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.280 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_semaphore_fd (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.280 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_get_memory_requirements2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_image_format_list (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_imageless_framebuffer (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance1 (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance3 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_multiview (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_pipeline_executable_properties (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_push_descriptor (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_relaxed_block_layout (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.281 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_sampler_mirror_clamp_to_edge (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_sampler_ycbcr_conversion (libGLX_nvidia.so.0) version 0.0.14
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_separate_depth_stencil_layouts (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_atomic_int64 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_clock (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_draw_parameters (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_float16_int8 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_float_controls (libGLX_nvidia.so.0) version 0.0.4
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_non_semantic_info (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_subgroup_extended_types (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.282 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_spirv_1_4 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_storage_buffer_storage_class (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_swapchain (libGLX_nvidia.so.0) version 0.0.70
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_swapchain_mutable_format (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_timeline_semaphore (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_uniform_buffer_standard_layout (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_variable_pointers (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_vulkan_memory_model (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_blend_operation_advanced (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_buffer_device_address (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.283 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_calibrated_timestamps (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.284 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_conditional_rendering (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.284 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_conservative_rasterization (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.284 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_custom_border_color (libGLX_nvidia.so.0) version 0.0.11
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.284 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_depth_clip_enable (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.284 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_depth_range_unrestricted (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.284 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_descriptor_indexing (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.284 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_discard_rectangles (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.284 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_display_control (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.285 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_fragment_shader_interlock (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.285 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_global_priority (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.285 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_host_query_reset (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.285 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_index_type_uint8 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.285 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_inline_uniform_block (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.285 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_line_rasterization (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.285 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_memory_budget (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_pci_bus_info (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_pipeline_creation_feedback (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_post_depth_coverage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_sample_locations (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_sampler_filter_minmax (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_scalar_block_layout (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_separate_stencil_usage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_demote_to_helper_invocation (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_subgroup_ballot (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.286 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_subgroup_vote (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_viewport_index_layer (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_subgroup_size_control (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_texel_buffer_alignment (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_tooling_info (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_transform_feedback (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_vertex_attribute_divisor (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_ycbcr_image_arrays (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_clip_space_w_scaling (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_coverage_reduction_mode (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.287 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.288 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_dedicated_allocation_image_aliasing (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.288 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_device_diagnostic_checkpoints (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.288 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_device_diagnostics_config (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.288 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_fill_rectangle (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.288 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_fragment_coverage_to_color (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.288 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_framebuffer_mixed_samples (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.288 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_geometry_shader_passthrough (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.288 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_ray_tracing (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.288 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_sample_mask_override_coverage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.289 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_shader_sm_builtins (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.289 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_shader_subgroup_partitioned (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.289 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_viewport_array2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.289 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_viewport_swizzle (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.289 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NVX_device_generated_commands (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.289 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NVX_multiview_per_view_attributes (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.292 [INFO] Adapter Vulkan AdapterInfo { name: "GeForce GTX 1070", vendor: 4318, device: 7041, device_type: DiscreteGpu }
+2020-07-23 21:28:19.292 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_16bit_storage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.292 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_8bit_storage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.293 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_bind_memory2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.293 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_buffer_device_address (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.293 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_create_renderpass2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.293 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.293 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_depth_stencil_resolve (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.293 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_descriptor_update_template (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.293 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_device_group (libGLX_nvidia.so.0) version 0.0.4
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.293 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_draw_indirect_count (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.293 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_driver_properties (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.294 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_fence (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.294 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_fence_fd (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.294 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_memory (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.294 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_memory_fd (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.294 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_semaphore (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.294 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_semaphore_fd (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.294 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_get_memory_requirements2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.294 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_image_format_list (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.294 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_imageless_framebuffer (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance1 (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance3 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_multiview (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_pipeline_executable_properties (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_push_descriptor (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_relaxed_block_layout (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_sampler_mirror_clamp_to_edge (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_sampler_ycbcr_conversion (libGLX_nvidia.so.0) version 0.0.14
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.295 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_separate_depth_stencil_layouts (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_atomic_int64 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_clock (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_draw_parameters (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_float16_int8 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_float_controls (libGLX_nvidia.so.0) version 0.0.4
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_non_semantic_info (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_subgroup_extended_types (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_spirv_1_4 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_storage_buffer_storage_class (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.296 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_swapchain (libGLX_nvidia.so.0) version 0.0.70
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_swapchain_mutable_format (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_timeline_semaphore (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_uniform_buffer_standard_layout (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_variable_pointers (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_vulkan_memory_model (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_blend_operation_advanced (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_buffer_device_address (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_calibrated_timestamps (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_conditional_rendering (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.297 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_conservative_rasterization (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_custom_border_color (libGLX_nvidia.so.0) version 0.0.11
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_depth_clip_enable (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_depth_range_unrestricted (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_descriptor_indexing (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_discard_rectangles (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_display_control (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_fragment_shader_interlock (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_global_priority (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_host_query_reset (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.298 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_index_type_uint8 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_inline_uniform_block (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_line_rasterization (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_memory_budget (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_pci_bus_info (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_pipeline_creation_feedback (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_post_depth_coverage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_sample_locations (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_sampler_filter_minmax (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_scalar_block_layout (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.299 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_separate_stencil_usage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.300 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_demote_to_helper_invocation (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.300 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_subgroup_ballot (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.300 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_subgroup_vote (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.300 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_viewport_index_layer (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.300 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_subgroup_size_control (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.300 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_texel_buffer_alignment (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.300 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_tooling_info (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.300 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_transform_feedback (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.300 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_vertex_attribute_divisor (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.301 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_ycbcr_image_arrays (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.301 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_clip_space_w_scaling (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.301 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_coverage_reduction_mode (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.301 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.301 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_dedicated_allocation_image_aliasing (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.301 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_device_diagnostic_checkpoints (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.301 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_device_diagnostics_config (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.301 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_fill_rectangle (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.301 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_fragment_coverage_to_color (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_framebuffer_mixed_samples (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_geometry_shader_passthrough (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_ray_tracing (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_sample_mask_override_coverage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_shader_sm_builtins (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_shader_subgroup_partitioned (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_viewport_array2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_viewport_swizzle (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NVX_device_generated_commands (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.302 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NVX_multiview_per_view_attributes (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_16bit_storage (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_8bit_storage (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_bind_memory2 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_buffer_device_address (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_create_renderpass2 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_dedicated_allocation (Unknown) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_depth_stencil_resolve (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_descriptor_update_template (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_device_group (Unknown) version 0.0.4
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.303 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_draw_indirect_count (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.304 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_driver_properties (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.304 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_fence (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.304 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_fence_fd (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.304 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_memory (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.304 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_memory_fd (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.304 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_semaphore (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.304 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_semaphore_fd (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.304 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_get_memory_requirements2 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.305 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_image_format_list (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.305 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_imageless_framebuffer (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.305 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance1 (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.305 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance2 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.305 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance3 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.305 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_multiview (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.305 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_pipeline_executable_properties (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.305 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_push_descriptor (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.305 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_relaxed_block_layout (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.306 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_sampler_mirror_clamp_to_edge (Unknown) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.306 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_sampler_ycbcr_conversion (Unknown) version 0.0.14
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.306 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_separate_depth_stencil_layouts (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.306 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_atomic_int64 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.306 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_clock (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.306 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_draw_parameters (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.306 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_float16_int8 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.306 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_float_controls (Unknown) version 0.0.4
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.307 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_non_semantic_info (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.307 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_subgroup_extended_types (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.307 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_spirv_1_4 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.307 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_storage_buffer_storage_class (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.307 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_swapchain (Unknown) version 0.0.70
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.307 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_swapchain_mutable_format (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.307 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_timeline_semaphore (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.307 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_uniform_buffer_standard_layout (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.308 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_variable_pointers (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.308 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_vulkan_memory_model (Unknown) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.308 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_blend_operation_advanced (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.308 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_buffer_device_address (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.308 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_calibrated_timestamps (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.308 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_conditional_rendering (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.308 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_conservative_rasterization (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.308 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_custom_border_color (Unknown) version 0.0.11
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.308 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_depth_clip_enable (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_depth_range_unrestricted (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_descriptor_indexing (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_discard_rectangles (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_display_control (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_fragment_shader_interlock (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_global_priority (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_host_query_reset (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_index_type_uint8 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_inline_uniform_block (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.309 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_line_rasterization (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.310 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_memory_budget (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.310 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_pci_bus_info (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.310 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_pipeline_creation_feedback (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.310 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_post_depth_coverage (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.310 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_sample_locations (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.310 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_sampler_filter_minmax (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.310 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_scalar_block_layout (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.310 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_separate_stencil_usage (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_demote_to_helper_invocation (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_subgroup_ballot (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_subgroup_vote (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_viewport_index_layer (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_subgroup_size_control (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_texel_buffer_alignment (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_tooling_info (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_transform_feedback (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_vertex_attribute_divisor (Unknown) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.311 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_ycbcr_image_arrays (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.312 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_clip_space_w_scaling (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.312 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_coverage_reduction_mode (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.312 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_dedicated_allocation (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.312 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_dedicated_allocation_image_aliasing (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.312 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_device_diagnostic_checkpoints (Unknown) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.312 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_device_diagnostics_config (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.312 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_fill_rectangle (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.312 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_fragment_coverage_to_color (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.313 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_framebuffer_mixed_samples (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.313 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_geometry_shader_passthrough (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.313 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_ray_tracing (Unknown) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.313 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_sample_mask_override_coverage (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.313 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_shader_sm_builtins (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.313 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_shader_subgroup_partitioned (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.313 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_viewport_array2 (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.313 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_viewport_swizzle (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.313 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NVX_device_generated_commands (Unknown) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.314 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NVX_multiview_per_view_attributes (Unknown) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.314 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Loading layer library libVkLayer_khronos_validation.so
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.314 [INFO] 
+GENERAL [Loader Message (0)] : Inserted device layer VK_LAYER_KHRONOS_validation (libVkLayer_khronos_validation.so)
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.314 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_16bit_storage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.314 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_8bit_storage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.314 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_bind_memory2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.314 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_buffer_device_address (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.315 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_create_renderpass2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.315 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.315 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_depth_stencil_resolve (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.315 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_descriptor_update_template (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.315 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_device_group (libGLX_nvidia.so.0) version 0.0.4
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.315 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_draw_indirect_count (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.315 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_driver_properties (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.315 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_fence (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.315 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_fence_fd (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.316 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_memory (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.316 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_memory_fd (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.316 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_semaphore (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.316 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_external_semaphore_fd (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.316 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_get_memory_requirements2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.316 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_image_format_list (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.316 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_imageless_framebuffer (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.316 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance1 (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.317 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.317 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_maintenance3 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.317 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_multiview (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.317 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_pipeline_executable_properties (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.317 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_push_descriptor (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.317 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_relaxed_block_layout (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.317 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_sampler_mirror_clamp_to_edge (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.317 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_sampler_ycbcr_conversion (libGLX_nvidia.so.0) version 0.0.14
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.317 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_separate_depth_stencil_layouts (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.318 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_atomic_int64 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.318 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_clock (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.318 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_draw_parameters (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.318 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_float16_int8 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.318 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_float_controls (libGLX_nvidia.so.0) version 0.0.4
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.318 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_non_semantic_info (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.318 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_shader_subgroup_extended_types (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.318 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_spirv_1_4 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.319 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_storage_buffer_storage_class (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.319 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_swapchain (libGLX_nvidia.so.0) version 0.0.70
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.319 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_swapchain_mutable_format (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.319 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_timeline_semaphore (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.319 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_uniform_buffer_standard_layout (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.319 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_variable_pointers (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.319 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_KHR_vulkan_memory_model (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.319 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_blend_operation_advanced (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.320 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_buffer_device_address (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.320 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_calibrated_timestamps (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.320 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_conditional_rendering (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.320 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_conservative_rasterization (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.320 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_custom_border_color (libGLX_nvidia.so.0) version 0.0.11
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.320 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_depth_clip_enable (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.320 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_depth_range_unrestricted (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.320 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_descriptor_indexing (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.320 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_discard_rectangles (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.321 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_display_control (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.321 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_fragment_shader_interlock (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.321 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_global_priority (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.321 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_host_query_reset (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.321 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_index_type_uint8 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.321 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_inline_uniform_block (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.321 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_line_rasterization (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.321 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_memory_budget (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.321 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_pci_bus_info (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_pipeline_creation_feedback (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_post_depth_coverage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_sample_locations (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_sampler_filter_minmax (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_scalar_block_layout (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_separate_stencil_usage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_demote_to_helper_invocation (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_subgroup_ballot (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_subgroup_vote (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.322 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_shader_viewport_index_layer (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.323 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_subgroup_size_control (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.323 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_texel_buffer_alignment (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.323 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_tooling_info (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.323 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_transform_feedback (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.323 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_vertex_attribute_divisor (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.323 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_EXT_ycbcr_image_arrays (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.323 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_clip_space_w_scaling (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.323 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_coverage_reduction_mode (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.323 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_dedicated_allocation (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.324 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_dedicated_allocation_image_aliasing (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.324 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_device_diagnostic_checkpoints (libGLX_nvidia.so.0) version 0.0.2
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.324 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_device_diagnostics_config (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.324 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_fill_rectangle (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.324 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_fragment_coverage_to_color (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.324 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_framebuffer_mixed_samples (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.324 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_geometry_shader_passthrough (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.325 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_ray_tracing (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.325 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_sample_mask_override_coverage (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.325 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_shader_sm_builtins (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.325 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_shader_subgroup_partitioned (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.325 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_viewport_array2 (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.325 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NV_viewport_swizzle (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.325 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NVX_device_generated_commands (libGLX_nvidia.so.0) version 0.0.3
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.325 [TRACE] (1) gfx_backend_vulkan: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-backend-vulkan-0.5.11/src/lib.rs:296] 
+GENERAL [Loader Message (0)] : Device Extension: VK_NVX_multiview_per_view_attributes (libGLX_nvidia.so.0) version 0.0.1
+object info: (type: INSTANCE, hndl: 94023935739392)
+
+2020-07-23 21:28:19.359 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(0)', properties: '(empty)' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.359 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(0)', properties: '(empty)' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.359 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(1)', properties: '(empty)' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.359 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(1)', properties: '(empty)' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.359 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(2)', properties: '(empty)' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.360 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(2)', properties: '(empty)' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.360 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(3)', properties: '(empty)' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.360 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(3)', properties: '(empty)' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.360 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(4)', properties: '(empty)' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.360 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(4)', properties: '(empty)' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.360 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(5)', properties: '(empty)' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.361 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(5)', properties: '(empty)' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.361 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(6)', properties: '(empty)' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.361 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(6)', properties: '(empty)' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.361 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(7)', properties: 'DEVICE_LOCAL' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.361 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(7)', properties: 'DEVICE_LOCAL' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.361 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(8)', properties: 'CPU_VISIBLE | COHERENT' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.361 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(8)', properties: 'CPU_VISIBLE | COHERENT' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.362 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(9)', properties: 'CPU_VISIBLE | COHERENT | CPU_CACHED' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.362 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(9)', properties: 'CPU_VISIBLE | COHERENT | CPU_CACHED' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.362 [TRACE] (1) gfx_memory::allocator::general: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/general.rs:169] Create new allocator: type: 'MemoryTypeId(10)', properties: 'DEVICE_LOCAL | CPU_VISIBLE | COHERENT' config: 'GeneralConfig {
+    block_size_granularity: 256,
+    max_chunk_size: 16777216,
+    min_device_allocation: 65536,
+}'
+2020-07-23 21:28:19.362 [TRACE] (1) gfx_memory::allocator::linear: [/home/james/.cargo/registry/src/github.com-1ecc6299db9ec823/gfx-memory-0.1.3/src/allocator/linear.rs:121] Create new 'linear' allocator: type: 'MemoryTypeId(10)', properties: 'DEVICE_LOCAL | CPU_VISIBLE | COHERENT' config: 'LinearConfig {
+    linear_size: 1048576,
+}'
+2020-07-23 21:28:19.362 [INFO] Creating Models
+2020-07-23 21:28:19.362 [INFO] Initialization complete in 0.1304638 s
+2020-07-23 21:28:19.363 [INFO] Starting Game Loop
+2020-07-23 21:28:28.296 [INFO] Escape Key Pressed
+2020-07-23 21:28:28.296 [INFO] Game Loop Stopped

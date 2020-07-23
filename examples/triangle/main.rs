@@ -11,6 +11,8 @@ use hobby::{
     // Material, Model,
 };
 
+use futures::executor::block_on;
+
 fn main() {
     setup_logging();
     let start = Instant::now();
@@ -20,7 +22,7 @@ fn main() {
 
     let (window, event_loop) = hobby::get_window_and_event_loop(&config);
     let mut input_state = hobby::InputState::new();
-    // let renderer = hobby::Renderer::new(&config, &window);
+    let renderer = block_on(hobby::Renderer::new(&config, &window));
 
     log::info!("Creating Models");
     // let tri_mat = Material::ColoredVertex;
