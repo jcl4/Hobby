@@ -1,4 +1,3 @@
-
 #[derive(Debug, Default)]
 pub struct Config {
     pub window: WindowConfig,

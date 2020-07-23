@@ -8,7 +8,7 @@ use winit::{
 
 use hobby::{
     config::{AppConfig, Config, WindowConfig},
-    Material, Model,
+    // Material, Model,
 };
 
 fn main() {
@@ -20,11 +20,11 @@ fn main() {
 
     let (window, event_loop) = hobby::get_window_and_event_loop(&config);
     let mut input_state = hobby::InputState::new();
-    let renderer = hobby::Renderer::new(&config, &window);
+    // let renderer = hobby::Renderer::new(&config, &window);
 
     log::info!("Creating Models");
-    let tri_mat = Material::ColoredVertex;
-    let triangle = Model::new(&tri_mat, &renderer);
+    // let tri_mat = Material::ColoredVertex;
+    // let triangle = Model::new(&tri_mat, &renderer);
 
     let init_time = start.elapsed();
     log::info!("Initialization complete in {} s", init_time.as_secs_f32());
@@ -59,8 +59,8 @@ fn main() {
             // } => renderer.resize(*new_inner_size),
             Event::LoopDestroyed => {
                 log::info!("Game Loop Stopped");
-                triangle.cleanup(&renderer);
-                renderer.cleanup();
+                // triangle.cleanup(&renderer);
+                // renderer.cleanup();
                 std::process::exit(0);
             }
             Event::DeviceEvent { event, .. } => {

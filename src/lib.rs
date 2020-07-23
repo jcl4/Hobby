@@ -1,9 +1,3 @@
-#![warn(clippy::all)]
-
-use log::info;
-// use std::time::{Duration, Instant},
-// };
-
 use winit::{
     dpi::PhysicalSize,
     event_loop::EventLoop,
@@ -11,17 +5,12 @@ use winit::{
 };
 
 pub mod config;
-mod input;
-mod model;
-mod renderer;
-
-pub(crate) use renderer::pipeline::Pipeline;
-
-pub use input::InputState;
-pub use renderer::Renderer;
-pub use model::{Model, material::Material};
-
 use config::Config;
+
+mod input;
+pub use input::InputState;
+
+
 
 pub fn get_window_and_event_loop(config: &Config) -> (Window, EventLoop<()>) {
     let (window, event_loop) = {
@@ -40,6 +29,6 @@ pub fn get_window_and_event_loop(config: &Config) -> (Window, EventLoop<()>) {
             .unwrap();
         (window, event_loop)
     };
-    info!("Window and Event Loop Created");
+    log::info!("Window and Event Loop Created");
     (window, event_loop)
 }
