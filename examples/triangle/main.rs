@@ -22,7 +22,7 @@ fn main() {
 
     let (window, event_loop) = hobby::get_window_and_event_loop(&config);
     let mut input_state = hobby::InputState::new();
-    let renderer = block_on(hobby::Renderer::new(&config, &window));
+    let mut renderer = block_on(hobby::Renderer::new(&config, &window));
 
     log::info!("Creating Models");
     // let tri_mat = Material::ColoredVertex;
@@ -43,17 +43,17 @@ fn main() {
                 window.request_redraw();
             }
             Event::RedrawRequested(_) => {
-                // renderer.render();
+                renderer.render();
                 // frame_timer.tic();
             }
             Event::WindowEvent {
                 event: WindowEvent::CloseRequested,
                 ..
             } => *control_flow = ControlFlow::Exit,
-            // Event::WindowEvent {
-            //     event: WindowEvent::Resized(physical_size),
-            //     ..
-            // } => renderer.resize(physical_size),
+            Event::WindowEvent {
+                event: WindowEvent::Resized(physical_size),
+                ..
+            } => renderer.resize(physical_size),
 
             // Event::WindowEvent {
             //     event: WindowEvent::ScaleFactorChanged { new_inner_size, .. },
@@ -73,9 +73,6 @@ fn main() {
             _ => *control_flow = ControlFlow::Poll,
         }
     });
-
-    // let hobby = Hobby::from_config(config);
-    // hobby.run();
 }
 
 pub fn setup_logging() {
@@ -115,7 +112,7 @@ pub fn create_config() -> Config {
     let bg_color = [0.757, 0.258, 0.121, 1.0];
     let window_config = WindowConfig::builder()
         .bg_color(bg_color)
-        .vsync(true)
+        .vsync(false)
         .build();
 
     Config {
