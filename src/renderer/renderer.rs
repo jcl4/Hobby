@@ -1,14 +1,17 @@
-use crate::Config;
 use winit::window::Window;
+
+use super::pipeline;
+use crate::model::Material;
+use crate::Config;
 
 pub struct Renderer {
     surface: wgpu::Surface,
     adapter: wgpu::Adapter,
-    device: wgpu::Device,
+    pub device: wgpu::Device,
     queue: wgpu::Queue,
-    sc_desc: wgpu::SwapChainDescriptor,
+    pub sc_desc: wgpu::SwapChainDescriptor,
     swap_chain: wgpu::SwapChain,
-
+    render_pipelines: Vec<wgpu::RenderPipeline>,
     size: winit::dpi::PhysicalSize<u32>,
 }
 
@@ -55,8 +58,15 @@ impl Renderer {
             queue,
             sc_desc,
             swap_chain,
+            render_pipelines: vec![],
             size,
         }
+    }
+
+    pub fn add_pipeline(&mut self, material: &Material) {
+        self.render_pipelines
+            .push(pipeline::create_render_pipeline(material, self));
+        log::info! {"Material: {:?}, Render Pipeline Built", material};
     }
 
     pub fn resize(&mut self, new_size: winit::dpi::PhysicalSize<u32>) {
@@ -79,7 +89,7 @@ impl Renderer {
         let mut encoder = self.device.create_command_encoder(&ce_desc);
 
         {
-            let _render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+            let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                 color_attachments: &[wgpu::RenderPassColorAttachmentDescriptor {
                     attachment: &frame.view,
                     resolve_target: None,
@@ -94,6 +104,8 @@ impl Renderer {
                 }],
                 depth_stencil_attachment: None,
             });
+            render_pass.set_pipeline(&self.render_pipelines[0]);
+            render_pass.draw(0..3, 0..1);
         }
 
         self.queue.submit(&[encoder.finish()]);

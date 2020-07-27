@@ -8,7 +8,7 @@ use winit::{
 
 use hobby::{
     config::{AppConfig, Config, WindowConfig},
-    // Material, Model,
+    model::Material,
 };
 
 use futures::executor::block_on;
@@ -24,9 +24,8 @@ fn main() {
     let mut input_state = hobby::InputState::new();
     let mut renderer = block_on(hobby::Renderer::new(&config, &window));
 
-    log::info!("Creating Models");
-    // let tri_mat = Material::ColoredVertex;
-    // let triangle = Model::new(&tri_mat, &renderer);
+    let tri_mat = Material::Basic;
+    renderer.add_pipeline(&tri_mat);
 
     let init_time = start.elapsed();
     log::info!("Initialization complete in {} s", init_time.as_secs_f32());

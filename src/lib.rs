@@ -4,6 +4,8 @@ use winit::{
     window::{Window, WindowBuilder},
 };
 
+pub mod model;
+
 pub mod config;
 use config::Config;
 
