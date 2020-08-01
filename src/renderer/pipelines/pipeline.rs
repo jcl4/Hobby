@@ -1,14 +1,20 @@
 use std::io::Cursor;
 
 use crate::model::Material;
-use crate::Renderer;
+use crate::{renderer::pipelines::BasicVertex, Renderer};
 
-pub fn create_render_pipeline(material: &Material, renderer: &Renderer) -> wgpu::RenderPipeline {
-    let (vert_spv, frag_spv) = match material {
+pub fn create_render_pipeline(
+    material: &Material,
+    device: &wgpu::Device,
+    sc_desc: &wgpu::SwapChainDescriptor,
+) -> wgpu::RenderPipeline {
+    let (vert_spv, frag_spv, vert_desc) = match material {
         Material::Basic => {
             let vert_spv = include_bytes!("shaders/basic.vert.spv");
             let frag_spv = include_bytes!("shaders/basic.frag.spv");
-            (vert_spv, frag_spv)
+            log::info!("Building Basic Material Pipeline");
+            let desc = BasicVertex::desc();
+            (vert_spv, frag_spv, desc)
         }
     };
 
@@ -17,15 +23,12 @@ pub fn create_render_pipeline(material: &Material, renderer: &Renderer) -> wgpu:
     let frag_data =
         wgpu::read_spirv(Cursor::new(&frag_spv[..])).expect("Unable to read Fragtment SPRIV data");
 
-    let vert_module = renderer.device.create_shader_module(&vert_data);
-    let frag_module = renderer.device.create_shader_module(&frag_data);
+    let vert_module = device.create_shader_module(&vert_data);
+    let frag_module = device.create_shader_module(&frag_data);
 
-    let render_pipeline_layout =
-        renderer
-            .device
-            .create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                bind_group_layouts: &[],
-            });
+    let render_pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+        bind_group_layouts: &[],
+    });
 
     let pipeline_desc = wgpu::RenderPipelineDescriptor {
         layout: &render_pipeline_layout,
@@ -45,7 +48,7 @@ pub fn create_render_pipeline(material: &Material, renderer: &Renderer) -> wgpu:
             depth_bias_clamp: 0.0,
         }),
         color_states: &[wgpu::ColorStateDescriptor {
-            format: renderer.sc_desc.format,
+            format: sc_desc.format,
             color_blend: wgpu::BlendDescriptor::REPLACE,
             alpha_blend: wgpu::BlendDescriptor::REPLACE,
             write_mask: wgpu::ColorWrite::ALL,
@@ -54,12 +57,12 @@ pub fn create_render_pipeline(material: &Material, renderer: &Renderer) -> wgpu:
         depth_stencil_state: None,
         vertex_state: wgpu::VertexStateDescriptor {
             index_format: wgpu::IndexFormat::Uint16,
-            vertex_buffers: &[],
+            vertex_buffers: &[vert_desc],
         },
         sample_count: 1,
         sample_mask: !0,
         alpha_to_coverage_enabled: false,
     };
 
-    renderer.device.create_render_pipeline(&pipeline_desc)
+    device.create_render_pipeline(&pipeline_desc)
 }

@@ -1,15 +1,15 @@
 [package]
-name = "hobby"
-version = "0.1.0"
 authors = ["James Longino <james.longino@gmail.com>"]
 edition = "2018"
+name = "hobby"
+version = "0.1.0"
 
 [dependencies]
-log = "0.4"
-winit = "0.22"
-wgpu = "0.5"
-# wgpu = {git = 'https://github.com/gfx-rs/wgpu-rs'}
+bytemuck = "1.3"
 futures = "0.3"
+log = "0.4"
+wgpu = "0.5"
+winit = "0.22"
 
 [dev-dependencies]
 simplelog = "0.8"

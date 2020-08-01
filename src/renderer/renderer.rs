@@ -1,7 +1,9 @@
+use std::collections::HashMap;
+
 use winit::window::Window;
 
-use super::pipeline;
-use crate::model::Material;
+use super::pipelines::pipeline;
+use crate::model::{Material, Model};
 use crate::Config;
 
 pub struct Renderer {
@@ -11,7 +13,7 @@ pub struct Renderer {
     queue: wgpu::Queue,
     pub sc_desc: wgpu::SwapChainDescriptor,
     swap_chain: wgpu::SwapChain,
-    render_pipelines: Vec<wgpu::RenderPipeline>,
+    render_pipelines: HashMap<Material, wgpu::RenderPipeline>,
     size: winit::dpi::PhysicalSize<u32>,
 }
 
@@ -37,10 +39,11 @@ impl Renderer {
 
         let (device, queue) = adapter.request_device(&desc).await;
 
-        let mut present_mode = wgpu::PresentMode::Immediate;
-        if config.window.vsync {
-            present_mode = wgpu::PresentMode::Mailbox;
-        }
+        let present_mode = if config.window.vsync {
+            wgpu::PresentMode::Mailbox
+        } else {
+            wgpu::PresentMode::Immediate
+        };
 
         let sc_desc = wgpu::SwapChainDescriptor {
             usage: wgpu::TextureUsage::OUTPUT_ATTACHMENT,
@@ -58,15 +61,27 @@ impl Renderer {
             queue,
             sc_desc,
             swap_chain,
-            render_pipelines: vec![],
+            render_pipelines: HashMap::new(),
             size,
         }
     }
 
-    pub fn add_pipeline(&mut self, material: &Material) {
-        self.render_pipelines
-            .push(pipeline::create_render_pipeline(material, self));
-        log::info! {"Material: {:?}, Render Pipeline Built", material};
+    /// Renderer keeps a collection of pipelines that are in use,
+    /// It is a hash map that uses the material enum as the key
+    ///
+
+    pub fn build_pipelines(&self, models: &[Model]) -> HashMap{
+        let mut render_pipelines = self.render_pipelines.clone();
+        for model in models {
+            #[allow(clippy::map_entry)]
+            if !render_pipelines.contains_key(&model.material) {
+                let rp =
+                    pipeline::create_render_pipeline(&model.material, &self.device, &self.sc_desc);
+                render_pipelines.insert(model.material, rp);
+                log::info!("Pipeline Built")
+            }
+        }
+        self.render_pipelines = render_pipelines;
     }
 
     pub fn resize(&mut self, new_size: winit::dpi::PhysicalSize<u32>) {
@@ -76,7 +91,7 @@ impl Renderer {
         self.swap_chain = self.device.create_swap_chain(&self.surface, &self.sc_desc);
     }
 
-    pub fn render(&mut self) {
+    pub fn render(&mut self, scene: &Vec<Model>) {
         let frame = self
             .swap_chain
             .get_next_texture()
@@ -104,8 +119,10 @@ impl Renderer {
                 }],
                 depth_stencil_attachment: None,
             });
-            render_pass.set_pipeline(&self.render_pipelines[0]);
-            render_pass.draw(0..3, 0..1);
+            for model in scene {
+                render_pass.set_pipeline(&self.render_pipelines[&model.material]);
+                model.draw(&mut render_pass)
+            }
         }
 
         self.queue.submit(&[encoder.finish()]);
