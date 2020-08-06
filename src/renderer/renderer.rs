@@ -8,7 +8,7 @@ use crate::Config;
 
 pub struct Renderer {
     surface: wgpu::Surface,
-    adapter: wgpu::Adapter,
+    _adapter: wgpu::Adapter,
     pub device: wgpu::Device,
     queue: wgpu::Queue,
     pub sc_desc: wgpu::SwapChainDescriptor,
@@ -56,7 +56,7 @@ impl Renderer {
 
         Renderer {
             surface,
-            adapter,
+            _adapter: adapter,
             device,
             queue,
             sc_desc,

@@ -1,7 +1,6 @@
 use super::Material;
 use crate::renderer::pipelines::BasicVertex;
 use crate::Renderer;
-use std::mem;
 
 pub struct Vertex {
     pub position: [f32; 3],
@@ -11,16 +10,16 @@ pub struct Vertex {
 pub struct Mesh {
     vertices: Vec<Vertex>,
     indices: Vec<u16>,
-    num_vertices: u32,
+    num_indices: u32,
 }
 
 impl Mesh {
     pub fn new(vertices: Vec<Vertex>, indices: Vec<u16>) -> Mesh {
-        let num_vertices = vertices.len() as u32;
+        let num_indices = indices.len() as u32;
         Mesh {
             vertices,
             indices,
-            num_vertices,
+            num_indices,
         }
     }
 }
@@ -29,6 +28,7 @@ pub struct Model {
     pub(crate) mesh: Mesh,
     pub(crate) material: Material,
     pub(crate) vertex_buffer: wgpu::Buffer,
+    pub(crate) index_buffer: wgpu::Buffer,
 }
 
 impl Model {
@@ -50,15 +50,22 @@ impl Model {
         let vertex_buffer = renderer
             .device
             .create_buffer_with_data(bytemuck::cast_slice(&vertices), wgpu::BufferUsage::VERTEX);
+        let index_buffer = renderer.device.create_buffer_with_data(
+            bytemuck::cast_slice(&mesh.indices),
+            wgpu::BufferUsage::INDEX,
+        );
 
         Model {
             mesh,
             material,
             vertex_buffer,
+            index_buffer,
         }
     }
 
-    pub fn draw(&self, render_pass: &mut wgpu::RenderPass) {
-        render_pass.draw(0..self.mesh.num_vertices, 0..1);
+    pub fn draw<'a>(&'a self, render_pass: &mut wgpu::RenderPass<'a>) {
+        render_pass.set_vertex_buffer(0, &self.vertex_buffer, 0, 0);
+        render_pass.set_index_buffer(&self.index_buffer, 0, 0);
+        render_pass.draw_indexed(0..self.mesh.num_indices, 0, 0..1);
     }
 }

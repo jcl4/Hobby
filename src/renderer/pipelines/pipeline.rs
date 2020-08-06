@@ -1,7 +1,7 @@
 use std::io::Cursor;
 
 use crate::scene::Material;
-use crate::{renderer::pipelines::BasicVertex, Renderer};
+use crate::{renderer::pipelines::BasicVertex};
 
 struct PipelineData<'a> {
     vert_str: &'a str,

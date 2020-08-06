@@ -138,7 +138,9 @@ pub fn create_triangle_model(renderer: &mut Renderer) -> Model {
         },
     ];
 
-    let mesh = Mesh::new(vertices, vec![]);
+    let indices = vec![0, 1, 2];
+
+    let mesh = Mesh::new(vertices, indices);
     let material = Material::Basic;
 
     Model::new(mesh, material, renderer)
