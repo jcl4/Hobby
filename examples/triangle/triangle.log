@@ -1,5 +1,5 @@
-2020-07-30 22:04:18.880 [INFO] Starting!
-2020-07-30 22:04:18.880 [INFO] Config {
+2020-08-06 20:07:26.477 [INFO] Starting!
+2020-08-06 20:07:26.478 [INFO] Config {
     window: WindowConfig {
         fullscreen: false,
         vsync: false,
@@ -21,18 +21,24 @@
         ],
     },
 }
-2020-07-30 22:04:18.897 [INFO] Guessed window scale factor: 1
-2020-07-30 22:04:18.898 [INFO] Window and Event Loop Created
-2020-07-30 22:04:18.918 [INFO] Unable to find extension: VK_KHR_wayland_surface
-2020-07-30 22:04:19.005 [INFO] Adapter Vulkan AdapterInfo { name: "GeForce GTX 1070", vendor: 4318, device: 7041, device_type: DiscreteGpu }
-2020-07-30 22:04:19.009 [INFO] 
+2020-08-06 20:07:26.486 [INFO] Guessed window scale factor: 1
+2020-08-06 20:07:26.490 [INFO] Window and Event Loop Created
+2020-08-06 20:07:27.104 [INFO] Adapter Vulkan AdapterInfo { name: "Intel(R) HD Graphics 4600 (HSW GT2)", vendor: 32902, device: 1046, device_type: IntegratedGpu }
+2020-08-06 20:07:27.105 [WARN] Missing features: VERTEX_STORES_AND_ATOMICS
+2020-08-06 20:07:27.106 [INFO] 
 GENERAL [Loader Message (0)] : Inserted device layer VK_LAYER_KHRONOS_validation (libVkLayer_khronos_validation.so)
-object info: (type: INSTANCE, hndl: 93985603487376)
+object info: (type: INSTANCE, hndl: 93877591957616)
 
-2020-07-30 22:04:19.043 [INFO] creating swap chain SwapChainDescriptor { usage: OUTPUT_ATTACHMENT, format: Bgra8UnormSrgb, width: 1600, height: 900, present_mode: Immediate }
-2020-07-30 22:04:19.150 [INFO] Created mapped buffer (0, 1, Vulkan) with BufferDescriptor { label: 0x0, size: 72, usage: MAP_WRITE | VERTEX }
-2020-07-30 22:04:19.150 [INFO] Initialization complete in 0.26989862 s
-2020-07-30 22:04:19.150 [INFO] Starting Game Loop
-2020-07-30 22:04:19.151 [INFO] creating swap chain SwapChainDescriptor { usage: OUTPUT_ATTACHMENT, format: Bgra8UnormSrgb, width: 1600, height: 900, present_mode: Immediate }
-2020-07-30 22:04:19.164 [INFO] Starting on thread ThreadId(1)
-2020-07-30 22:04:19.178 [INFO] Buffer (0, 1, Vulkan) is dropped
+2020-08-06 20:07:27.106 [INFO] 
+GENERAL [Loader Message (0)] : Inserted device layer VK_LAYER_NV_optimus (libGLX_nvidia.so.0)
+object info: (type: INSTANCE, hndl: 93877591957616)
+
+2020-08-06 20:07:27.109 [INFO] creating swap chain SwapChainDescriptor { usage: OUTPUT_ATTACHMENT, format: Bgra8UnormSrgb, width: 1600, height: 900, present_mode: Immediate }
+2020-08-06 20:07:27.111 [INFO] Created mapped buffer (0, 1, Vulkan) with BufferDescriptor { label: 0x0, size: 72, usage: MAP_WRITE | VERTEX }
+2020-08-06 20:07:27.111 [INFO] Building Basic Material Pipeline
+2020-08-06 20:07:27.184 [INFO] Pipeline Built
+2020-08-06 20:07:27.184 [INFO] Initialization complete in 0.706789 s
+2020-08-06 20:07:27.184 [INFO] Starting Game Loop
+2020-08-06 20:07:27.185 [INFO] creating swap chain SwapChainDescriptor { usage: OUTPUT_ATTACHMENT, format: Bgra8UnormSrgb, width: 1600, height: 900, present_mode: Immediate }
+2020-08-06 20:07:27.187 [INFO] Starting on thread ThreadId(1)
+2020-08-06 20:07:27.189 [INFO] Buffer (0, 1, Vulkan) is dropped

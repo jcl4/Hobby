@@ -4,7 +4,7 @@ use winit::{
     window::{Window, WindowBuilder},
 };
 
-pub mod model;
+pub mod scene;
 
 pub mod config;
 use config::Config;

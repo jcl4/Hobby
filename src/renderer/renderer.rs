@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use winit::window::Window;
 
 use super::pipelines::pipeline;
-use crate::model::{Material, Model};
+use crate::scene::{Material, Model};
 use crate::Config;
 
 pub struct Renderer {
@@ -70,18 +70,18 @@ impl Renderer {
     /// It is a hash map that uses the material enum as the key
     ///
 
-    pub fn build_pipelines(&self, models: &[Model]) -> HashMap{
-        let mut render_pipelines = self.render_pipelines.clone();
+    pub fn build_pipelines(&mut self, models: &[Model]) {
+        // let mut render_pipelines = self.render_pipelines.clone();
         for model in models {
             #[allow(clippy::map_entry)]
-            if !render_pipelines.contains_key(&model.material) {
+            if !self.render_pipelines.contains_key(&model.material) {
                 let rp =
                     pipeline::create_render_pipeline(&model.material, &self.device, &self.sc_desc);
-                render_pipelines.insert(model.material, rp);
+                self.render_pipelines.insert(model.material, rp);
                 log::info!("Pipeline Built")
             }
         }
-        self.render_pipelines = render_pipelines;
+        // self.render_pipelines = render_pipelines;
     }
 
     pub fn resize(&mut self, new_size: winit::dpi::PhysicalSize<u32>) {

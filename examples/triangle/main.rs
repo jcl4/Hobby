@@ -8,7 +8,7 @@ use winit::{
 
 use hobby::{
     config::{AppConfig, Config, WindowConfig},
-    model::{Material, Mesh, Model, Vertex},
+    scene::{Material, Mesh, Model, Vertex},
     Renderer,
 };
 

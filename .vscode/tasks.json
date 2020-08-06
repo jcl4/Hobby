@@ -4,10 +4,19 @@
 		{
 			"label": "Triangle Example",
 			"type": "shell",
-			"command": "cargo run --example triangle",
+			"command": "prime-run cargo run --example triangle",
 			"problemMatcher": [
 				"$rustc"
 			]
-		}
+		},
+		{
+			"type": "cargo",
+			"subcommand": "build",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": "build",
+			"label": "Rust: cargo build - Hobby"
+		},
 	]
 }
