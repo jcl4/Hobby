@@ -4,7 +4,7 @@
 		{
 			"label": "Triangle Example",
 			"type": "shell",
-			"command": "prime-run cargo run --example triangle",
+			"command": "cargo run --example triangle",
 			"problemMatcher": [
 				"$rustc"
 			]

@@ -8,7 +8,7 @@ use winit::{
 
 use hobby::{
     config::{AppConfig, Config, WindowConfig},
-    scene::{Material, Mesh, Model, Vertex},
+    scene::{Material, Mesh, Model, SceneBuilder, Vertex},
     Renderer,
 };
 
@@ -27,7 +27,7 @@ fn main() {
 
     let triangle = create_triangle_model(&mut renderer);
     let models = vec![triangle];
-    renderer.build_pipelines(&models);
+    let scene = SceneBuilder::new(models).build(&renderer);
 
     let init_time = start.elapsed();
     log::info!("Initialization complete in {} s", init_time.as_secs_f32());
@@ -44,7 +44,7 @@ fn main() {
                 window.request_redraw();
             }
             Event::RedrawRequested(_) => {
-                renderer.render(&models);
+                renderer.render(&scene);
                 // frame_timer.tic();
             }
             Event::WindowEvent {

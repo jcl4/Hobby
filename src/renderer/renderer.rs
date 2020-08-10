@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use winit::window::Window;
 
 use super::pipelines::pipeline;
-use crate::scene::{Material, Model};
+use crate::scene::{Material, Model, Scene};
 use crate::Config;
 
 pub struct Renderer {
@@ -66,24 +66,6 @@ impl Renderer {
         }
     }
 
-    /// Renderer keeps a collection of pipelines that are in use,
-    /// It is a hash map that uses the material enum as the key
-    ///
-
-    pub fn build_pipelines(&mut self, models: &[Model]) {
-        // let mut render_pipelines = self.render_pipelines.clone();
-        for model in models {
-            #[allow(clippy::map_entry)]
-            if !self.render_pipelines.contains_key(&model.material) {
-                let rp =
-                    pipeline::create_render_pipeline(&model.material, &self.device, &self.sc_desc);
-                self.render_pipelines.insert(model.material, rp);
-                log::info!("Pipeline Built")
-            }
-        }
-        // self.render_pipelines = render_pipelines;
-    }
-
     pub fn resize(&mut self, new_size: winit::dpi::PhysicalSize<u32>) {
         self.size = new_size;
         self.sc_desc.width = new_size.width;
@@ -91,7 +73,7 @@ impl Renderer {
         self.swap_chain = self.device.create_swap_chain(&self.surface, &self.sc_desc);
     }
 
-    pub fn render(&mut self, scene: &Vec<Model>) {
+    pub fn render(&mut self, scene: &Scene) {
         let frame = self
             .swap_chain
             .get_next_texture()
@@ -119,10 +101,8 @@ impl Renderer {
                 }],
                 depth_stencil_attachment: None,
             });
-            for model in scene {
-                render_pass.set_pipeline(&self.render_pipelines[&model.material]);
-                model.draw(&mut render_pass)
-            }
+
+            scene.draw(&mut render_pass);
         }
 
         self.queue.submit(&[encoder.finish()]);

@@ -1,5 +1,5 @@
-2020-08-06 22:18:19.136 [INFO] Starting!
-2020-08-06 22:18:19.136 [INFO] Config {
+2020-08-10 13:36:25.851 [INFO] Starting!
+2020-08-10 13:36:25.851 [INFO] Config {
     window: WindowConfig {
         fullscreen: false,
         vsync: false,
@@ -21,24 +21,22 @@
         ],
     },
 }
-2020-08-06 22:18:19.143 [INFO] Guessed window scale factor: 1
-2020-08-06 22:18:19.146 [INFO] Window and Event Loop Created
-2020-08-06 22:18:19.228 [INFO] Adapter Vulkan AdapterInfo { name: "GeForce GTX 970M", vendor: 4318, device: 5080, device_type: DiscreteGpu }
-2020-08-06 22:18:19.229 [INFO] 
+2020-08-10 13:36:25.867 [INFO] Guessed window scale factor: 1
+2020-08-10 13:36:25.868 [INFO] Window and Event Loop Created
+2020-08-10 13:36:25.878 [INFO] Unable to find extension: VK_KHR_wayland_surface
+2020-08-10 13:36:25.912 [INFO] Adapter Vulkan AdapterInfo { name: "GeForce GTX 1070", vendor: 4318, device: 7041, device_type: DiscreteGpu }
+2020-08-10 13:36:25.914 [INFO] 
 GENERAL [Loader Message (0)] : Inserted device layer VK_LAYER_KHRONOS_validation (libVkLayer_khronos_validation.so)
-object info: (type: INSTANCE, hndl: 94084007505328)
+object info: (type: INSTANCE, hndl: 94589793182400)
 
-2020-08-06 22:18:19.229 [INFO] 
-GENERAL [Loader Message (0)] : Inserted device layer VK_LAYER_NV_optimus (libGLX_nvidia.so.0)
-object info: (type: INSTANCE, hndl: 94084007505328)
-
-2020-08-06 22:18:19.258 [INFO] creating swap chain SwapChainDescriptor { usage: OUTPUT_ATTACHMENT, format: Bgra8UnormSrgb, width: 1600, height: 900, present_mode: Immediate }
-2020-08-06 22:18:19.281 [INFO] Created mapped buffer (0, 1, Vulkan) with BufferDescriptor { label: 0x0, size: 72, usage: MAP_WRITE | VERTEX }
-2020-08-06 22:18:19.281 [INFO] Created mapped buffer (1, 1, Vulkan) with BufferDescriptor { label: 0x0, size: 6, usage: MAP_WRITE | INDEX }
-2020-08-06 22:18:19.281 [INFO] Building Basic Material Pipeline
-2020-08-06 22:18:19.364 [INFO] Pipeline Built
-2020-08-06 22:18:19.364 [INFO] Initialization complete in 0.22761957 s
-2020-08-06 22:18:19.364 [INFO] Starting Game Loop
-2020-08-06 22:18:19.364 [INFO] creating swap chain SwapChainDescriptor { usage: OUTPUT_ATTACHMENT, format: Bgra8UnormSrgb, width: 1600, height: 900, present_mode: Immediate }
-2020-08-06 22:18:19.378 [INFO] Starting on thread ThreadId(1)
-2020-08-06 22:18:20.784 [INFO] Game Loop Stopped
+2020-08-10 13:36:25.941 [INFO] creating swap chain SwapChainDescriptor { usage: OUTPUT_ATTACHMENT, format: Bgra8UnormSrgb, width: 1600, height: 900, present_mode: Immediate }
+2020-08-10 13:36:26.065 [INFO] Created mapped buffer (0, 1, Vulkan) with BufferDescriptor { label: 0x0, size: 72, usage: MAP_WRITE | VERTEX }
+2020-08-10 13:36:26.065 [INFO] Created mapped buffer (1, 1, Vulkan) with BufferDescriptor { label: 0x0, size: 6, usage: MAP_WRITE | INDEX }
+2020-08-10 13:36:26.065 [INFO] Building Basic Material Pipeline
+2020-08-10 13:36:26.154 [INFO] Pipeline Built
+2020-08-10 13:36:26.154 [INFO] Initialization complete in 0.3030312 s
+2020-08-10 13:36:26.154 [INFO] Starting Game Loop
+2020-08-10 13:36:26.155 [INFO] creating swap chain SwapChainDescriptor { usage: OUTPUT_ATTACHMENT, format: Bgra8UnormSrgb, width: 1600, height: 900, present_mode: Immediate }
+2020-08-10 13:36:26.198 [INFO] Starting on thread ThreadId(1)
+2020-08-10 13:36:28.142 [INFO] Escape Key Pressed
+2020-08-10 13:36:28.143 [INFO] Game Loop Stopped
