@@ -1,6 +1,5 @@
-use std::{env, fs::File, path::Path, time::Instant};
+use std::{env, path::Path, time::Instant};
 
-use simplelog as sl;
 use winit::{
     event::{Event, VirtualKeyCode, WindowEvent},
     event_loop::ControlFlow,
@@ -8,14 +7,21 @@ use winit::{
 
 use hobby::{
     config::{AppConfig, Config, WindowConfig},
-    scene::{Material, Mesh, Model, SceneBuilder, Vertex},
-    Renderer,
+    gpu,
 };
 
 use futures::executor::block_on;
 
 fn main() {
-    setup_logging();
+    let name = env!("CARGO_PKG_NAME");
+    let full_name = format!("{}.log", name);
+
+    let root_dir = Path::new(env!("CARGO_MANIFEST_DIR"));
+    let example_dir = root_dir.join("examples").join(name);
+    let log_file = example_dir.join(full_name);
+
+    hobby::setup_logging(&log_file);
+
     let start = Instant::now();
     log::info!("Starting!");
     let config = create_config();
@@ -23,11 +29,11 @@ fn main() {
 
     let (window, event_loop) = hobby::get_window_and_event_loop(&config);
     let mut input_state = hobby::InputState::new();
-    let mut renderer = block_on(hobby::Renderer::new(&config, &window));
+    let mut context = block_on(gpu::Context::new(&config, &window));
 
-    let triangle = create_triangle_model(&mut renderer);
-    let models = vec![triangle];
-    let scene = SceneBuilder::new(models).build(&renderer);
+    // let triangle = create_triangle_model(&mut renderer);
+    // let models = vec![triangle];
+    // let scene = SceneBuilder::new(models).build(&renderer);
 
     let init_time = start.elapsed();
     log::info!("Initialization complete in {} s", init_time.as_secs_f32());
@@ -44,7 +50,7 @@ fn main() {
                 window.request_redraw();
             }
             Event::RedrawRequested(_) => {
-                renderer.render(&scene);
+                // renderer.render(&scene);
                 // frame_timer.tic();
             }
             Event::WindowEvent {
@@ -54,7 +60,7 @@ fn main() {
             Event::WindowEvent {
                 event: WindowEvent::Resized(physical_size),
                 ..
-            } => renderer.resize(physical_size),
+            } => context.resize(physical_size),
 
             // Event::WindowEvent {
             //     event: WindowEvent::ScaleFactorChanged { new_inner_size, .. },
@@ -74,31 +80,6 @@ fn main() {
             _ => *control_flow = ControlFlow::Poll,
         }
     });
-}
-
-pub fn setup_logging() {
-    let time_format = "%F %H:%M:%S.%3f";
-    let log_config = sl::ConfigBuilder::new()
-        .set_time_format_str(time_format)
-        .build();
-
-    let root_dir = Path::new(env!("CARGO_MANIFEST_DIR"));
-    let example_dir = root_dir.join("examples").join("triangle");
-    let log_file = example_dir.join("triangle.log");
-
-    sl::CombinedLogger::init(vec![
-        sl::TermLogger::new(
-            sl::LevelFilter::Warn,
-            log_config.clone(),
-            sl::TerminalMode::Mixed,
-        ),
-        sl::WriteLogger::new(
-            sl::LevelFilter::Info,
-            log_config,
-            File::create(log_file).unwrap(),
-        ),
-    ])
-    .expect("Unable to create logger");
 }
 
 pub fn create_config() -> Config {
@@ -122,26 +103,26 @@ pub fn create_config() -> Config {
     }
 }
 
-pub fn create_triangle_model(renderer: &mut Renderer) -> Model {
-    let vertices = vec![
-        Vertex {
-            position: [0.0, 0.5, 0.0],
-            color: [1.0, 0.0, 0.0],
-        },
-        Vertex {
-            position: [-0.5, -0.5, 0.0],
-            color: [0.0, 1.0, 0.0],
-        },
-        Vertex {
-            position: [0.5, -0.5, 0.0],
-            color: [0.0, 0.0, 1.0],
-        },
-    ];
+// pub fn create_triangle_model(renderer: &mut Renderer) -> Model {
+//     let vertices = vec![
+//         Vertex {
+//             position: [0.0, 0.5, 0.0],
+//             color: [1.0, 0.0, 0.0],
+//         },
+//         Vertex {
+//             position: [-0.5, -0.5, 0.0],
+//             color: [0.0, 1.0, 0.0],
+//         },
+//         Vertex {
+//             position: [0.5, -0.5, 0.0],
+//             color: [0.0, 0.0, 1.0],
+//         },
+//     ];
 
-    let indices = vec![0, 1, 2];
+//     let indices = vec![0, 1, 2];
 
-    let mesh = Mesh::new(vertices, indices);
-    let material = Material::Basic;
+//     let mesh = Mesh::new(vertices, indices);
+//     let material = Material::Basic;
 
-    Model::new(mesh, material, renderer)
-}
+//     Model::new(mesh, material, renderer)
+// }

@@ -1,16 +1,6 @@
-[package]
-authors = ["James Longino <james.longino@gmail.com>"]
-edition = "2018"
-name = "hobby"
-version = "0.1.0"
-
-[dependencies]
-bytemuck = "1.3"
-futures = "0.3"
-log = "0.4"
-wgpu = "0.5"
-winit = "0.22"
-shaderc = "0.6"
-
-[dev-dependencies]
-simplelog = "0.8"
+[workspace]
+members = [
+  "hobby",
+  "texture",
+  "triangle",
+]

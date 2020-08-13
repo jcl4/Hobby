@@ -1,0 +1,8 @@
+[package]
+authors = ["James Longino <james.longino@gmail.com>"]
+edition = "2018"
+name = "texture"
+version = "0.1.0"
+
+[dependencies]
+hobby = {path = "../hobby"}

@@ -18,6 +18,4 @@ logs/
 # Raw Resource Files
 **/raw/
 
-# sublime date
-*.sublime-workspace
-
+old

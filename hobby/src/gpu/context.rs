@@ -1,24 +1,17 @@
-use std::collections::HashMap;
-
-use winit::window::Window;
-
-use super::pipelines::pipeline;
-use crate::scene::{Material, Model, Scene};
 use crate::Config;
-
-pub struct Renderer {
+use winit::window::Window;
+pub struct Context {
     surface: wgpu::Surface,
     _adapter: wgpu::Adapter,
     pub device: wgpu::Device,
-    queue: wgpu::Queue,
+    pub queue: wgpu::Queue,
     pub sc_desc: wgpu::SwapChainDescriptor,
     swap_chain: wgpu::SwapChain,
-    render_pipelines: HashMap<Material, wgpu::RenderPipeline>,
     size: winit::dpi::PhysicalSize<u32>,
 }
 
-impl Renderer {
-    pub async fn new(config: &Config, window: &Window) -> Renderer {
+impl Context {
+    pub async fn new(config: &Config, window: &Window) -> Context {
         let size = window.inner_size();
         let surface = wgpu::Surface::create(window);
 
@@ -54,14 +47,13 @@ impl Renderer {
         };
         let swap_chain = device.create_swap_chain(&surface, &sc_desc);
 
-        Renderer {
+        Context {
             surface,
             _adapter: adapter,
             device,
             queue,
             sc_desc,
             swap_chain,
-            render_pipelines: HashMap::new(),
             size,
         }
     }
@@ -71,40 +63,5 @@ impl Renderer {
         self.sc_desc.width = new_size.width;
         self.sc_desc.height = new_size.height;
         self.swap_chain = self.device.create_swap_chain(&self.surface, &self.sc_desc);
-    }
-
-    pub fn render(&mut self, scene: &Scene) {
-        let frame = self
-            .swap_chain
-            .get_next_texture()
-            .expect("Timeout getting texture");
-
-        let ce_desc = wgpu::CommandEncoderDescriptor {
-            label: Some("Render Encoder"),
-        };
-
-        let mut encoder = self.device.create_command_encoder(&ce_desc);
-
-        {
-            let mut render_pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
-                color_attachments: &[wgpu::RenderPassColorAttachmentDescriptor {
-                    attachment: &frame.view,
-                    resolve_target: None,
-                    load_op: wgpu::LoadOp::Clear,
-                    store_op: wgpu::StoreOp::Store,
-                    clear_color: wgpu::Color {
-                        r: 0.1,
-                        g: 0.2,
-                        b: 0.3,
-                        a: 1.0,
-                    },
-                }],
-                depth_stencil_attachment: None,
-            });
-
-            scene.draw(&mut render_pass);
-        }
-
-        self.queue.submit(&[encoder.finish()]);
     }
 }
