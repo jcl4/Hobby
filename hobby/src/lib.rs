@@ -38,7 +38,6 @@ pub fn get_window_and_event_loop(config: &Config) -> (Window, EventLoop<()>) {
 }
 
 pub fn setup_logging(log_file_path: &Path) {
-    // name should be folder name
     let time_format = "%F %H:%M:%S.%3f";
     let log_config = sl::ConfigBuilder::new()
         .set_time_format_str(time_format)

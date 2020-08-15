@@ -64,4 +64,23 @@ impl Context {
         self.sc_desc.height = new_size.height;
         self.swap_chain = self.device.create_swap_chain(&self.surface, &self.sc_desc);
     }
+
+    pub fn get_frame_data(&mut self) -> (wgpu::SwapChainOutput, wgpu::CommandEncoder) {
+        let frame = self
+            .swap_chain
+            .get_next_texture()
+            .expect("error getting next frame");
+
+        let ce_desc = wgpu::CommandEncoderDescriptor {
+            label: Some("Render Encoder"),
+        };
+
+        let encoder = self.device.create_command_encoder(&ce_desc);
+
+        (frame, encoder)
+    }
+
+    pub fn submit_command(&self, encoder: wgpu::CommandEncoder) {
+        self.queue.submit(&[encoder.finish()]);
+    }
 }

@@ -4,14 +4,13 @@ pub struct Config {
     pub application: AppConfig,
 }
 
-
 #[derive(Debug)]
 pub struct WindowConfig {
     pub fullscreen: bool,
     pub vsync: bool,
     pub width: u32,
     pub height: u32,
-    pub bg_color: [f32; 4],
+    pub bg_color: [f64; 4],
 }
 
 impl WindowConfig {
@@ -31,7 +30,7 @@ pub struct WindowConfigBuilder {
     pub vsync: bool,
     pub width: u32,
     pub height: u32,
-    pub bg_color: [f32; 4],
+    pub bg_color: [f64; 4],
 }
 
 impl WindowConfigBuilder {
@@ -61,7 +60,7 @@ impl WindowConfigBuilder {
         self
     }
 
-    pub fn bg_color(mut self, bg_color: [f32; 4]) -> WindowConfigBuilder {
+    pub fn bg_color(mut self, bg_color: [f64; 4]) -> WindowConfigBuilder {
         self.bg_color = bg_color;
         self
     }
