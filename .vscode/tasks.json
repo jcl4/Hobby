@@ -10,6 +10,14 @@
 			]
 		},
 		{
+			"label": "Texture Example",
+			"type": "shell",
+			"command": "cargo run -p texture",
+			"problemMatcher": [
+				"$rustc"
+			]
+		},
+		{
 			"type": "cargo",
 			"subcommand": "build",
 			"problemMatcher": [

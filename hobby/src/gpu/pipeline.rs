@@ -7,6 +7,7 @@ pub struct PipelineData<'a> {
     pub frag_str: &'a str,
     pub frag_name: &'a str,
     pub vert_desc: wgpu::VertexBufferDescriptor<'a>,
+    pub pipeline_layout_desc: wgpu::PipelineLayoutDescriptor<'a>,
 }
 
 pub fn create_pipeline(pipeline_data: PipelineData, context: &Context) -> wgpu::RenderPipeline {
@@ -39,12 +40,9 @@ pub fn create_pipeline(pipeline_data: PipelineData, context: &Context) -> wgpu::
     let vert_module = context.device.create_shader_module(&vert_data);
     let frag_module = context.device.create_shader_module(&frag_data);
 
-    let render_pipeline_layout =
-        context
-            .device
-            .create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-                bind_group_layouts: &[],
-            });
+    let render_pipeline_layout = context
+        .device
+        .create_pipeline_layout(&pipeline_data.pipeline_layout_desc);
 
     let pipeline_desc = wgpu::RenderPipelineDescriptor {
         layout: &render_pipeline_layout,

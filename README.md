@@ -5,6 +5,7 @@ A hobby development project aimed at developing and rendering real time simulati
 * Rendering via [wgpu-rs](https://github.com/gfx-rs/wgpu-rs)
 * Window and input via [winit](https://github.com/rust-windowing/winit)
 * Logging via [simplelog](https://github.com/drakulix/simplelog.rs)
+* Image Loading via [image](https://github.com/image-rs/image)
 
 
 ### Credits

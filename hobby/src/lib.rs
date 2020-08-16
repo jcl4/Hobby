@@ -16,6 +16,9 @@ pub use input::InputState;
 
 pub mod gpu;
 
+mod timer;
+pub use timer::{FrameTimer, PhysicsTimer};
+
 pub fn get_window_and_event_loop(config: &Config) -> (Window, EventLoop<()>) {
     let (window, event_loop) = {
         let width = config.window.width;

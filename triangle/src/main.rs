@@ -124,6 +124,7 @@ fn create_config() -> Config {
     }
 }
 
+#[repr(C)]
 #[derive(Copy, Clone)]
 struct Vertex {
     position: [f32; 3],
@@ -189,12 +190,17 @@ impl Triangle {
             .device
             .create_buffer_with_data(bytemuck::cast_slice(&indices), wgpu::BufferUsage::INDEX);
 
+        let pipeline_layout_desc = wgpu::PipelineLayoutDescriptor {
+            bind_group_layouts: &[],
+        };
+
         let pipeline_data = gpu::PipelineData {
             vert_str: include_str!("../shaders/shader.vert"),
             vert_name: "basic.vert",
             frag_str: include_str!("../shaders/shader.frag"),
             frag_name: "basic.frag",
             vert_desc: Vertex::desc(),
+            pipeline_layout_desc,
         };
 
         let pipeline = gpu::create_pipeline(pipeline_data, context);
