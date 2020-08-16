@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 #[derive(Debug, Default)]
 pub struct Config {
     pub window: WindowConfig,
@@ -81,6 +83,7 @@ pub struct AppConfig {
     pub name: String,
     // [Major, Minor, Patch]
     pub version: [u32; 3],
+    pub fps_disp_time: Duration,
 }
 
 impl AppConfig {
