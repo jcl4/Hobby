@@ -1,6 +1,10 @@
-[workspace]
-members = [
-  "hobby",
-  "texture",
-  "triangle",
-]
+[package]
+authors = ["James Longino <james.longino@gmail.com>"]
+edition = "2018"
+name = "hobby"
+version = "0.1.0"
+
+[dependencies]
+winit = "0.24"
+log = "0.4"
+env_logger = "0.8"
